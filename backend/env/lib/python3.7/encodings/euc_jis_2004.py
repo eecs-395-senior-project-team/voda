@@ -1,0 +1,1 @@
+/Users/david/miniconda3/lib/python3.7/encodings/euc_jis_2004.py
