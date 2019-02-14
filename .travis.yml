@@ -1,0 +1,9 @@
+matrix:
+    include:
+        language: python
+        python: "3.7-dev"
+        install:
+            - pip install -r backend/requirements.txt
+        script:
+            - pylint backend -E --ignore=env
+            - pytest backend --ignore=env
