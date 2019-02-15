@@ -2,26 +2,54 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+class Popup extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className='popup'>
+        <div className='popup_inner'>
+          <p>{this.props.text}</p>
+        <button onClick={this.props.closePopup}>close me</button>
+        </div>
       </div>
     );
+  }
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+      showPopup: false
+    };
+  }
+
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+  }
+
+  render() {
+    const status = 'voda';
+    return (
+      <div className = "App">
+
+      <div className ="header"> 
+      {status}
+      </div>
+ 
+        <button className = "square" onClick={this.togglePopup.bind(this)}>show popup</button>
+      
+
+        {this.state.showPopup ? 
+          <Popup
+            text='Contaminents Detail'
+            closePopup={this.togglePopup.bind(this)} />
+          : null
+        }
+      </div>
+      );
   }
 }
 
