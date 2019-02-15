@@ -1,4 +1,1 @@
-django
-psycopg2
-pylint
-pytest
+-r requirements/development.txt

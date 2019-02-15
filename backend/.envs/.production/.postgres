@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=vodabackend
+POSTGRES_USER=TprVANeOZzjjEFxptpLSdMobFlqLnGga
+POSTGRES_PASSWORD=LIgidWAcYQKwLiF7UNILjSSws1pK2mwTM86QYAHze8Qhq0K29JgVi6s8ezXaPkAR
