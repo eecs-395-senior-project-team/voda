@@ -1,0 +1,2006 @@
+{AK2310900;College Utilities Corporation;Fairbanks, Alaska;26,500
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 3.87 ppb,
+THIS_UTIL: 4.19 ppb;
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 182.0 ppb,
+THIS_UTIL: 402.5 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 25.8 ppb,
+THIS_UTIL: 49.6 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.156 ppb,
+THIS_UTIL: 0.0525 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 9.59 ppb,
+THIS_UTIL: 9.92 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 31.6 ppb,
+THIS_UTIL: 53.8 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 12.4 ppb,
+THIS_UTIL: 17.3 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+1,2,3-Trichloropropane;
+1,3-Butadiene;
+1,4-Dioxane;
+Bromochloromethane;
+Bromoform;
+Bromomethane;
+Chlorodifluoromethane;
+Chloromethane;
+Cobalt;
+Dibromoacetic acid;
+Dibromochloromethane;
+Molybdenum;
+Monobromoacetic acid;
+Monochloroacetic acid;
+Perfluorobutane sulfonate (PFBS);
+Perfluoroheptanoic acid (PFHPA);
+Perfluorohexane sulfonate (PFHXS);
+Perfluorononanoic acid (PFNA);
+Perfluorooctane sulfonate (PFOS);
+Perfluorooctanoic acid (PFOA);)}
+
+{AK2211423;JBER - Elmendorf;Elmendorf Air Force Base, Alaska;17,371
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 3.87 ppb,
+THIS_UTIL: 0.848 ppb;
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 182.0 ppb,
+THIS_UTIL: 420.0 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 25.8 ppb,
+THIS_UTIL: 13.9 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.156 ppb,
+THIS_UTIL: 0.397 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 9.59 ppb,
+THIS_UTIL: 4.83 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 31.6 ppb,
+THIS_UTIL: 14.8 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 12.4 ppb,
+THIS_UTIL: 7.82 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+1,1-Dichloroethane;
+1,2,3-Trichloropropane;
+1,3-Butadiene;
+1,4-Dioxane;
+Asbestos;
+Bromochloromethane;
+Bromoform;
+Bromomethane;
+Chlorodifluoromethane;
+Chloromethane;
+Cobalt;
+Dibromoacetic acid;
+Dibromochloromethane;
+Molybdenum;
+Monobromoacetic acid;
+Monochloroacetic acid;
+Perfluorobutane sulfonate (PFBS);
+Perfluoroheptanoic acid (PFHPA);
+Perfluorohexane sulfonate (PFHXS);
+Perfluorononanoic acid (PFNA);
+Perfluorooctane sulfonate (PFOS);
+Perfluorooctanoic acid (PFOA);)}
+
+{AK2212039;Doyon Utilities Jber - Richardson;Fort Richardson, Alaska;20,602
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 3.87 ppb,
+THIS_UTIL: 0.200 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 25.8 ppb,
+THIS_UTIL: 7.06 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 9.59 ppb,
+THIS_UTIL: 4.55 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 31.6 ppb,
+THIS_UTIL: 7.26 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 12.4 ppb,
+THIS_UTIL: 5.68 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Benzo[a]pyrene;)}
+
+{AK2263006;Kokhanok Water & WW System;Kokhanok, Alaska;155
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Dichloroacetic acid;
+Trichloroacetic acid;
+Haloacetic acids (HAA5);
+Chloroform;
+Bromodichloromethane;
+Total trihalomethanes (TTHMs);)}
+
+{AK2210906;Municipality of Anchorage;Anchorage, Alaska;221,351
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.05 ppb,
+THIS_UTIL: 0.220 ppb;
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 3.87 ppb,
+THIS_UTIL: 0.670 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 25.8 ppb,
+THIS_UTIL: 7.27 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.156 ppb,
+THIS_UTIL: 0.585 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 9.59 ppb,
+THIS_UTIL: 4.08 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 31.6 ppb,
+THIS_UTIL: 7.58 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 12.4 ppb,
+THIS_UTIL: 2.95 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Selenium;
+Antimony;)}
+
+{AK2310730;Golden Heart Utilities;Fairbanks, Alaska;77,535
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 3.87 ppb,
+THIS_UTIL: 3.29 ppb;
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 182.0 ppb,
+THIS_UTIL: 347.5 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 25.8 ppb,
+THIS_UTIL: 37.3 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.156 ppb,
+THIS_UTIL: 0.0475 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 9.59 ppb,
+THIS_UTIL: 12.3 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 31.6 ppb,
+THIS_UTIL: 40.5 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 12.4 ppb,
+THIS_UTIL: 15.1 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Barium;
+Fluoride;
+Antimony;)}
+
+{AK2271025;Kongiganak Water System;Kongiganak, Alaska;294
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Nitrate and nitrite;
+Dichloroacetic acid;
+Trichloroacetic acid;
+Haloacetic acids (HAA5);
+Chloroform;
+Bromodichloromethane;
+Total trihalomethanes (TTHMs);)}
+
+{AK2243658;Kb Sub. Water Service Association;Soldotna, Alaska;170
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.05 ppb,
+THIS_UTIL: 28.9 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;)}
+
+{AK2271059;Platinum City Water System;Platinum, Alaska;51
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Nitrate and nitrite;)}
+
+{AK2130075;Sitka;Sitka, Alaska;11,702
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 3.87 ppb,
+THIS_UTIL: 1.69 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 25.8 ppb,
+THIS_UTIL: 16.5 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 9.59 ppb,
+THIS_UTIL: 11.6 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 31.6 ppb,
+THIS_UTIL: 18.2 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 12.4 ppb,
+THIS_UTIL: 17.1 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Nitrate;)}
+
+{AK2223624;Bluffview Acres Water System;Wasilla, Alaska;100
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.05 ppb,
+THIS_UTIL: 22.0 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;)}
+
+{AK2291952;Chenega Ira Village;Chenega Bay, Alaska;50
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 3.87 ppb,
+THIS_UTIL: 3.96 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 25.8 ppb,
+THIS_UTIL: 31.8 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 9.59 ppb,
+THIS_UTIL: 17.0 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 31.6 ppb,
+THIS_UTIL: 36.1 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 12.4 ppb,
+THIS_UTIL: 17.0 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Nitrate and nitrite;
+Dibromochloromethane;)}
+
+{AK2224337;Sheena May Estates;Palmer, Alaska;74
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.05 ppb,
+THIS_UTIL: 18.2 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Nitrate and nitrite;)}
+
+{AK2210794;Forest Park Trailer Court;Chugiak, Alaska;175
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Barium;
+Cadmium;
+Fluoride;
+Selenium;)}
+
+{AK2241012;River Terrace Trailer Court;Soldotna, Alaska;337
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.05 ppb,
+THIS_UTIL: 14.8 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;)}
+
+{AK2260359;Perryville Water System;Perryville, Alaska;120
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Dichloroacetic acid;
+Trichloroacetic acid;
+Haloacetic acids (HAA5);
+Chloroform;
+Bromodichloromethane;
+Dibromochloromethane;
+Total trihalomethanes (TTHMs);)}
+
+{AK2271721;Nightmute New Watering Point;Nightmute, Alaska;243
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:()}
+
+{AK2120012;Vallenar View Mobile Home Park;Ketchikan, Alaska;225
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Nitrate and nitrite;
+Monochloroacetic acid;
+Dichloroacetic acid;
+Trichloroacetic acid;
+Dibromoacetic acid;
+Haloacetic acids (HAA5);
+Chloroform;
+Bromodichloromethane;
+Total trihalomethanes (TTHMs);)}
+
+{AK2340484;Shishmaref Water System;Shishmaref, Alaska;572
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 3.87 ppb,
+THIS_UTIL: 25.4 ppb;
+Bromoform,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 1.77 ppb,
+STATE_AVG: 0.597 ppb,
+THIS_UTIL: 2.29 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 25.8 ppb,
+THIS_UTIL: 45.5 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 1.52 ppb,
+THIS_UTIL: 11.0 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 31.6 ppb,
+THIS_UTIL: 84.2 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Monochloroacetic acid;
+Trichloroacetic acid;
+Monobromoacetic acid;
+Dibromoacetic acid;)}
+
+{AL0001148;Alabaster Water Board;Alabaster, Alabama;38,361
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 1.15 ppb,
+THIS_UTIL: 0.295 ppb;
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 149.7 ppb,
+THIS_UTIL: 211.9 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 3.28 ppb,
+THIS_UTIL: 0.550 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.136 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 32.0 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Aluminum;
+Barium;
+Fluoride;
+Nitrate and nitrite;)}
+
+{AL0001265;Alexander City Water Department;Alexander City, Alabama;27,000
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 1.15 ppb,
+THIS_UTIL: 3.77 ppb;
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 149.7 ppb,
+THIS_UTIL: 732.5 ppb;
+Chlorite,
+HEALTH_GL: 50 ppb,
+NATIONAL_AVG: 267.4 ppb,
+STATE_AVG: 512.1 ppb,
+THIS_UTIL: 676.2 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 3.28 ppb,
+THIS_UTIL: 6.47 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.0525 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 0.644 ppb,
+THIS_UTIL: 1.16 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 38.7 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Manganese;)}
+
+{AL0000133;Anniston Water and Sewer Board;Anniston, Alabama;56,700
+
+CONT_ABOVE_GL:(
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.153 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 6.05 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Chloroform;
+Bromodichloromethane;
+Dibromochloromethane;)}
+
+{AL0000824;Athens Utilities;Athens, Alabama;27,534
+
+CONT_ABOVE_GL:(
+Atrazine,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 0.0135 ppb,
+STATE_AVG: 0.00574 ppb,
+THIS_UTIL: 0.700 ppb;
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 1.15 ppb,
+THIS_UTIL: 3.19 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 3.28 ppb,
+THIS_UTIL: 8.73 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.114 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 0.644 ppb,
+THIS_UTIL: 0.630 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 45.8 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Aluminum;
+Manganese;)}
+
+{AL0000737;Bessemer Water Service;Bessemer, Alabama;81,759
+
+CONT_ABOVE_GL:(
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 149.7 ppb,
+THIS_UTIL: 395.0 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.0406 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 38.6 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+1,1-Dichloroethane;
+1,2,3-Trichloropropane;
+1,3-Butadiene;
+17-beta-Estradiol;
+4-Androstene-3,17-dione;
+Bromochloromethane;
+Bromomethane;
+Chlorodifluoromethane;
+Chloromethane;
+Cobalt;
+Equilin;
+Estriol;
+Estrone;
+Ethinyl estradiol;
+Perfluorobutane sulfonate (PFBS);
+Perfluoroheptanoic acid (PFHPA);
+Perfluorohexane sulfonate (PFHXS);
+Perfluorononanoic acid (PFNA);
+Perfluorooctane sulfonate (PFOS);
+Perfluorooctanoic acid (PFOA);
+Testosterone;)}
+
+{AL0001783;Blount County Water;Cleveland, Alabama;17,139
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 1.15 ppb,
+THIS_UTIL: 0.700 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.310 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 4.41 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Aluminum;
+Chloroform;
+Dibromochloromethane;)}
+
+{AL0001540;Carrolls Creek Water Authority;Northport, Alabama;13,443
+
+CONT_ABOVE_GL:(
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 149.7 ppb,
+THIS_UTIL: 511.3 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.0550 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 36.1 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+1,1-Dichloroethane;
+1,2,3-Trichloropropane;
+1,3-Butadiene;
+1,4-Dioxane;
+Bromochloromethane;
+Bromomethane;
+Chlorodifluoromethane;
+Chloromethane;
+Chromium (total);
+Cobalt;
+Molybdenum;
+Perfluorobutane sulfonate (PFBS);
+Perfluoroheptanoic acid (PFHPA);
+Perfluorohexane sulfonate (PFHXS);
+Perfluorononanoic acid (PFNA);
+Perfluorooctane sulfonate (PFOS);
+Perfluorooctanoic acid (PFOA);
+Vanadium;)}
+
+{AL0000547;Central Elmore Water Authority;Wetumpka, Alabama;32,877
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 0.0724 ppb,
+THIS_UTIL: 1.000 ppb;
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 1.15 ppb,
+THIS_UTIL: 1.78 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 3.28 ppb,
+THIS_UTIL: 99.8 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.0323 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 50.0 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Aluminum;
+Manganese;
+Di(2-ethylhexyl) adipate;
+Dibromochloromethane;)}
+
+{AL0000394;Cullman County Water Department;Cullman, Alabama;47,658
+
+CONT_ABOVE_GL:(
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 149.7 ppb,
+THIS_UTIL: 382.5 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.0863 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 48.1 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Nitrate and nitrite;
+Nitrate;
+Pentachlorophenol;)}
+
+{AL0001084;Decatur;Decatur, Alabama;77,100
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 1.15 ppb,
+THIS_UTIL: 2.06 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 3.28 ppb,
+THIS_UTIL: 2.05 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.0800 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 0.644 ppb,
+THIS_UTIL: 0.910 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 23.5 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Aluminum;)}
+
+{AL0001131;Wedowee Water, Sewer, and Gas Board;Wedowee, Alabama;6,825
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 38.2 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Chloroform;
+Bromodichloromethane;
+Dibromochloromethane;)}
+
+{AL0000268;Lineville Water Works Board;Lineville, Alabama;3,126
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 48.3 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+17-beta-Estradiol;
+Equilin;
+Estriol;
+Estrone;
+Ethinyl estradiol;
+Testosterone;)}
+
+{AL0000331;Tuscumbia Water Works;Tuscumbia, Alabama;13,338
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 0.0724 ppb,
+THIS_UTIL: 0.295 ppb;
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 149.7 ppb,
+THIS_UTIL: 292.5 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.164 ppb,
+THIS_UTIL: 0.480 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 13.6 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Chloroform;
+Bromoform;
+Bromodichloromethane;
+Dibromochloromethane;)}
+
+{AL0000858;White Hall Water System;White Hall, Alabama;2,250
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Total trihalomethanes (TTHMs);)}
+
+{AL0000537;Friendship Water Works;Friendship, Alabama;3,723
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 54.9 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:()}
+
+{AL0000270;Millerville Water and Fire Pro Authority;Millerville, Alabama;1,500
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 41.4 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:()}
+
+{AL0000713;Bridgeport Utilities Board;Bridgeport, Alabama;6,000
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 0.0724 ppb,
+THIS_UTIL: 5.89 ppb;
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 1.15 ppb,
+THIS_UTIL: 10.00 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 3.28 ppb,
+THIS_UTIL: 31.0 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 0.644 ppb,
+THIS_UTIL: 2.00 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 55.5 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+1,1,1,2-Tetrachloroethane;
+1,1,1-Trichloroethane;
+1,1,2,2-Tetrachloroethane;
+1,1,2-Trichloroethane;
+1,1-Dichloroethane;
+1,1-Dichloroethylene;
+1,1-Dichloropropene;
+1,2,3-Trichlorobenzene;
+1,2,3-Trichloropropane;
+1,2,4-Trichlorobenzene;
+1,2,4-Trimethylbenzene;
+1,2-Dibromo-3-chloropropane (DBCP);
+1,2-Dichloroethane;
+1,2-Dichloropropane;
+1,3,5-Trimethylbenzene;
+1,3-Dichloropropane;
+1,3-Dichloropropene;
+2,2-Dichloropropane;
+2,4,5-TP (Silvex);
+2,4-D;
+3-Hydroxycarbofuran;
+Alachlor (Lasso);
+Aldicarb;
+Aldicarb sulfone;
+Aldicarb sulfoxide;
+Aldrin;
+Antimony;
+Atrazine;
+Benzene;
+Benzo[a]pyrene;
+Beryllium;
+Bromobenzene;
+Bromochloromethane;
+Bromoform;
+Bromomethane;
+Butachlor;
+Cadmium;
+Carbaryl;
+Carbofuran;
+Carbon tetrachloride;
+Chlordane;
+Chloroethane;
+Chloromethane;
+cis-1,2-Dichloroethylene;
+Cyanide;
+Dalapon;
+Di(2-ethylhexyl) adipate;
+Di(2-ethylhexyl) phthalate;
+Dibromomethane;
+Dicamba;
+Dichlorodifluoromethane;
+Dichloromethane (methylene chloride);
+Dieldrin;
+Dinoseb;
+Diquat;
+Endothall;
+Endrin;
+Ethylbenzene;
+Ethylene dibromide;
+Fluoride;
+Glyphosate;
+Heptachlor;
+Heptachlor epoxide;
+Hexachlorobenzene (HCB);
+Hexachlorobutadiene;
+Hexachlorocyclopentadiene;
+Isopropylbenzene;
+Lindane;
+m-Dichlorobenzene;
+Mercury (inorganic);
+Methomyl;
+Methoxychlor;
+Metolachlor;
+Metribuzin;
+Monochlorobenzene (chlorobenzene);
+MTBE;
+n-Butylbenzene;
+n-Propylbenzene;
+Naphthalene;
+Nitrate;
+Nitrate & nitrite;
+Nitrite;
+o-Chlorotoluene;
+o-Dichlorobenzene;
+Oxamyl (Vydate);
+p-Chlorotoluene;
+p-Dichlorobenzene;
+p-Isopropyltoluene;
+Pentachlorophenol;
+Picloram;
+Polychlorinated biphenyls (PCBs);
+Propachlor;
+sec-Butylbenzene;
+Silver;
+Simazine;
+Styrene;
+tert-Butylbenzene;
+Tetrachloroethylene (perchloroethylene);
+Thallium;
+Toluene;
+Toxaphene;
+trans-1,2-Dichloroethylene;
+Trichloroethylene;
+Trichlorofluoromethane;
+Vinyl chloride;
+Xylenes (total);)}
+
+{AL0001022;Satsuma Water Works;Satsuma, Alabama;6,078
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 8.05 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Nitrate and nitrite;)}
+
+{AL0001274;Daviston Water System, Town of;Daviston, Alabama;630
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 51.3 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:()}
+
+{AL0001516;Hamden Ridge Water Authority;Evergreen, Alabama;2,028
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 1.15 ppb,
+THIS_UTIL: 0.770 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 3.28 ppb,
+THIS_UTIL: 2.41 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 3.11 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Manganese;
+Di(2-ethylhexyl) adipate;
+Haloacetic acids (HAA5);)}
+
+{AL0000245;Hollins Water Authority;Hollins, Alabama;1,302
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 42.0 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:()}
+
+{AL0000319;Leighton (wsb of The, Town of);Leighton, Alabama;1,206
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 4.00 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Manganese;
+Nitrate and nitrite;
+Nitrate;
+Nitrite;
+Selenium;
+Bromodichloromethane;
+Dibromochloromethane;)}
+
+{AL0000777;Chisholm Heights Water and F P Authority;Florence, Alabama;4,302
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 43.6 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:()}
+
+{AL0001202;Northwest St. Clair Water System;Ashville, Alabama;2,706
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Total trihalomethanes (TTHMs);)}
+
+{AL0001716;Marion County Public Water Authority;Guin, Alabama;2,880
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 39.0 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:()}
+
+{AL0001285;Ray Community Water and Fire Pro Authority;Alexander City, Alabama;1,296
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 44.4 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:()}
+
+{AL0000607;Red Bay Water and Gas Board;Red Bay, Alabama;6,000
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 20.1 ppb,
+THIS_UTIL: 5.94 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Nitrate and nitrite;
+Nitrite;
+Di(2-ethylhexyl) phthalate;
+Chloroform;)}
+
+{AZ0411004;Arizona Water Company - Apache Junction;Apache Junction, Arizona;57,647
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 6.45 ppb;
+Chlorate,
+HEALTH_GL: 210 ppb,
+NATIONAL_AVG: 114.0 ppb,
+STATE_AVG: 92.7 ppb,
+THIS_UTIL: 219.3 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 4.69 ppb,
+THIS_UTIL: 8.69 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 14.5 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Selenium;)}
+
+{AZ0407154;City of Buckeye Sonora - Sundance;Town Of Buckeye-sono, Arizona;15,783
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 3.73 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 4.69 ppb,
+THIS_UTIL: 29.0 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 9.07 ppb;
+Vanadium,
+HEALTH_GL: 21 ppb,
+NATIONAL_AVG: 1.98 ppb,
+STATE_AVG: 7.51 ppb,
+THIS_UTIL: 28.3 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Nitrate and nitrite;
+Selenium;
+Polychlorinated biphenyls (PCBs);
+Xylenes (total);
+Ethylbenzene;)}
+
+{AZ0402014;City of Douglas;Douglas, Arizona;13,300
+
+CONT_ABOVE_GL:(
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 4.69 ppb,
+THIS_UTIL: 4.00 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 2.66 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Barium;
+Fluoride;
+Selenium;
+Haloacetic acids (HAA5);)}
+
+{AZ0403008;City of Flagstaff;Flagstaff, Arizona;67,000
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 6.66 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 4.69 ppb,
+THIS_UTIL: 1.31 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 2.20 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Nitrate and nitrite;)}
+
+{AZ0413045;City of Prescott;Prescott, Arizona;43,217
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 3.46 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 4.69 ppb,
+THIS_UTIL: 5.71 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 7.39 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Fluoride;
+Selenium;
+Antimony;
+Thallium;)}
+
+{AZ0409026;City of Show Low;Show Low, Arizona;15,716
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 7.40 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Nitrate and nitrite;
+Nitrate;)}
+
+{AZ0415023;Wenden Domestic Water Improvement District;Wenden, Arizona;475
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 12.5 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 3.35 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Nitrate and nitrite;)}
+
+{AZ0414098;Sierra Pacific Mobile Manor;Yuma, Arizona;816
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 22.0 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;)}
+
+{AZ0414039;Fishers Landing Resort;Yuma, Arizona;402
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Barium;
+Fluoride;
+Haloacetic acids (HAA5);
+Total trihalomethanes (TTHMs);)}
+
+{AZ0415038;Bouse Worley Water System;Bouse, Arizona;190
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 10.6 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Nitrate and nitrite;)}
+
+{AZ0410118;Why Domestic Water Improvement District;Why, Arizona;400
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 5.78 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Nitrate and nitrite;
+Xylenes (total);
+Ethylbenzene;)}
+
+{AZ0413038;Lake Verde Water Company;Camp Verde, Arizona;125
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 20.8 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Nitrate and nitrite;
+Selenium;
+Haloacetic acids (HAA5);
+Total trihalomethanes (TTHMs);)}
+
+{AZ0407671;Peekaboo Water Co-op;Chandler, Arizona;100
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 10.5 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Barium;
+Fluoride;
+Nitrate and nitrite;)}
+
+{AZ0403006;Cameron Trading Post;Cameron, Arizona;896
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 65.0 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Barium;
+Fluoride;)}
+
+{AZ0415006;Brooke Water LLC - Moovalya Keys;Parker, Arizona;1,390
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 75.5 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Barium;
+Fluoride;
+Nitrate and nitrite;)}
+
+{AZ0407016;Cave Creek Water Company;Cave Creek, Arizona;6,815
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 56.3 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Nitrate and nitrite;
+Nitrate;)}
+
+{AZ0414070;Jones Co-op Water Association;Yuma, Arizona;35
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Nitrate and nitrite;)}
+
+{AZ0410480;Mile Marker 54 Water Company Water Well;Tucson, Arizona;69
+
+CONT_ABOVE_GL:(
+Arsenic,
+HEALTH_GL: 0.004 ppb,
+NATIONAL_AVG: 1.30 ppb,
+STATE_AVG: 5.03 ppb,
+THIS_UTIL: 3.90 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Nitrate and nitrite;
+Di(2-ethylhexyl) phthalate;)}
+
+{AZ0410272;Rancho Tierra Blanca Property Owners Association;Marana, Arizona;102
+
+CONT_ABOVE_GL:()
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Barium;
+Fluoride;
+Nitrate and nitrite;)}
+
+{AZ0414030;Mohawk Utility Company;Tacna, Arizona;300
+
+CONT_ABOVE_GL:(
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 100.5 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Di(2-ethylhexyl) phthalate;)}
+
+{AZ0411017;Florence Water Company;Florence, Arizona;14,880
+
+CONT_ABOVE_GL:(
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 4.69 ppb,
+THIS_UTIL: 0.612 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 13.6 ppb,
+THIS_UTIL: 17.1 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Arsenic;
+Barium;
+Fluoride;
+Nitrate and nitrite;)}
+
+{AR0000085;Arkadelphia Waterworks;Arkadelphia, Arkansas;10,796
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 4.48 ppb,
+THIS_UTIL: 6.25 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 20.5 ppb,
+THIS_UTIL: 31.3 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.241 ppb,
+THIS_UTIL: 0.0338 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 2.10 ppb,
+THIS_UTIL: 0.358 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 6.58 ppb,
+THIS_UTIL: 8.28 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 33.2 ppb,
+THIS_UTIL: 39.8 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 6.67 ppb,
+THIS_UTIL: 13.4 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+1,1,1,2-Tetrachloroethane;
+1,1,1-Trichloroethane;
+1,1,2,2-Tetrachloroethane;
+1,1,2-Trichloroethane;
+1,1-Dichloroethane;
+1,1-Dichloroethylene;
+1,1-Dichloropropene;
+1,2,3-Trichlorobenzene;
+1,2,3-Trichloropropane;
+1,2,4-Trichlorobenzene;
+1,2,4-Trimethylbenzene;
+1,2-Dibromo-3-chloropropane (DBCP);
+1,2-Dichloroethane;
+1,2-Dichloropropane;
+1,3,5-Trimethylbenzene;
+1,3-Butadiene;
+1,3-Dichloropropane;
+1,4-Dioxane;
+2,2-Dichloropropane;
+2,4,5-T;
+2,4,5-TP (Silvex);
+2,4-D;
+3-Hydroxycarbofuran;
+Acenaphthene;
+Acenaphthylene;
+Alachlor (Lasso);
+Aldicarb;
+Aldicarb sulfone;
+Aldicarb sulfoxide;
+Aldrin;
+Aluminum;
+Anthracene;
+Antimony;
+Arsenic;
+Atrazine;
+Barium;
+Baygon (Propoxur);
+Benzene;
+Benzo[a]anthracene;
+Benzo[a]pyrene;
+Benzo[b]fluoranthene;
+Benzo[g,h,i]perylene;
+Beryllium;
+Bromobenzene;
+Bromochloromethane;
+Bromoform;
+Bromomethane;
+Butachlor;
+Butyl benzyl phthalate;
+Cadmium;
+Carbaryl;
+Carbofuran;
+Carbon tetrachloride;
+Chlorate;
+Chlordane;
+Chlorite;
+Chlorodifluoromethane;
+Chloroethane;
+Chloromethane;
+Chrysene;
+cis-1,2-Dichloroethylene;
+cis-1,3-Dichloropropene;
+Cobalt;
+Cyanide;
+Dalapon;
+Di(2-ethylhexyl) adipate;
+Di(2-ethylhexyl) phthalate;
+Di-n-butyl phthalate;
+Dibenz[a,h]anthracene;
+Dibromoacetic acid;
+Dibromomethane;
+Dicamba;
+Dichlorodifluoromethane;
+Dichloromethane (methylene chloride);
+Dieldrin;
+Diethyl phthalate;
+Dimethyl phthalate;
+Dinoseb;
+Diquat;
+Endothall;
+Endrin;
+Ethylbenzene;
+Ethylene dibromide;
+Fluoranthene;
+Fluorene;
+Glyphosate;
+Heptachlor;
+Heptachlor epoxide;
+Hexachlorobenzene (HCB);
+Hexachlorobutadiene;
+Hexachlorocyclopentadiene;
+Indeno[1,2,3-cd]pyrene;
+Isopropylbenzene;
+Lindane;
+m- & p-Xylene;
+m-Dichlorobenzene;
+Mercury (inorganic);
+Methiocarb;
+Methomyl;
+Methoxychlor;
+Metolachlor;
+Metribuzin;
+Monobromoacetic acid;
+Monochlorobenzene (chlorobenzene);
+MTBE;
+n-Butylbenzene;
+n-Propylbenzene;
+Naphthalene;
+o-Chlorotoluene;
+o-Dichlorobenzene;
+Oxamyl (Vydate);
+p-Chlorotoluene;
+p-Dichlorobenzene;
+p-Isopropyltoluene;
+p-Xylene;
+Paraquat;
+Pentachlorophenol;
+Perfluorobutane sulfonate (PFBS);
+Perfluoroheptanoic acid (PFHPA);
+Perfluorohexane sulfonate (PFHXS);
+Perfluorononanoic acid (PFNA);
+Perfluorooctane sulfonate (PFOS);
+Perfluorooctanoic acid (PFOA);
+Phenanthrene;
+Picloram;
+Polychlorinated biphenyls (PCBs);
+Propachlor;
+Pyrene;
+Radium, combined (-226 & -228);
+Radium-226;
+Radium-228;
+sec-Butylbenzene;
+Selenium;
+Silver;
+Simazine;
+Styrene;
+tert-Butylbenzene;
+Tetrachloroethylene (perchloroethylene);
+Thallium;
+Toluene;
+Toxaphene;
+trans-1,2-Dichloroethylene;
+trans-1,3-Dichloropropene;
+Trichloroethylene;
+Trichlorofluoromethane;
+Vinyl chloride;
+Xylenes (total);)}
+
+{AR0000038;Beaver Water District;Fayetteville, Springdale, Rogers And Ben, Arkansas;309,702
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 4.48 ppb,
+THIS_UTIL: 6.63 ppb;
+Chlorite,
+HEALTH_GL: 50 ppb,
+NATIONAL_AVG: 267.4 ppb,
+STATE_AVG: 339.9 ppb,
+THIS_UTIL: 166.3 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 20.5 ppb,
+THIS_UTIL: 35.5 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 2.10 ppb,
+THIS_UTIL: 1.07 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 6.58 ppb,
+THIS_UTIL: 15.7 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 33.2 ppb,
+THIS_UTIL: 43.2 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 6.67 ppb,
+THIS_UTIL: 12.3 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Aluminum;
+Barium;
+Nitrate;)}
+
+{AR0000484;Benton Waterworks;Benton, Arkansas;30,681
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 4.48 ppb,
+THIS_UTIL: 9.14 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 20.5 ppb,
+THIS_UTIL: 31.0 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.241 ppb,
+THIS_UTIL: 0.0395 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 2.10 ppb,
+THIS_UTIL: 2.03 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 6.58 ppb,
+THIS_UTIL: 7.92 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 33.2 ppb,
+THIS_UTIL: 43.0 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 6.67 ppb,
+THIS_UTIL: 8.43 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+Aluminum;
+Barium;
+Manganese;
+Monobromoacetic acid;
+Dibromoacetic acid;)}
+
+{AR0000039;Bella Vista POA;Bella Vista, Arkansas;26,461
+
+CONT_ABOVE_GL:(
+Bromodichloromethane,
+HEALTH_GL: 0.06 ppb,
+NATIONAL_AVG: 4.38 ppb,
+STATE_AVG: 4.48 ppb,
+THIS_UTIL: 8.32 ppb;
+Chloroform,
+HEALTH_GL: 0.4 ppb,
+NATIONAL_AVG: 11.5 ppb,
+STATE_AVG: 20.5 ppb,
+THIS_UTIL: 59.3 ppb;
+Chromium (hexavalent),
+HEALTH_GL: 0.02 ppb,
+NATIONAL_AVG: 0.782 ppb,
+STATE_AVG: 0.241 ppb,
+THIS_UTIL: 0.125 ppb;
+Dibromochloromethane,
+HEALTH_GL: 0.1 ppb,
+NATIONAL_AVG: 3.01 ppb,
+STATE_AVG: 2.10 ppb,
+THIS_UTIL: 1.13 ppb;
+Dichloroacetic acid,
+HEALTH_GL: 0.7 ppb,
+NATIONAL_AVG: 6.07 ppb,
+STATE_AVG: 6.58 ppb,
+THIS_UTIL: 11.5 ppb;
+Total trihalomethanes (TTHMs),
+HEALTH_GL: 0.8 ppb,
+NATIONAL_AVG: 23.7 ppb,
+STATE_AVG: 33.2 ppb,
+THIS_UTIL: 68.7 ppb;
+Trichloroacetic acid,
+HEALTH_GL: 0.5 ppb,
+NATIONAL_AVG: 4.96 ppb,
+STATE_AVG: 6.67 ppb,
+THIS_UTIL: 18.3 ppb;)
+
+OTHER_CONT_DETECTED:()
+
+OTHER_NOT_DETECTED:(
+1,1-Dichloroethane;
+1,2,3-Trichloropropane;
+1,3-Butadiene;
+1,4-Dioxane;
+Bromochloromethane;
+Bromoform;
+Bromomethane;
+Chlorodifluoromethane;
+Chloromethane;
+Cobalt;
+Dibromoacetic acid;
+Molybdenum;
+Monobromoacetic acid;
+Perfluorobutane sulfonate (PFBS);
+Perfluoroheptanoic acid (PFHPA);
+Perfluorohexane sulfonate (PFHXS);
+Perfluorononanoic acid (PFNA);
+Perfluorooctane sulfonate (PFOS);
+Perfluorooctanoic acid (PFOA);)}
+
