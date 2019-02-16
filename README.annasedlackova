@@ -1,0 +1,8 @@
+Week 1:
+Set up initial front end code and designed the popup system for when the map of the United States will be displayed.
+Files worked on:
+    -App.css
+    -App.js
+    -index.css
+    -index.js
+    -serviceWorker.js
