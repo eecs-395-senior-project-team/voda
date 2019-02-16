@@ -1,0 +1,16 @@
+Week 1:
+	created basic web scraper to collect data from https://www.ewg.org/tapwater/ . 
+	The scraper is split into 3 files. 1 collects all states/territories which data 
+	is available for, 1 collects the water utlity providers from each state, and 1 collects
+	the preliminary batch of data from each utlity provider.
+	
+	Files worked on:
+		webscraper/findStatesScraper.py
+		webscraper/findUtilitiesScraper.py
+		webscraper/findStatesScraper.py
+		webscraper/requirements.txt
+		
+		These files were created by the above scripts:
+		webscraper/resultFiles/FinalInfo.txt
+		webscraper/resultFiles/AllEWGUtilities.txt
+		webscraper/resultFiles/EWGStates.txt
