@@ -16,7 +16,6 @@ class FindStates(scrapy.Spider):
     def parse(self, response):
         try:
             info = response.css("option::attr(value)").getall()
-            print(info)
             filename = './resultFiles/EWGStates.txt'
             with open(filename, 'wb') as f:
                 for item in info:
