@@ -3,7 +3,8 @@ Using Python 3.7.1
 Using Scrapy
 
 To Run the scraper run:
-scrapy runspider [pathToSpiderFile]
+
+> scrapy runspider [pathToSpiderFile]
 
 ## Development
 To start development run:
