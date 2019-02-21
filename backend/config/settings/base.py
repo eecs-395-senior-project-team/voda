@@ -143,3 +143,15 @@ TEMPLATES = [
         },
     },
 ]
+
+# ADMIN
+# ------------------------------------------------------------------------------
+# Django Admin URL.
+ADMIN_URL = 'admin/'
+# https://docs.djangoproject.com/en/dev/ref/settings/#admins
+ADMINS = [
+    ("""David Fan, David Navia, David Nixon, Anna Sedlackova""", 'david-fan,-david-navia,-david-nixon,-anna-sedlackova@example.com'),
+]
+# https://docs.djangoproject.com/en/dev/ref/settings/#managers
+MANAGERS = ADMINS
+

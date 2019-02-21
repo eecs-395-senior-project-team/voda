@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 urlpatterns = [
-    path("", "welp"),
+    #path('', include(whatever your app is.urls)),
     path(settings.ADMIN_URL, admin.site.urls),
 ]
 
@@ -15,7 +15,7 @@ if settings.DEBUG:
     # these url in browser to see how these error pages look like.
     urlpatterns += [
         path(
-            "400/"
+            "400/",
             default_views.bad_request,
             kwargs={"exception": Exception("Bad Request!")},
         ),
