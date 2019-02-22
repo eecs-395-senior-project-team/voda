@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 urlpatterns = [
-    path('vodaMainApp/', include(vodaMainApp.urls)),
+    path('/', include(vodaMainApp.urls)),
     path(settings.ADMIN_URL, admin.site.urls),
 ]
 
