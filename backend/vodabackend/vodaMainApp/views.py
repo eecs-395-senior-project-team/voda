@@ -15,7 +15,7 @@ def summary(request):
     if supply_id:
         response = "Returns the summary details for water supply %s."
         return HttpResponse(response % supply_id)
-    else
+    else:
         return HttpResponseBadRequest(400)
 
 
@@ -30,6 +30,6 @@ def details(request):
     if supply_id:
         response = "Returns the full details for water supply %s."
         return HttpResponse(response % supply_id)
-    else
+    else:
         return HttpResponseBadRequest(400)
 

@@ -5,11 +5,11 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+
 urlpatterns = [
-    path('/', include(vodaMainApp.urls)),
+    path('', include('vodabackend.vodaMainApp.urls')),
     path(settings.ADMIN_URL, admin.site.urls),
 ]
-
 
 
 if settings.DEBUG:
