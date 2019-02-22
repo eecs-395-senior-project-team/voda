@@ -11,3 +11,6 @@ ALLOWED_HOSTS = [
     "0.0.0.0",
     "127.0.0.1",
 ]
+
+# https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration
+INSTALLED_APPS += ['django_extensions']  # noqa F405

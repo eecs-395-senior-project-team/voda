@@ -1,5 +1,5 @@
 # Voda Backend
-Using Python 3.6. Make sure you install [Docker](https://www.docker.com/).
+Using Python 3.6. Make sure you install [Docker](https://www.docker.com/) and Docker-compose.
 ## Development
 To start development run:
 `
@@ -22,6 +22,5 @@ To install a new package:
 ## Style
 Enable [Editorconfig](http://editorconfig.org) on your IDE
 
-## Running the server
-`python manage.py runserver 8080`
+To run the linter: `flake8`
 
