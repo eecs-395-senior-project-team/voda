@@ -1,3 +1,11 @@
+Week 2:
+Finished Dockerizing Backend Server.
+
+Files worked on:
+    -backend/.envs
+    -backend/compose
+    -backend/config
+
 Week 1:
 Set up repository structure and initialized everyone's frameworks. Set up EC2 instances. Set up Devops tools including Travis-CI for continuous integration.
 Files worked on:
