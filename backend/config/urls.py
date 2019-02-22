@@ -6,9 +6,11 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
 urlpatterns = [
-    #path('', include(whatever your app is.urls)),
+    path('vodaMainApp/', include(vodaMainApp.urls)),
     path(settings.ADMIN_URL, admin.site.urls),
 ]
+
+
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
