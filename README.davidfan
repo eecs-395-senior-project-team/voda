@@ -1,5 +1,5 @@
 Week 2:
-Finished Dockerizing Backend Server. Debugged backend code.
+Finished Dockerizing Backend Server. Debugged backend code. Wrote database models
 
 Files worked on:
     -backend/.envs
@@ -8,6 +8,7 @@ Files worked on:
     -backend/config/settings/base.py
     -backend/config/urls.py
     -backend/vodabackend/vodaMainApp/views.py
+    -backend/vodabackend/vodaMainApp/models.py
 
 Week 1:
 Set up repository structure and initialized everyone's frameworks. Set up EC2 instances. Set up Devops tools including Travis-CI for continuous integration.
