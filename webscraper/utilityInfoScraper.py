@@ -1,38 +1,87 @@
 #!/usr/bin/env python3
 
 import scrapy
-
+import psycopg2
+from psycopg2 import sql
 
 class FindInfo(scrapy.Spider):
     name = "utilityInfoScraper"
-    open('./resultFiles/FinalInfo.txt', "w").close()
+    open('./resultFiles/FinalInfoTest.txt', "w").close()
 
+    connection = psycopg2.connect(
+        dbname="postgres",
+        user="postgres",
+        password="pswd",
+        host="127.0.0.1",
+        port="5432"
+    )
+    print("Connection status: " + str(connection.closed)) #should be zero if connection is open
     def start_requests(self):
-        with open("./resultFiles/AllEWGUtilities.txt") as f:
-            urls = f.read().splitlines()
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+        # with open("./resultFiles/AllEWGUtilities.txt") as f:
+        #     urls = f.read().splitlines()
+        # for url in urls:
+        #     yield scrapy.Request(url=url, callback=self.parse)
+        url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
+        yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
         try:
+            cursor = self.connection.cursor()
             # print(response.url)
             utilCode = response.url.split('=')[1]
             nameOfProvider = response.xpath("//h1/text()").get()
             city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get()
             numberPeopleServed = response.xpath("//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1]
+            state = utilCode[0:2]
 
+            #write to the db
+
+            cursor.execute("SELECT * FROM sources WHERE sources.source_id = %s", [utilCode])
+            results = cursor.fetchall()
+
+            if not results:
+                cursor.execute("INSERT INTO sources (city, source_id, name, state) VALUES (%s, %s, %s, %s)",
+                           (city, utilCode, nameOfProvider, state))
+
+            self.connection.commit()
+            cursor.close()
+
+            cursor = self.connection.cursor()
             contAboveGLRaw = response.xpath("//ul[@id='contams_above_hbl']/li/section[@class='contaminant-data']")
             contAboveGL = ""
             for cont in contAboveGLRaw:
                 if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
-                    contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n"\
+                    contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n" +\
                        "HEALTH_GL: " + cont.xpath(".//div[@class='health-guideline-ppb']/text()").extract()[1] + ",\n" +\
                        "NATIONAL_AVG: " + cont.xpath(".//div[@class='national-ppb-popup']/text()").get() + ",\n" +\
                        "STATE_AVG: " + cont.xpath(".//div[@class='state-ppb-popup']/text()").get() + ",\n" +\
                        "THIS_UTIL: " + cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() + ";"
+                    healthGL = cont.xpath(".//div[@class='health-guideline-ppb']/text()").extract()[1]
+                    natAvg = cont.xpath(".//div[@class='national-ppb-popup']/text()").get()
+                    thisUtil = cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get()
+                    contName = cont.xpath("./div[1]/h3/text()").get()
+
+                    cursor.execute("SELECT contaminant_id FROM contaminants"
+                                                " WHERE contaminants.name='{}'".format(contName))
+                    results = cursor.fetchall()
+
+                    if not results:
+                        cursor.execute("INSERT INTO contaminants (name, health_guideline, national_average) VALUES"
+                                       " (%s, %s, %s)", (contName, healthGL, natAvg))
+                        self.connection.commit()
+                        cursor.close()
+                    cursor = self.connection.cursor()
+                    # cursor.execute("UPDATE source_levels SET contaminant_id=%s, source_id=%s, contaminant_level=%s"
+                    #                , [results[0], utilCode, thisUtil])
+
                 elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
                     contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n"\
                        "RADIATION_DETECTED: " + cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() + ";"
+                    thisUtil = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
+                    contName = cont.xpath("./div[1]/h3/text()").get()
+
+            self.connection.commit()
+            cursor.close()
 
             otherContDetRaw = response.xpath("//ul[@id='contams_other']/li/section[@class='contaminant-data']")
             otherContDet = ""
@@ -54,8 +103,14 @@ class FindInfo(scrapy.Spider):
                    "OTHER_NOT_DETECTED:({})}}\n\n".format\
                 (utilCode, nameOfProvider, city, numberPeopleServed, contAboveGL, otherContDet, otherContNotDet)
 
-            with open('./resultFiles/FinalInfo.txt', 'a') as f:
+
+
+            self.connection.close()
+            with open('./resultFiles/FinalInfoTest.txt', 'a') as f:
                 f.write(info)
 
         except Exception as e:
+            with open('./resultFiles/FinalInfoTest.txt', 'a') as f:
+                f.write("ERROR: {}".format(e))
             print(e)
+

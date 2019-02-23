@@ -4,7 +4,7 @@ import scrapy
 
 
 class FindStates(scrapy.Spider):
-    name = "findStatesScraper"
+    name = "findUtilitiesScraper"
 
     def start_requests(self):
         urls = {

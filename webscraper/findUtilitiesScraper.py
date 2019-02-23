@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import scrapy
+import csv
 
 
 class FindUtilities(scrapy.Spider):
@@ -8,16 +9,17 @@ class FindUtilities(scrapy.Spider):
     open('./resultFiles/AllEWGUtilities.txt', "w").close()
 
     def start_requests(self):
-        with open("./resultFiles/EWGStates.txt") as f:
-            urls = f.read().splitlines()
+        with open("zipCodes.txt") as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter='\t')
 
-        for url in urls:
-            print(url)
-            yield scrapy.Request(url=url, callback=self.parse)
+            for row in csv_reader:
+                url = "https://www.ewg.org/tapwater/search-results.php?zip5={}&searchtype=zip".format(row[0])
+                yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
         try:
-            info = response.xpath("//table/tbody/tr/td/a[contains(@href,'system')]/@href").getall()
+            info = response.xpath("//figure[@class='search-results-figure'][2]/table/tbody/tr/td/a[contains"
+                                  "(@href,'system')]/@href").getall()
 
             with open('./resultFiles/AllEWGUtilities.txt', 'a') as f:
                 for item in info:
