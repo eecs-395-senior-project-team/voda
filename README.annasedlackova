@@ -1,3 +1,9 @@
+Week 2:
+Created popups to be later placed over the map of the United States. Set up code for map implementation.
+Files worked on:
+    -App.css
+    -App.js
+
 Week 1:
 Set up initial front end code and designed the popup system for when the map of the United States will be displayed.
 Files worked on:
@@ -6,3 +12,5 @@ Files worked on:
     -index.css
     -index.js
     -serviceWorker.js
+    
+
