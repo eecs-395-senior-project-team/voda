@@ -18,10 +18,6 @@ def summary(request):
     else:
         return HttpResponseBadRequest(400)
 
-
-
-
-
 def details(request):
     #error check
     supply_id = request.GET.get('source')
@@ -32,4 +28,5 @@ def details(request):
         return HttpResponse(response % supply_id)
     else:
         return HttpResponseBadRequest(400)
+
 
