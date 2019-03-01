@@ -1,3 +1,17 @@
+Week 2:
+	I found a found csv of all us zipcodes from us census bureau and changed scraper to pull from every zip codes. 
+	This way we can collect info on even the smallest utilities. I also made a local postgres database to 
+	model the one we will be hosting, and began setting up writes from the scraper to the database after 
+	learning how to use both postgres and psycopg2. 
+	
+	Files worked on:
+		webscraper/findUtilitiesScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/requirements.txt
+		
+		Found zipcodes.txt
+
+
 Week 1:
 	created basic web scraper to collect data from https://www.ewg.org/tapwater/ . 
 	The scraper is split into 3 files. 1 collects all states/territories which data 
@@ -7,7 +21,7 @@ Week 1:
 	Files worked on:
 		webscraper/findStatesScraper.py
 		webscraper/findUtilitiesScraper.py
-		webscraper/findStatesScraper.py
+		webscraper/utilityInfoScraper.py
 		webscraper/requirements.txt
 		
 		These files were created by the above scripts:
