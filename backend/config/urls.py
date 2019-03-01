@@ -5,7 +5,9 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-
+"""
+takes the url and passes it to /vodaMainApp/urls.py to be parsed
+"""
 urlpatterns = [
     path('', include('vodabackend.vodaMainApp.urls')),
     path(settings.ADMIN_URL, admin.site.urls),
