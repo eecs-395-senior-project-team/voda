@@ -95,8 +95,8 @@ def debug(request):
     Returns:
         An HTTP Response with details from the request object.
     """
-    return HttpResponse("Request received: " +
-                        "host: %s, " % request.get_host() +
-                        "type: %s, " % request.method +
-                        "GET params: " + str(request.GET) + ", " +
-                        "POST params: " + str(request.POST))
+    return HttpResponse(("Request received: ",
+                         "host: %s, " % request.get_host(),
+                         "type: %s, " % request.method,
+                         "GET params: " + str(request.GET) + ", ",
+                         "POST params: " + str(request.POST)))
