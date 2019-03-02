@@ -1,9 +1,10 @@
+dist:
+    - trusty
+
 matrix:
     include:
-        language: python
-        python: "3.7-dev"
-        install:
-            - pip install -r backend/requirements.txt
+        name: "Backend Local Unit Tests"
         script:
-            - flake8 backend --ignore=env
-            - pytest backend --ignore=env
+            - docker-compose -f local.yml build
+            - docker-compose run django flake8
+            - docker-compose run django pytest
