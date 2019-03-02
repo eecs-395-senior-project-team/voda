@@ -15,6 +15,7 @@ def test_debug(rf):
     """
     request = rf.get('/debug')
     response = debug(request)
-    expected_response = (b'Request received: host: testserver, type: GET,',
-                         b'GET params: <QueryDict: {}>, POST params: <QueryDict: {}>')
+    expected_response = b''.join([b'Request received: host: testserver, type: GET, ',
+                                  b'GET params: <QueryDict: {}>, POST params: <QueryDict: {}>'])
+    print(expected_response)
     assert response.content == expected_response

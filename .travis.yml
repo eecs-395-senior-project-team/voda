@@ -10,4 +10,4 @@ matrix:
         script:
             - docker-compose -f backend/local.yml --log-level WARNING build
             - docker-compose -f backend/local.yml --log-level WARNING run django flake8
-            - docker-compose -f backend/local.yml --log-level WARNING run django pytest
+            - docker-compose -f backend/local.yml --log-level WARNING run django pytest -vv
