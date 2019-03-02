@@ -1,3 +1,15 @@
+Week 3:
+	I revamped our database schema to better fit the data we had available, and implemented 
+	methods to scrape the data and then write it to the db for 3 of the 5 tables, including
+	the 2 most critical tables (Sources and Contaminants).
+	
+	Files worked on:
+		/backend/vodabackend/vodaMainApp/models.py
+		webscraper/findUtilitiesScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/getContaminantsScraper.py
+		webscraper/contaminantInfoScraper.py
+
 Week 2:
 	I found a found csv of all us zipcodes from us census bureau and changed scraper to pull from every zip codes. 
 	This way we can collect info on even the smallest utilities. I also made a local postgres database to 
