@@ -5,6 +5,6 @@ matrix:
     include:
         name: "Backend Local Unit Tests"
         script:
-            - docker-compose -f local.yml build
+            - docker-compose -f backend/local.yml build
             - docker-compose run django flake8
             - docker-compose run django pytest
