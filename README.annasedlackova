@@ -1,3 +1,10 @@
+Week 3:
+Created calls from frontend to backend using axios to retrieve data from the map,popup and detailed view, properly commented all methods, added basic for App.js.
+Files worked on:
+    -App.css
+    -App.js
+    -App.test.js
+
 Week 2:
 Created popups to be later placed over the map of the United States. Set up code for map implementation.
 Files worked on:
