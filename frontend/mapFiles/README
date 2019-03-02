@@ -1,0 +1,3 @@
+These maps were made in JS fiddle as a proof of concept and because we don't have
+the google maps api yet. You can see them by going to this site https://developers.google.com/chart/interactive/docs/gallery/geochart ,
+clicking on one of the code it yourself tabs, and copy pasting the text into the JS section.
