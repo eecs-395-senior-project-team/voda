@@ -1,10 +1,11 @@
 Week 3:
-Fixed backend testing in the docker environment. Fixed backend documentation. Fixed all backend linter errors.
+Fixed backend testing in the docker environment. Fixed backend documentation. Fixed all backend linter errors. Fixed Travis-CI.
 
 Files worked on:
     -backend/vodabackend/vodaMainApp/urls.py
     -backend/vodabackend/vodaMainApp/views.py
     -Most backend files with a linter error
+    -.travis.yml
 
 Week 2:
 Finished Dockerizing Backend Server. Debugged backend code. Wrote database models

@@ -1,10 +1,13 @@
 dist:
     - trusty
 
+language:
+    - generic
+
 matrix:
     include:
         name: "Backend Local Unit Tests"
         script:
             - docker-compose -f backend/local.yml build
-            - docker-compose run django flake8
-            - docker-compose run django pytest
+            - docker-compose -f backend/local.yml run django flake8
+            - docker-compose -f backend/local.yml run django pytest
