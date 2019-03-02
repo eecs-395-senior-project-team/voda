@@ -19,6 +19,9 @@ To install a new package:
 ## Run the stack
 `docker-compose -f local.yml up`
 
+## Run Tests
+`docker-compose -f local.yml run django pytest`
+
 ## Style
 Enable [Editorconfig](http://editorconfig.org) on your IDE
 

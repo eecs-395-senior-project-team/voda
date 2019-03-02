@@ -1,9 +1,18 @@
+language:
+    - generic
+
+env:
+  COMPOSE_VERSION: 1.23.2
+
+before_install:
+ - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+ - chmod +x docker-compose
+ - sudo mv docker-compose /usr/local/bin
+
 matrix:
     include:
-        language: python
-        python: "3.7-dev"
-        install:
-            - pip install -r backend/requirements.txt
+        name: "Backend Local Unit Tests"
         script:
-            - pylint backend -E --ignore=env
-            - pytest backend --ignore=env
+            - docker-compose --log-level WARNING -f backend/local.yml build
+            - docker-compose --log-level WARNING -f backend/local.yml run django flake8
+            - docker-compose --log-level WARNING -f backend/local.yml run django pytest -vv
