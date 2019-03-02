@@ -1,5 +1,5 @@
-from .base import *
-from .base import env
+from config.settings.base import *  # noqa: F403,F401
+from config.settings.base import env
 
 # GENERAL
 # ------------------------------------------------------------------------------

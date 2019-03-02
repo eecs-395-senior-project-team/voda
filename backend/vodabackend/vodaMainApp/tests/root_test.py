@@ -3,8 +3,6 @@ Tests for root endpoint.
 """
 from vodabackend.vodaMainApp.views import root
 
-import pytest
-
 
 def test_root(rf):
     """ Tests root endpoint
@@ -12,7 +10,8 @@ def test_root(rf):
     Checks that the response is the phrase 'Server Alive.'
 
     Args:
-        rf: Pytest-django Fixture for mocking incoming requests. https://pytest-django.readthedocs.io/en/latest/helpers.html#rf-requestfactory
+        rf: Pytest-django Fixture for mocking incoming requests.
+            https://pytest-django.readthedocs.io/en/latest/helpers.html#rf-requestfactory
     """
     request = rf.get('/')
     response = root(request)

@@ -4,7 +4,7 @@ Base settings to build other settings files upon.
 
 import environ
 
-ROOT_DIR = environ.Path(__file__) - 3 #(backend/config/settings/base.py - 3 = backend/)
+ROOT_DIR = environ.Path(__file__) - 3  # (backend/config/settings/base.py - 3 = backend/)
 APPS_DIR = ROOT_DIR.path('vodabackend')
 
 env = environ.Env()
@@ -151,8 +151,8 @@ TEMPLATES = [
 ADMIN_URL = 'admin/'
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
-    ("""David Fan, David Navia, David Nixon, Anna Sedlackova""", 'david-fan,-david-navia,-david-nixon,-anna-sedlackova@example.com'),
+    ("""David Fan, David Navia, David Nixon, Anna Sedlackova""",
+        'david-fan,-david-navia,-david-nixon,-anna-sedlackova@example.com'),
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
-
