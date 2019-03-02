@@ -1,3 +1,10 @@
+Week 3:
+Fixed backend testing in the docker environment. Fixed backend documentation. Fixed all backend linter errors.
+
+Files worked on:
+    -backend/vodabackend/vodaMainApp/urls.py
+    -backend/vodabackend/vodaMainApp/views.py
+
 Week 2:
 Finished Dockerizing Backend Server. Debugged backend code. Wrote database models
 
