@@ -1,13 +1,18 @@
-dist:
-    - trusty
-
 language:
     - generic
+
+env:
+  COMPOSE_VERSION: 1.4.1
+
+before_install:
+ - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+ - chmod +x docker-compose
+ - sudo mv docker-compose /usr/local/bin
 
 matrix:
     include:
         name: "Backend Local Unit Tests"
         script:
-            - docker-compose -f backend/local.yml --log-level WARNING build
-            - docker-compose -f backend/local.yml --log-level WARNING run django flake8
-            - docker-compose -f backend/local.yml --log-level WARNING run django pytest -vv
+            - docker-compose --log-level WARNING -f backend/local.yml build
+            - docker-compose --log-level WARNING -f backend/local.yml run django flake8
+            - docker-compose --log-level WARNING -f backend/local.yml run django pytest -vv
