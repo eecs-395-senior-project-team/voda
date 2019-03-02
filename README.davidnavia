@@ -6,3 +6,9 @@ all files in voda/backend/voda were created by me
 Week 2
 
 Finished up the backend for the most part. Got rid of my test directory. Had some trouble with setting up environments because i've never worked with a backend framework before so progress was a little on the slow side. Have started looking into setting up testing but because of some unexpected errors that I will have to fix in the beggining of next week they will not be up till next commit. After that I will be switching over to frontend development which I'm more familiar with and should go faster as a result.
+
+
+Week 3
+
+Finished writing tests and comments for the backend. Reaserched into how to make the maps for the front end.
+Made proof of concept maps, more information in the read me in the mapFiles folder in the fronte end folder 
