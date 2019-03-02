@@ -4,6 +4,7 @@ Fixed backend testing in the docker environment. Fixed backend documentation. Fi
 Files worked on:
     -backend/vodabackend/vodaMainApp/urls.py
     -backend/vodabackend/vodaMainApp/views.py
+    -Most backend files with a linter error
 
 Week 2:
 Finished Dockerizing Backend Server. Debugged backend code. Wrote database models
