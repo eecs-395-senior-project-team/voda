@@ -1,4 +1,4 @@
-django==2.0.10
+django>=2.0.11
 django-environ==0.4.5
 gunicorn==19.9.0
 psycopg2==2.7.4
