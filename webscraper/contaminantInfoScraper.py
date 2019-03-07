@@ -39,7 +39,10 @@ class FindInfo(scrapy.Spider):
             else:
                 return float(floatToBeParsed.replace(',',''))
         except:
-            return float(floatToBeParsed)
+            try: float(floatToBeParsed)
+
+            except:
+                return None
 
     def second_level_parse(self, response):
         try:

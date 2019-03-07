@@ -5,6 +5,12 @@ Using Scrapy
 To Run the scraper run:
 
 > scrapy runspider [pathToSpiderFile]
+The spiders must be run in the following order:
+- getContaminantsScraper.py
+- contaminantInfoScraper.py
+- findUtilitiesScraper.py (this one will take a long time)
+- utilityInfoScraper.py
+ 
 
 ## Development
 To start development run:
