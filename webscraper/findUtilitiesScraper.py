@@ -1,6 +1,7 @@
 import scrapy
 import csv
 
+
 class FindUtilities(scrapy.Spider):
     name = "findUtilitiesScraper"
     open('./resultFiles/AllEWGUtilities.txt', "w").close()
