@@ -12,6 +12,7 @@ class FindInfo(scrapy.Spider):
     health_concern = None
     long_concerns = None
     health_guideline = None
+    counter = 0
 
 
     connection = psycopg2.connect(
@@ -59,6 +60,7 @@ class FindInfo(scrapy.Spider):
             cursor = self.connection.cursor()
             cursor.execute("SELECT * FROM contaminants WHERE contaminants.name = (%s)", (self.cont_name, ))
             result = cursor.fetchone()
+
             if not result:
                 print("insert: " + self.cont_name)
                 cursor.execute("INSERT INTO contaminants "
@@ -88,9 +90,10 @@ class FindInfo(scrapy.Spider):
     def parse(self, response):
         try:
             self.health_concerns = ""
-
+            self.counter = self.counter + 1
+            print(self.counter)
             self.cont_name = response.xpath("//h1/text()").get()
-
+            print(self.cont_name)
             try_legal_limit = response.xpath("//section[@class='drinking-water-standards']/p[3]/span/text()").get()
             if try_legal_limit is not None:
                 self.legal_limit = try_legal_limit.split(' ')[0]
@@ -116,6 +119,7 @@ class FindInfo(scrapy.Spider):
             self.national_avg_source = "https://www.ewg.org/tapwater/" + \
                                        response.xpath("//table""[@class='community-contaminant-table']"
                                                       "/tbody/tr[1]/td[@data-label='Utility']/a/@href").get()
+            print(self.national_avg_source)
             yield scrapy.Request(url=self.national_avg_source, callback=self.second_level_parse,)
 
         except Exception as e:
