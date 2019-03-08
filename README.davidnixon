@@ -1,10 +1,10 @@
 Week 4:
-	I made corrections to the scheam from last week and spent time getting the scraper into compliance
-	with our liner. I also implemented methods for scraping the data and writing it for the 
+	I made corrections to the schema from last week and spent time getting the scraper into compliance
+	with our linter. I also implemented methods for scraping the data and writing it for the 
 	source_levels table. During this process I uncovered a serious bug with the methods written
 	last week to handle the contaminants data. I spent many hours trying to understand this
 	bug and in the end realized that it had to do with the asynchronous nature of
-	the requests Scrapy uses, and know how to fix the problem. I did not implement a fix this week 
+	the requests Scrapy uses, and now know how to fix the problem. I did not implement a fix this week 
 	because the fix will require refactoring a large portion of the scraper code, and there was not 
 	time to both diagnose and fix it this week. This will be done in the next week. 
 	
