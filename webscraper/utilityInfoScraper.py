@@ -6,207 +6,221 @@ from psycopg2 import sql
 
 
 class FindInfo(scrapy.Spider):
-  name = "utilityInfoScraper"
+    name = "utilityInfoScraper"
 
-  connection = psycopg2.connect(
+    connection = psycopg2.connect(
       dbname="postgres",
       user="postgres",
       password="pswd",
       host="127.0.0.1",
       port="5432"
-  )
-  connection.set_session(autocommit=True)
+    )
+    connection.set_session(autocommit=True)
 
-  print("Connection status: " + str(connection.closed)) #should be zero if connection is open
-  def start_requests(self):
-      with open("./resultFiles/AllEWGUtilities.txt") as f:
-          urls = f.read().splitlines()
-      for url in urls:
-          yield scrapy.Request(url=url, callback=self.parse)
-      # url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
-      # yield scrapy.Request(url=url, callback=self.parse)
+    print("Connection status: " + str(connection.closed))  # should be zero if connection is open
+    def start_requests(self):
+        # with open("./resultFiles/AllEWGUtilities.txt") as f:
+        #     urls = f.read().splitlines()
+        # for url in urls:
+        #     yield scrapy.Request(url=url, callback=self.parse)
+       url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
+       yield scrapy.Request(url=url, callback=self.parse)
 
-  def try_parse_float(self, float_to_be_parsed):
-      try:
-          if float_to_be_parsed is None:
-              return  None
-          else:
-              return float(float_to_be_parsed.replace(',',''))
-      except:
-          return float(float_to_be_parsed)
+    @staticmethod
+    def try_parse_float(float_to_be_parsed):
+        try:
+            if float_to_be_parsed is None:
+                return None
+            else:
+                return float(float_to_be_parsed.replace(',',''))
+        except:
+            return float(float_to_be_parsed)
 
-  #this finds and writes all the info required for the sources table, and for the states table
-  def scrape_source_info(self, response):
-      try:
-          utilCode = response.url.split('=')[1]
-          utilityName = response.xpath("//h1/text()").get()
-          city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get().split(',')[0]
-          stateID = utilCode[0:2]
-          numberPeopleServed = int(response.xpath("//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1]
-                                   .replace(',', ''))
+    # this finds and writes all the info required for the sources table, and for the states table
+    def scrape_source_info(self, response):
+        try:
+            util_code = response.url.split('=')[1]
+            utility_name = response.xpath("//h1/text()").get()
+            city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get().split(',')[0]
+            state_id = util_code[0:2]
+            number_people_served = int(response.xpath("//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1]
+                                       .replace(',', ''))
 
-          cursor = self.connection.cursor()
-          cursor.execute("SELECT * FROM states WHERE states.state_id = (%s)", (stateID, ))
-          result =cursor.fetchone()
-          if not result:
-               cursor.execute("INSERT INTO states (state_id) VALUES (%s)", (stateID, ))
+            cursor = self.connection.cursor()
+            cursor.execute("SELECT * FROM states WHERE states.state_id = (%s)", (state_id, ))
+            result =cursor.fetchone()
+            # if the state is not already in the table, add it
+            if not result:
+                 cursor.execute("INSERT INTO states (state_id) VALUES (%s)", (state_id, ))
 
-          cursor.execute("SELECT * FROM sources WHERE sources.utility_name = (%s)", (utilityName, ))
-          result = cursor.fetchone()
-          if not result:
-              cursor.execute("INSERT INTO sources (utility_name, city, state, number_served)"
-                         " VALUES (%s, %s, %s, %s)",
-                             (utilityName, city, stateID, numberPeopleServed))
-          else:
-              cursor.execute("UPDATE sources SET "
-                             "utility_name=(%s), city=(%s), state=(%s), number_served=(%s)"
-                             "WHERE source_id=(%s)",
-                             (utilityName, city, stateID, numberPeopleServed, result[0]))
+            cursor.execute("SELECT * FROM sources WHERE sources.utility_name = (%s)", (utility_name, ))
+            result = cursor.fetchone()
+            # if the utility does not exist, add it.
+            if not result:
+                cursor.execute("INSERT INTO sources (utility_name, city, state, number_served)"
+                           " VALUES (%s, %s, %s, %s)",(utility_name, city, state_id, number_people_served))
+            # Otherwise, update the data in it
+            else:
+                cursor.execute("UPDATE sources SET "
+                               "utility_name=(%s), city=(%s), state=(%s), number_served=(%s)"
+                               "WHERE source_id=(%s)",
+                               (utility_name, city, state_id, number_people_served, result[0]))
 
-          self.connection.commit()
-          cursor.close()
-      except Exception as e:
-          with open('./debugLog.txt', 'a') as f:
-              f.write("ERROR: {}".format(e))
-          print(e)
+            self.connection.commit()
+            cursor.close()
+        except Exception as e:
+            with open('./debugLog.txt', 'a') as f:
+                f.write("ERROR: {}".format(e))
+            print(e)
 
-  def scrape_source_levels(self, response):
-      cont_above_GL_Raw = response.xpath("//ul[@id='contams_above_hbl']/li/section[@class='contaminant-data']")
-      source_name = response.xpath("//h1/text()").get()
-      source_state = response.url.split('=')[1][0:2]
+    def write_source_level(self, cont_name, src_id, this_utility_value):
+        cursor = self.connection.cursor()
 
-      cursor = self.connection.cursor()
-      cursor.execute("SELECT source_id FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
-                     (source_name, source_state))
-      src_id = cursor.fetchone()
-      cursor.close()
+        cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
+                       (cont_name,))
+        cont_id = cursor.fetchone()
+        print(cont_id)
 
-      for cont in cont_above_GL_Raw:
-          try:
-              cursor = self.connection.cursor()
-              #If the description for non-radioactive contaminants exists
-              if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
-                 cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
-                 print(cont_name)
-                 this_utility_value = self.try_parse_float(cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get().split(' ')[0])
-                 cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s", (cont_name, ))
-                 cont_id = cursor.fetchone()
+        cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
+                       "AND source_levels.contaminant_id = %s", (src_id, cont_id))
+        results = cursor.fetchall()
 
-                 cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
-                                "AND source_levels.contaminant_id = %s", (src_id, cont_id))
-                 results = cursor.fetchall()
+        # if there is not already a row for this contaminant-utility pair, add one,
+        if not results:
+            cursor.execute("INSERT INTO source_levels (source_id, contaminant_id, source_level)"
+                           " VALUES (%s, %s, %s)", (src_id, cont_id, self.try_parse_float(this_utility_value)))
+        # otherwise update the values
+        else:
+            cursor.execute("UPDATE source_levels SET source_level=%s WHERE source_id=%s AND contaminant_id=%s",
+                           (self.try_parse_float(this_utility_value), src_id, cont_id))
+        cursor.close()
 
-                 # if there is not already a row for this contaminant-utility pair we need to add one, otherwise we need
-                 # to update the values
-                 if not results:
-                     cursor.execute("INSERT INTO source_levels (source_id, contaminant_id, source_level)"
-                                    " VALUES (%s, %s, %s)", (src_id, cont_id, this_utility_value))
-                 else:
-                     cursor.execute("UPDATE source_levels SET source_level=%s WHERE source_id=%s AND contaminant_id=%s",
-                                    (this_utility_value, src_id, cont_id))
+    def scrape_source_levels(self, response):
+        cont_above_gl_raw = response.xpath("//ul[@id='contams_above_hbl']/li/section[@class='contaminant-data']")
+        source_name = response.xpath("//h1/text()").get()
+        source_state = response.url.split('=')[1][0:2]
 
-              # # If the description for radioactive contaminants exists
-              # elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
-              #     cont_name = cont.xpath("./div[1]/h3/text()").get()
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT source_id FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
+                       (source_name, source_state))
+        src_id = cursor.fetchone()
+        cursor.close()
 
-              cursor.close()
-          except Exception as e:
-              with open('./debugLog.txt', 'a') as f:
-                  f.write("ERROR: {}".format(e))
-              print(e)
-      self.connection.commit()
+        for cont in cont_above_gl_raw:
+            try:
+                # If the description for non-radioactive contaminants exists
+                if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
+                    cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
+                    print(cont_name)
 
+                    this_utility_value = \
+                        cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get().split(' ')[0]
+
+                    self.write_source_level(cont_name, src_id, this_utility_value)
+
+
+                # If the description for radioactive contaminants exists
+                elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
+                    cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
+                    this_utility_value = None
+                    self.write_source_level(cont_name, src_id, this_utility_value)
+
+            except Exception as e:
+                with open('./debugLog.txt', 'a') as f:
+                    f.write("ERROR: {}".format(e))
+                print(e)
+        self.connection.commit()
 
       #
       # other_cont_det_raw = response.xpath("//ul[@id='contams_other']/li/section[@class='contaminant-data']")
       # cont.xpath(".//div[@class='state-ppb-popup']/text()").get()
 
-  def parse(self, response):
-      try:
-          self.scrape_source_info(response)
-          self.scrape_source_levels(response)
-          # print(response.url)
+    def parse(self, response):
+        try:
+            self.scrape_source_info(response)
+            self.scrape_source_levels(response)
+            # print(response.url)
 
-          #  nameOfProvider = response.xpath("//h1/text()").get()
-          # city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get()
-          # numberPeopleServed = response.xpath("//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1]
-          # state = utilCode[0:2]
-          # write to the db
-          # cursor.execute("SELECT * FROM sources WHERE sources.source_id = %s", [utilCode])
-          # results = cursor.fetchall()
-          # if not results:
-          #     cursor.execute("INSERT INTO sources (city, source_id, name, state) VALUES (%s, %s, %s, %s)",
-          #                (city, utilCode, nameOfProvider, state))
-          # self.connection.commit()
-          # cursor.close()
+            #  nameOfProvider = response.xpath("//h1/text()").get()
+            # city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get()
+            # numberPeopleServed = response.xpath("//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1]
+            # state = utilCode[0:2]
+            # write to the db
+            # cursor.execute("SELECT * FROM sources WHERE sources.source_id = %s", [utilCode])
+            # results = cursor.fetchall()
+            # if not results:
+            #     cursor.execute("INSERT INTO sources (city, source_id, name, state) VALUES (%s, %s, %s, %s)",
+            #                (city, utilCode, nameOfProvider, state))
+            # self.connection.commit()
+            # cursor.close()
 
 
 
-          # cursor = self.connection.cursor()
-          # contAboveGLRaw = response.xpath("//ul[@id='contams_above_hbl']/li/section[@class='contaminant-data']")
-          # contAboveGL = ""
-          # for cont in contAboveGLRaw:
-          #     if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
-          #         contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n" +\
-          #            "HEALTH_GL: " + cont.xpath(".//div[@class='health-guideline-ppb']/text()").extract()[1] + ",\n"+\
-          #            "NATIONAL_AVG: " + cont.xpath(".//div[@class='national-ppb-popup']/text()").get() + ",\n" +\
-          #            "STATE_AVG: " + cont.xpath(".//div[@class='state-ppb-popup']/text()").get() + ",\n" +\
-          #            "THIS_UTIL: " + cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() + ";"
-          #         healthGL = cont.xpath(".//div[@class='health-guideline-ppb']/text()").extract()[1]
-          #         natAvg = cont.xpath(".//div[@class='national-ppb-popup']/text()").get()
-          #         thisUtil = cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get()
-          #         contName = cont.xpath("./div[1]/h3/text()").get()
-          #
-          #         cursor.execute("SELECT contaminant_id FROM contaminants"
-          #                                     " WHERE contaminants.name='{}'".format(contName))
-          #         results = cursor.fetchall()
-          #
-          #         if not results:
-          #             cursor.execute("INSERT INTO contaminants (name, health_guideline, national_average) VALUES"
-          #                            " (%s, %s, %s)", (contName, healthGL, natAvg))
-          #             self.connection.commit()
-          #             cursor.close()
-          #         cursor = self.connection.cursor()
-          #         # cursor.execute("UPDATE source_levels SET contaminant_id=%s, source_id=%s, contaminant_level=%s"
-          #         #                , [results[0], utilCode, thisUtil])
-          #
-          #     elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
-          #         contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n"\
-          #            "RADIATION_DETECTED: " + cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()+";"
-          #         thisUtil = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
-          #         contName = cont.xpath("./div[1]/h3/text()").get()
-          #
-          # self.connection.commit()
-          # cursor.close()
-          #
-          # otherContDetRaw = response.xpath("//ul[@id='contams_other']/li/section[@class='contaminant-data']")
-          # otherContDet = ""
-          # for cont in otherContDetRaw:
-          #     if cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() is not None:
-          #         otherContDet += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n"\
-          #            "NATIONAL_AVG: " + cont.xpath(".//div[@class='national-ppb-popup']/text()").get() + ",\n" +\
-          #            "STATE_AVG: " + cont.xpath(".//div[@class='state-ppb-popup']/text()").get() + ",\n" +\
-          #            "THIS_UTIL: " + cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() + ";"
-          #
-          # otherContNotDet=""
-          # otherContNotDetRaw = response.xpath("//section[@class='contams-not-detected']/div[2]/p[2]/a/text()").getall()
-          # for cont in otherContNotDetRaw:
-          #     otherContNotDet += "\n" + cont + ";"
-          #
-          # info = "{{{};{};{};{}\n\n" \
-          #        "CONT_ABOVE_GL:({})\n\n" \
-          #        "OTHER_CONT_DETECTED:({})\n\n" \
-          #        "OTHER_NOT_DETECTED:({})}}\n\n".format\
-          #     (utilCode, nameOfProvider, city, numberPeopleServed, contAboveGL, otherContDet, otherContNotDet)
-          #
-          #
-          #
-          # self.connection.close()
-          # with open('./resultFiles/FinalInfoTest.txt', 'a') as f:
-          #     f.write(info)
+            # cursor = self.connection.cursor()
+            # contAboveGLRaw = response.xpath("//ul[@id='contams_above_hbl']/li/section[@class='contaminant-data']")
+            # contAboveGL = ""
+            # for cont in contAboveGLRaw:
+            #     if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
+            #         contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n" +\
+            #            "HEALTH_GL: " + cont.xpath(".//div[@class='health-guideline-ppb']/text()").extract()[1] + ",\n"+\
+            #            "NATIONAL_AVG: " + cont.xpath(".//div[@class='national-ppb-popup']/text()").get() + ",\n" +\
+            #            "STATE_AVG: " + cont.xpath(".//div[@class='state-ppb-popup']/text()").get() + ",\n" +\
+            #            "THIS_UTIL: " + cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() + ";"
+            #         healthGL = cont.xpath(".//div[@class='health-guideline-ppb']/text()").extract()[1]
+            #         natAvg = cont.xpath(".//div[@class='national-ppb-popup']/text()").get()
+            #         thisUtil = cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get()
+            #         contName = cont.xpath("./div[1]/h3/text()").get()
+            #
+            #         cursor.execute("SELECT contaminant_id FROM contaminants"
+            #                                     " WHERE contaminants.name='{}'".format(contName))
+            #         results = cursor.fetchall()
+            #
+            #         if not results:
+            #             cursor.execute("INSERT INTO contaminants (name, health_guideline, national_average) VALUES"
+            #                            " (%s, %s, %s)", (contName, healthGL, natAvg))
+            #             self.connection.commit()
+            #             cursor.close()
+            #         cursor = self.connection.cursor()
+            #         # cursor.execute("UPDATE source_levels SET contaminant_id=%s, source_id=%s, contaminant_level=%s"
+            #         #                , [results[0], utilCode, thisUtil])
+            #
+            #     elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
+            #         contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n"\
+            #            "RADIATION_DETECTED: " + cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()+";"
+            #         thisUtil = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
+            #         contName = cont.xpath("./div[1]/h3/text()").get()
+            #
+            # self.connection.commit()
+            # cursor.close()
+            #
+            # otherContDetRaw = response.xpath("//ul[@id='contams_other']/li/section[@class='contaminant-data']")
+            # otherContDet = ""
+            # for cont in otherContDetRaw:
+            #     if cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() is not None:
+            #         otherContDet += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n"\
+            #            "NATIONAL_AVG: " + cont.xpath(".//div[@class='national-ppb-popup']/text()").get() + ",\n" +\
+            #            "STATE_AVG: " + cont.xpath(".//div[@class='state-ppb-popup']/text()").get() + ",\n" +\
+            #            "THIS_UTIL: " + cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() + ";"
+            #
+            # otherContNotDet=""
+            # otherContNotDetRaw = response.xpath("//section[@class='contams-not-detected']/div[2]/p[2]/a/text()").getall()
+            # for cont in otherContNotDetRaw:
+            #     otherContNotDet += "\n" + cont + ";"
+            #
+            # info = "{{{};{};{};{}\n\n" \
+            #        "CONT_ABOVE_GL:({})\n\n" \
+            #        "OTHER_CONT_DETECTED:({})\n\n" \
+            #        "OTHER_NOT_DETECTED:({})}}\n\n".format\
+            #     (utilCode, nameOfProvider, city, numberPeopleServed, contAboveGL, otherContDet, otherContNotDet)
+            #
+            #
+            #
+            # self.connection.close()
+            # with open('./resultFiles/FinalInfoTest.txt', 'a') as f:
+            #     f.write(info)
 
-      except Exception as e:
-          # with open('./resultFiles/FinalInfoTest.txt', 'a') as f:
-          #     f.write("ERROR: {}".format(e))
-          print(e)
+        except Exception as e:
+            # with open('./resultFiles/FinalInfoTest.txt', 'a') as f:
+            #     f.write("ERROR: {}".format(e))
+            print(e)
 
