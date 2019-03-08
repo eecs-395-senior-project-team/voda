@@ -7,6 +7,13 @@ Week 4:
 	the requests Scrapy uses, and know how to fix the problem. I did not implement a fix this week 
 	because the fix will require refactoring a large portion of the scraper code, and there was not 
 	time to both diagnose and fix it this week. This will be done in the next week. 
+	
+	Files worked on:
+		/backend/vodabackend/vodaMainApp/models.py
+		webscraper/findUtilitiesScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/getContaminantsScraper.py
+		webscraper/contaminantInfoScraper.py
 
 Week 3:
 	I revamped our database schema to better fit the data we had available, and implemented 
