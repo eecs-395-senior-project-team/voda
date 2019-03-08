@@ -2,7 +2,6 @@
 
 import scrapy
 import psycopg2
-from psycopg2 import sql
 
 
 class FindInfo(scrapy.Spider):
@@ -18,13 +17,14 @@ class FindInfo(scrapy.Spider):
     connection.set_session(autocommit=True)
 
     print("Connection status: " + str(connection.closed))  # should be zero if connection is open
+
     def start_requests(self):
         # with open("./resultFiles/AllEWGUtilities.txt") as f:
         #     urls = f.read().splitlines()
         # for url in urls:
         #     yield scrapy.Request(url=url, callback=self.parse)
-       url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
-       yield scrapy.Request(url=url, callback=self.parse)
+        url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
+        yield scrapy.Request(url=url, callback=self.parse)
 
     @staticmethod
     def try_parse_float(float_to_be_parsed):
@@ -32,8 +32,8 @@ class FindInfo(scrapy.Spider):
             if float_to_be_parsed is None:
                 return None
             else:
-                return float(float_to_be_parsed.replace(',',''))
-        except:
+                return float(float_to_be_parsed.replace(',', ''))
+        except Exception:
             return float(float_to_be_parsed)
 
     # this finds and writes all the info required for the sources table, and for the states table
@@ -48,17 +48,17 @@ class FindInfo(scrapy.Spider):
 
             cursor = self.connection.cursor()
             cursor.execute("SELECT * FROM states WHERE states.state_id = (%s)", (state_id, ))
-            result =cursor.fetchone()
+            result = cursor.fetchone()
             # if the state is not already in the table, add it
             if not result:
-                 cursor.execute("INSERT INTO states (state_id) VALUES (%s)", (state_id, ))
+                cursor.execute("INSERT INTO states (state_id) VALUES (%s)", (state_id, ))
 
             cursor.execute("SELECT * FROM sources WHERE sources.utility_name = (%s)", (utility_name, ))
             result = cursor.fetchone()
             # if the utility does not exist, add it.
             if not result:
                 cursor.execute("INSERT INTO sources (utility_name, city, state, number_served)"
-                           " VALUES (%s, %s, %s, %s)",(utility_name, city, state_id, number_people_served))
+                               " VALUES (%s, %s, %s, %s)", (utility_name, city, state_id, number_people_served))
             # Otherwise, update the data in it
             else:
                 cursor.execute("UPDATE sources SET "
@@ -118,7 +118,6 @@ class FindInfo(scrapy.Spider):
 
                     self.write_source_level(cont_name, src_id, this_utility_value)
 
-
                 # If the description for radioactive contaminants exists
                 elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
                     cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
@@ -130,10 +129,6 @@ class FindInfo(scrapy.Spider):
                     f.write("ERROR: {}".format(e))
                 print(e)
         self.connection.commit()
-
-      #
-      # other_cont_det_raw = response.xpath("//ul[@id='contams_other']/li/section[@class='contaminant-data']")
-      # cont.xpath(".//div[@class='state-ppb-popup']/text()").get()
 
     def parse(self, response):
         try:
@@ -154,15 +149,14 @@ class FindInfo(scrapy.Spider):
             # self.connection.commit()
             # cursor.close()
 
-
-
             # cursor = self.connection.cursor()
             # contAboveGLRaw = response.xpath("//ul[@id='contams_above_hbl']/li/section[@class='contaminant-data']")
             # contAboveGL = ""
             # for cont in contAboveGLRaw:
             #     if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
             #         contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n" +\
-            #            "HEALTH_GL: " + cont.xpath(".//div[@class='health-guideline-ppb']/text()").extract()[1] + ",\n"+\
+            #            "HEALTH_GL: " + cont.xpath(".//div[@class='health-guideline-ppb']/text()").extract()[1]
+            #            + ",\n"+\
             #            "NATIONAL_AVG: " + cont.xpath(".//div[@class='national-ppb-popup']/text()").get() + ",\n" +\
             #            "STATE_AVG: " + cont.xpath(".//div[@class='state-ppb-popup']/text()").get() + ",\n" +\
             #            "THIS_UTIL: " + cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() + ";"
@@ -186,7 +180,8 @@ class FindInfo(scrapy.Spider):
             #
             #     elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
             #         contAboveGL += "\n" + cont.xpath("./div[1]/h3/text()").get() + ",\n"\
-            #            "RADIATION_DETECTED: " + cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()+";"
+            #            "RADIATION_DETECTED: " + cont.xpath(".//div[@class = 'slide-toggle']
+            #            /p[1]/a[1]/text()").get()+";"
             #         thisUtil = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
             #         contName = cont.xpath("./div[1]/h3/text()").get()
             #
@@ -203,7 +198,8 @@ class FindInfo(scrapy.Spider):
             #            "THIS_UTIL: " + cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() + ";"
             #
             # otherContNotDet=""
-            # otherContNotDetRaw = response.xpath("//section[@class='contams-not-detected']/div[2]/p[2]/a/text()").getall()
+            # otherContNotDetRaw = response.xpath("//section[@class='contams-not-detected']
+            # /div[2]/p[2]/a/text()").getall()
             # for cont in otherContNotDetRaw:
             #     otherContNotDet += "\n" + cont + ";"
             #
@@ -223,4 +219,3 @@ class FindInfo(scrapy.Spider):
             # with open('./resultFiles/FinalInfoTest.txt', 'a') as f:
             #     f.write("ERROR: {}".format(e))
             print(e)
-
