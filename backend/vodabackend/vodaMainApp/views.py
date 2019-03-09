@@ -3,7 +3,7 @@ Views for VodaBackend.
 """
 # Create your views here.
 from django.http import HttpResponse, HttpResponseBadRequest
-
+import random, array #temporary for dummy data
 
 def root(request):
     """ Root endpoint.
@@ -32,7 +32,12 @@ def map_endpoint(request):
     Returns:
         An HTTP Response with a list of water supplies and their associated 1-10 values.
     """
-    return HttpResponse("Returns a list of water supplies and a 1-10 value with the quality of the water.")
+    returnArr = array.array('i',(0 for i in range(0,50)))
+
+    for i in range(0,50):
+        returnArr[i] = random.randint(1,10)
+
+    return HttpResponse(returnArr)
 
 
 def summary(request):
