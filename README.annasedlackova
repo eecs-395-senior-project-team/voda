@@ -1,3 +1,9 @@
+Week 4:
+Changed the way the map is layed out and registered the project to an Google map API service.
+Files worked on:
+    -App.js
+    -keys.JSON
+
 Week 3:
 Created calls from frontend to backend using axios to retrieve data from the map,popup and detailed view, properly commented all methods, added basic for App.js.
 Files worked on:
