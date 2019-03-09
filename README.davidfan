@@ -1,5 +1,5 @@
 Week 4:
-Slower week. Dockerized webscraper. Configured EC2 instances. Working on setting up production pipeline on the EC2 instances to allow for automated rebuilds of the production side.
+Slower week. Dockerized webscraper. Configured EC2 instances. Working on setting up production pipeline on the EC2 instances to allow for automated rebuilds of the production side. Added the Sphynx documentation generator to the backend.
 
 Files worked on:
     - Things outside of the repo on AWS
