@@ -11,6 +11,13 @@ The spiders must be run in the following order:
 - findUtilitiesScraper.py (this one will take a long time)
 - utilityInfoScraper.py
 
+## Running the Scraper with Docker
+First build the image:
+`docker build --tag=vodawebscraper .`
+
+Then run the image:
+`docker run vodawebscraper`
+
 ## Development
 To start development run:
 `
