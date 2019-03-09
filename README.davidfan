@@ -1,3 +1,10 @@
+Week 4:
+Slower week. Dockerized webscraper. Configured EC2 instances. Working on setting up production pipeline on the EC2 instances to allow for automated rebuilds of the production side.
+
+Files worked on:
+    - Things outside of the repo on AWS
+    - webscraper/Dockerfile
+
 Week 3:
 Fixed backend testing in the docker environment. Fixed backend documentation. Fixed all backend linter errors. Fixed Travis-CI.
 
