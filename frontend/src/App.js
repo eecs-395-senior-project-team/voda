@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+import { render } from "react-dom";
+import { Chart } from "react-google-charts";
 import './App.css';
-import $ from 'jquery'; 
+var fs = require("fs");
 
 const axios = require('axios');
+
+//read a JSON file
+var content = fs.readFile("keys.JSON");
+var key = JSON.parse(content);
+
+/* 
+* Load a specific type(s) of chart(s). You can call this as many times as you need from anywhere in your app
+* GoogleCharts is a singleton and will not allow the script to be loaded more than once
+* The mapsApiKey is only required for certain GeoCharts
+*/
+
+GoogleCharts.load(drawGeoChart, {
+    'packages': ['geochart'],
+    'mapsApiKey': key.API_KEY
+});
+
 
 /** Class that handles small popup when a district is clicked */
 class Popup extends React.Component {
@@ -36,32 +53,6 @@ class FullView extends React.Component {
   }
 }
 
-/** Map implementation for the front page */
-class SimpleMap extends React.Component {
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
-  };
- 
-  render() {
-    return (
-
-      // Important! Always set the container height explicitly
-      <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          //bootstrapURLKeys={{ key: /* YOUR KEY HERE */ }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-        </GoogleMapReact>
-      </div>
-    );
-  }
-}
-
 // Main class
 class App extends Component {
 
@@ -83,12 +74,15 @@ class App extends Component {
 
   /* Updates map on startup*/
   componentWillMount() {
-    axios.get('localhost:3500/map').then(function(response) {
+    axios.get('http://localhost:8000/map').then(function(response) {
       console.log(response);
       /**
       * get data from response
       * this.setState({map: response})
       **/
+
+      //this is the part where we setup the map
+
     })
     .catch (function (error){
       console.log(error);
@@ -100,7 +94,7 @@ class App extends Component {
 
   /* Gets info for the popup*/
   popupInfo() {
-    axios.get('localhost:3500/summary').then(function(response) {
+    axios.get('http://localhost:8000/summary').then(function(response) {
       console.log(response);
       /**
       * get data from response
@@ -117,7 +111,7 @@ class App extends Component {
 
   /* Gets info for the fullview*/
   fullViewInfo() {
-    axios.get('localhost:3500/details').then(function(response) {
+    axios.get('http://localhost:8000/details').then(function(response) {
       console.log(response);
       /**
       * get data from response
@@ -159,6 +153,16 @@ class App extends Component {
     return (
       <div className = "App">
         <div className ="header"> {status} </div>
+        <div className={"my-pretty-chart-container"}>
+        <Chart
+          chartType="ScatterChart"
+          data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
+          width="100%"
+          height="400px"
+          legendToggle
+        />
+        </div>
+
         <button className = "square" onClick={this.togglePopup.bind(this)}>Show</button>
         {this.state.showPopup ? 
           <Popup
