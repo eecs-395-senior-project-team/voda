@@ -6,9 +6,13 @@ var fs = require("fs");
 
 const axios = require('axios');
 
+/*
+
 //read a JSON file
 var content = fs.readFile("keys.JSON");
 var key = JSON.parse(content);
+
+*/
 
 /* 
 * Load a specific type(s) of chart(s). You can call this as many times as you need from anywhere in your app
@@ -16,10 +20,12 @@ var key = JSON.parse(content);
 * The mapsApiKey is only required for certain GeoCharts
 */
 
+/*
+
 GoogleCharts.load(drawGeoChart, {
     'packages': ['geochart'],
     'mapsApiKey': key.API_KEY
-});
+}); */
 
 
 /** Class that handles small popup when a district is clicked */
@@ -150,18 +156,43 @@ class App extends Component {
   */
   render() {
     const status = 'voda';
+
+    // display the geochart
+    const data = [
+      ["Country", "Popularity"],
+      ["Germany", 200],
+      ["United States", 300],
+      ["Brazil", 400],
+      ["Canada", 500],
+      ["France", 600],
+      ["RU", 700]
+    ];
+
+    var options = {
+      region: '155'
+    }
+
     return (
       <div className = "App">
         <div className ="header"> {status} </div>
-        <div className={"my-pretty-chart-container"}>
         <Chart
-          chartType="ScatterChart"
-          data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
+          chartEvents={[
+            {
+              eventName: "select",
+              callback: ({ chartWrapper }) => {
+                const chart = chartWrapper.getChart();
+                const selection = chart.getSelection();
+                if (selection.length === 0) return;
+                const region = data[selection[0].row + 1];
+                console.log("Selected : " + region);
+              }
+            }
+          ]}
+          chartType="GeoChart"
           width="100%"
-          height="400px"
-          legendToggle
+          height="600px"
+          data={data}
         />
-        </div>
 
         <button className = "square" onClick={this.togglePopup.bind(this)}>Show</button>
         {this.state.showPopup ? 
