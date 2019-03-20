@@ -19,12 +19,12 @@ class FindInfo(scrapy.Spider):
     print("Connection status: " + str(connection.closed))  # should be zero if connection is open
 
     def start_requests(self):
-        # with open("./resultFiles/AllEWGUtilities.txt") as f:
-        #     urls = f.read().splitlines()
-        # for url in urls:
-        #     yield scrapy.Request(url=url, callback=self.parse)
-        url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
-        yield scrapy.Request(url=url, callback=self.parse)
+        with open("./resultFiles/AllEWGUtilities.txt") as f:
+            urls = f.read().splitlines()
+        for url in urls:
+            yield scrapy.Request(url=url, callback=self.parse)
+        #  url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
+        # yield scrapy.Request(url=url, callback=self.parse)
 
     @staticmethod
     def try_parse_float(float_to_be_parsed):
@@ -65,7 +65,7 @@ class FindInfo(scrapy.Spider):
                                "utility_name=(%s), city=(%s), state=(%s), number_served=(%s)"
                                "WHERE source_id=(%s)",
                                (utility_name, city, state_id, number_people_served, result[0]))
-
+            print(utility_name)
             self.connection.commit()
             cursor.close()
         except Exception as e:
@@ -108,19 +108,21 @@ class FindInfo(scrapy.Spider):
 
         for cont in cont_above_gl_raw:
             try:
-                # If the description for non-radioactive contaminants exists
+                # If the description for measured contaminants exists
                 if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
                     cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
-                    print(cont_name)
+                    print("A: " + cont_name)
 
                     this_utility_value = \
                         cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get().split(' ')[0]
 
                     self.write_source_level(cont_name, src_id, this_utility_value)
 
-                # If the description for radioactive contaminants exists
+                # If the description for non-measured (only detected) contaminants exists
                 elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
-                    cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
+                    cont_name = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
+
+                    print("B: " + cont_name)
                     this_utility_value = None
                     self.write_source_level(cont_name, src_id, this_utility_value)
 
