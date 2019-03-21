@@ -19,12 +19,12 @@ class FindInfo(scrapy.Spider):
     print("Connection status: " + str(connection.closed))  # should be zero if connection is open
 
     def start_requests(self):
-        # with open("./resultFiles/AllEWGUtilities.txt") as f:
-        #     urls = f.read().splitlines()
-        # for url in urls:
-        #     yield scrapy.Request(url=url, callback=self.parse)
-        url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
-        yield scrapy.Request(url=url, callback=self.parse)
+        with open("./resultFiles/AllEWGUtilities.txt") as f:
+            urls = f.read().splitlines()
+        for url in urls:
+            yield scrapy.Request(url=url, callback=self.parse)
+        #  url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
+        # yield scrapy.Request(url=url, callback=self.parse)
 
     @staticmethod
     def try_parse_float(float_to_be_parsed):
@@ -65,7 +65,7 @@ class FindInfo(scrapy.Spider):
                                "utility_name=(%s), city=(%s), state=(%s), number_served=(%s)"
                                "WHERE source_id=(%s)",
                                (utility_name, city, state_id, number_people_served, result[0]))
-
+            print(utility_name)
             self.connection.commit()
             cursor.close()
         except Exception as e:
@@ -76,11 +76,13 @@ class FindInfo(scrapy.Spider):
     def write_source_level(self, cont_name, src_id, this_utility_value):
         cursor = self.connection.cursor()
 
+        # get the id of this contaminant based on its name
         cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
                        (cont_name,))
         cont_id = cursor.fetchone()
         print(cont_id)
 
+        # check if this source-contaminant relationship exists
         cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
                        "AND source_levels.contaminant_id = %s", (src_id, cont_id))
         results = cursor.fetchall()
@@ -93,6 +95,32 @@ class FindInfo(scrapy.Spider):
         else:
             cursor.execute("UPDATE source_levels SET source_level=%s WHERE source_id=%s AND contaminant_id=%s",
                            (self.try_parse_float(this_utility_value), src_id, cont_id))
+        cursor.close()
+
+    def write_state_avg(self, state_id, cont_name, state_avg):
+        cursor = self.connection.cursor()
+
+        # get the id of this contaminant based on its name
+        cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
+                       (cont_name,))
+        cont_id = cursor.fetchone()
+        print(cont_id)
+
+        # check if this state-contaminant relationship exists
+        cursor.execute("SELECT * FROM state_avg_levels WHERE state_avg_levels.state_id = %s "
+                       "AND state_avg_levels.contaminant_id = %s", (state_id, cont_id))
+        results = cursor.fetchall()
+
+        # if there is not already a row for this contaminant-state pair, add one,
+        if not results:
+            cursor.execute("INSERT INTO state_avg_levels (state_id, contaminant_id, state_avg)"
+                           " VALUES (%s, %s, %s)", (state_id, cont_id, self.try_parse_float(state_avg)))
+        # otherwise update the values
+        else:
+            cursor.execute("UPDATE state_avg_levels SET state_avg=%s WHERE state_id=%s AND contaminant_id=%s",
+                           (self.try_parse_float(state_avg), state_id, cont_id))
+
+        self.connection.commit()
         cursor.close()
 
     def scrape_source_levels(self, response):
@@ -108,21 +136,27 @@ class FindInfo(scrapy.Spider):
 
         for cont in cont_above_gl_raw:
             try:
-                # If the description for non-radioactive contaminants exists
+                # If the description for measured contaminants exists
                 if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
                     cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
-                    print(cont_name)
+                    print("A: " + cont_name)
 
                     this_utility_value = \
                         cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get().split(' ')[0]
+                    state_avg = cont.xpath(".//div[@class='state-ppb-popup']/text()").get().split(' ')[0]
 
                     self.write_source_level(cont_name, src_id, this_utility_value)
+                    self.write_state_avg(source_state, cont_name, state_avg)
 
-                # If the description for radioactive contaminants exists
+                # If the description for non-measured (only detected) contaminants exists
                 elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
-                    cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
+                    cont_name = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
+
+                    print("B: " + cont_name)
                     this_utility_value = None
+                    state_avg = None
                     self.write_source_level(cont_name, src_id, this_utility_value)
+                    self.write_state_avg(source_state, cont_name, state_avg)
 
             except Exception as e:
                 with open('./debugLog.txt', 'a') as f:
