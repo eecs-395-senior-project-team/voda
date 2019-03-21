@@ -3,7 +3,7 @@
 }
 
 .square {
-  background-color: #4CAF50; /* Green */
+  background-color: #7A9D96; /* Green */
   border: none;
   color: white;
   padding: 15px 32px 15px 32px;
@@ -61,6 +61,11 @@
   bottom: 0;
   margin: auto;
   background-color: rgba(0,0,0, 0.5);
+}
+
+.map{
+  position: absolute;
+    left: 20%;
 }
 
 .full_view_inner {

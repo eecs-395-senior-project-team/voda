@@ -6,26 +6,16 @@ var fs = require("fs");
 
 const axios = require('axios');
 
+/*
 //read a JSON file
 var content = fs.readFile("keys.JSON");
 var key = JSON.parse(content);
-
-/* 
-* Load a specific type(s) of chart(s). You can call this as many times as you need from anywhere in your app
-* GoogleCharts is a singleton and will not allow the script to be loaded more than once
-* The mapsApiKey is only required for certain GeoCharts
 */
-
-GoogleCharts.load(drawGeoChart, {
-    'packages': ['geochart'],
-    'mapsApiKey': key.API_KEY
-});
-
 
 /** Class that handles small popup when a district is clicked */
 class Popup extends React.Component {
   render() {
-    return (
+    return ( 
       <div className='popup'>
         <div className='popup_inner'>
           <p>{this.props.text}</p>
@@ -66,7 +56,13 @@ class App extends Component {
       value: null,
       showPopup: false,
       showFullView: false,
-      map: null
+      map: null,
+      data: [
+      ['State', 'Contamination'],
+      ['Nevada', 2761477],
+      ['California', 1324110],
+      ['Texas', 959574],
+    ]
     };
     this.popupInfo = this.popupInfo.bind(this)
     this.fullViewInfo = this.fullViewInfo.bind(this)
@@ -150,18 +146,42 @@ class App extends Component {
   */
   render() {
     const status = 'voda';
+
+    // event listener for map
+    const chartEvents = [{
+      eventName: "regionClick",
+      callback({ chartWrapper }) {
+      console.log("region clicked", Chart.chart.getSelection());
+      }
+    }];
+
+    // options  for map
+    const options = {
+      region: 'US',  // the US region
+      resolution: 'provinces',
+      colorAxis: { colors: ['#CAE4DB', '7A9D96', '#00303F'] },
+      datalessRegionColor: '#edeae5',
+      defaultColor: '#f5f5f5',
+      enableRegionInteractivity: true //to interact with regions
+    };
+
     return (
       <div className = "App">
         <div className ="header"> {status} </div>
-        <div className={"my-pretty-chart-container"}>
-        <Chart
-          chartType="ScatterChart"
-          data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
-          width="100%"
-          height="400px"
-          legendToggle
-        />
-        </div>
+        <div className = "map">
+          <Chart
+            width={'1000px'}
+            height={'600px'}
+            chartType="GeoChart"
+            data={this.state.data}
+            options={options}
+            chartEvents={chartEvents}
+
+            // Note: you will need to get a mapsApiKey for your project.
+            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+            mapsApiKey="AIzaSyDPQzcjtqG88UJbV2_mv3zSfVMWBqYeue8"
+            rootProps={{ 'data-testid': '2' }}/>
+        </div> 
 
         <button className = "square" onClick={this.togglePopup.bind(this)}>Show</button>
         {this.state.showPopup ? 
