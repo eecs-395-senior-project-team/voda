@@ -4,8 +4,8 @@ import psycopg2
 
 class FindInfo(scrapy.Spider):
     name = "utilityInfoScraper"
-    counter = 0
-    subcounter = 0
+
+    open('./debugLog.txt', "w").close()
 
     connection = psycopg2.connect(
       dbname="postgres",
@@ -29,15 +29,14 @@ class FindInfo(scrapy.Spider):
         try:
             if float_to_be_parsed is None:
                 return None
+            elif float_to_be_parsed == 'ND':
+                return None
             else:
                 return float(float_to_be_parsed.replace(',', ''))
         except Exception:
             float(float_to_be_parsed)
 
     def second_level_parse(self, response):
-        # response.meta["product_id"]
-        self.subcounter = self.subcounter + 1
-        print("subcounter: {}".format(self.subcounter))
         try:
             try_nat_avg = response.xpath("//ul[@class='contaminants-list']/li[section/div[@class='contaminant-name']"
                                          "/h3/text() = '{}']//div[@class='national-ppb-popup']/text()"
@@ -76,7 +75,7 @@ class FindInfo(scrapy.Spider):
             cursor.close()
         except Exception as e:
             with open('./debugLog.txt', 'a') as f:
-                f.write("ERROR: {}".format(e))
+                f.write("Second level ERROR: {}".format(e))
             print(e)
 
     def parse(self, response):
@@ -106,19 +105,17 @@ class FindInfo(scrapy.Spider):
             else:
                 health_guideline = None
 
+            # get the url for a source guaranteed to have this contaminant
             national_avg_source = "https://www.ewg.org/tapwater/" + \
                                   response.xpath("//table""[@class='community-contaminant-table']"
-                                                 "/tbody/tr[1]/td[@data-label='Utility']/a/@href").get()
-            print(cont_name)
-            print(national_avg_source)
-            self.counter = self.counter + 1
-            print("counter: {}".format(self.counter))
-            yield scrapy.Request(url=national_avg_source, callback=self.second_level_parse, meta={
+                                                 "/tbody/tr/td[@data-label='Utility']/a[text()!='']/@href").get()
+
+            yield scrapy.Request(url=national_avg_source, callback=self.second_level_parse, dont_filter=True, meta={
                 "cont_name": cont_name, "legal_limit": legal_limit, "summary": summary,
                 "health_concerns": health_concerns, "long_concerns": long_concerns,
                 "health_guideline": health_guideline})
 
         except Exception as e:
             with open('./debugLog.txt', 'a') as f:
-                f.write("ERROR: {}".format(e))
+                f.write("First level ERROR: {}".format(e))
             print(e)

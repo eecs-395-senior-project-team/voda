@@ -84,7 +84,8 @@ class FindInfo(scrapy.Spider):
         cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
                        "AND source_levels.contaminant_id = %s", (src_id, cont_id))
         results = cursor.fetchall()
-
+        print(cont_id)
+        print(cont_name)
         # if there is not already a row for this contaminant-utility pair, add one,
         if not results:
             cursor.execute("INSERT INTO source_levels (source_id, contaminant_id, source_level)"
@@ -107,8 +108,8 @@ class FindInfo(scrapy.Spider):
         cursor.execute("SELECT * FROM state_avg_levels WHERE state_avg_levels.state_id = %s "
                        "AND state_avg_levels.contaminant_id = %s", (state_id, cont_id))
         results = cursor.fetchall()
-
         # if there is not already a row for this contaminant-state pair, add one,
+
         if not results:
             cursor.execute("INSERT INTO state_avg_levels (state_id, contaminant_id, state_avg)"
                            " VALUES (%s, %s, %s)", (state_id, cont_id, self.try_parse_float(state_avg)))
