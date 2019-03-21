@@ -65,7 +65,6 @@ class FindInfo(scrapy.Spider):
                                "utility_name=(%s), city=(%s), state=(%s), number_served=(%s)"
                                "WHERE source_id=(%s)",
                                (utility_name, city, state_id, number_people_served, result[0]))
-            print(utility_name)
             self.connection.commit()
             cursor.close()
         except Exception as e:
@@ -80,7 +79,6 @@ class FindInfo(scrapy.Spider):
         cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
                        (cont_name,))
         cont_id = cursor.fetchone()
-        print(cont_id)
 
         # check if this source-contaminant relationship exists
         cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
@@ -104,7 +102,6 @@ class FindInfo(scrapy.Spider):
         cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
                        (cont_name,))
         cont_id = cursor.fetchone()
-        print(cont_id)
 
         # check if this state-contaminant relationship exists
         cursor.execute("SELECT * FROM state_avg_levels WHERE state_avg_levels.state_id = %s "
@@ -139,7 +136,6 @@ class FindInfo(scrapy.Spider):
                 # If the description for measured contaminants exists
                 if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
                     cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
-                    print("A: " + cont_name)
 
                     this_utility_value = \
                         cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get().split(' ')[0]
@@ -152,7 +148,6 @@ class FindInfo(scrapy.Spider):
                 elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
                     cont_name = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
 
-                    print("B: " + cont_name)
                     this_utility_value = None
                     state_avg = None
                     self.write_source_level(cont_name, src_id, this_utility_value)

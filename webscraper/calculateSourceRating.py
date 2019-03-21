@@ -1,39 +1,24 @@
 import psycopg2
 
 
-name = "utilityInfoScraper"
-
-connection = psycopg2.connect(
-  dbname="postgres",
-  user="postgres",
-  password="pswd",
-  host="127.0.0.1",
-  port="5432"
-)
-connection.set_session(autocommit=True)
-
-contaminant_stdev_dict = {}
-contaminant_nat_avg_dict = {}
-
-
-def collect_contaminants_stdev():
+def collect_contaminants_stdev(connection, stdev_dict):
     cursor = connection.cursor()
     # cursor.execute("SELECT * FROM states WHERE states.state_id = (%s)", (state_id, ))
-    cursor.execute("SELECT * FROM contaminants")
-
-    for contaminant in cursor:
-        sub_cursor = connection.cursor()
-        print(contaminant[0])
-        contaminant_stdev_dict[contaminant[0]] = sub_cursor.execute(
-            "SELECT STDDEV(source_level) FROM source_levels WHERE source_levels.contaminant_id=%s", (contaminant[0],))
-        results = sub_cursor.execute("SELECT * FROM source_levels WHERE source_levels.contaminant_id=%s", (contaminant[0],))
-        print(results)
-        sub_cursor.close()
-    print(len(contaminant_stdev_dict))
-    print(contaminant_stdev_dict.values())
+    # cursor.execute("SELECT * FROM contaminants")
+    print(cursor.execute("SELECT * FROM source_levels"))
+    print(cursor.execute("SELECT * FROM contaminants"))
+    # for contaminant in cursor:
+    #     sub_cursor = connection.cursor()
+    #     print(contaminant[0])
+    #     contaminant_stdev_dict[contaminant[0]] = sub_cursor.execute(
+    #         "SELECT STDDEV(source_level) FROM source_levels WHERE source_levels.contaminant_id=(%s)", (contaminant[0],))
+    #     results = sub_cursor.execute("SELECT * FROM source_levels WHERE source_levels.contaminant_id=(%s)", (110,))
+    #     print(results)
+    #     sub_cursor.close()
+    # print(contaminant_stdev_dict.values())
     cursor.close()
 
-def collect_contaminant_nat_avgs():
+def collect_contaminant_nat_avgs(connection, nat_avg_dict):
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM contaminants")
 
@@ -41,7 +26,7 @@ def collect_contaminant_nat_avgs():
         contaminant_nat_avg_dict[contaminant[0]] = contaminant[3]
     cursor.close()
 
-def find_scores():
+def find_scores(connection):
     source_cursor = connection.cursor()
     source_cursor.execute("SELECT * FROM sources")
     score = 0
@@ -56,6 +41,20 @@ def find_scores():
         # level print(result[2])
 
 if __name__ == '__main__':
-    collect_contaminants_stdev()
-    collect_contaminant_nat_avgs()
+    connection = psycopg2.connect(
+      dbname="postgres",
+      user="postgres",
+      password="pswd",
+      host="127.0.0.1",
+      port="5432"
+    )
+    connection.set_session(autocommit=True)
+
+    print("Connection status: " + str(connection.closed))  # should be zero if connection is open
+
+    contaminant_stdev_dict = {}
+    contaminant_nat_avg_dict = {}
+
+    collect_contaminants_stdev(connection, contaminant_stdev_dict)
+    collect_contaminant_nat_avgs(connection, contaminant_nat_avg_dict)
 #    find_scores()
