@@ -76,11 +76,13 @@ class FindInfo(scrapy.Spider):
     def write_source_level(self, cont_name, src_id, this_utility_value):
         cursor = self.connection.cursor()
 
+        # get the id of this contaminant based on its name
         cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
                        (cont_name,))
         cont_id = cursor.fetchone()
         print(cont_id)
 
+        # check if this source-contaminant relationship exists
         cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
                        "AND source_levels.contaminant_id = %s", (src_id, cont_id))
         results = cursor.fetchall()
@@ -93,6 +95,32 @@ class FindInfo(scrapy.Spider):
         else:
             cursor.execute("UPDATE source_levels SET source_level=%s WHERE source_id=%s AND contaminant_id=%s",
                            (self.try_parse_float(this_utility_value), src_id, cont_id))
+        cursor.close()
+
+    def write_state_avg(self, state_id, cont_name, state_avg):
+        cursor = self.connection.cursor()
+
+        # get the id of this contaminant based on its name
+        cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
+                       (cont_name,))
+        cont_id = cursor.fetchone()
+        print(cont_id)
+
+        # check if this state-contaminant relationship exists
+        cursor.execute("SELECT * FROM state_avg_levels WHERE state_avg_levels.state_id = %s "
+                       "AND state_avg_levels.contaminant_id = %s", (state_id, cont_id))
+        results = cursor.fetchall()
+
+        # if there is not already a row for this contaminant-state pair, add one,
+        if not results:
+            cursor.execute("INSERT INTO state_avg_levels (state_id, contaminant_id, state_avg)"
+                           " VALUES (%s, %s, %s)", (state_id, cont_id, self.try_parse_float(state_avg)))
+        # otherwise update the values
+        else:
+            cursor.execute("UPDATE state_avg_levels SET state_avg=%s WHERE state_id=%s AND contaminant_id=%s",
+                           (self.try_parse_float(state_avg), state_id, cont_id))
+
+        self.connection.commit()
         cursor.close()
 
     def scrape_source_levels(self, response):
@@ -115,8 +143,10 @@ class FindInfo(scrapy.Spider):
 
                     this_utility_value = \
                         cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get().split(' ')[0]
+                    state_avg = cont.xpath(".//div[@class='state-ppb-popup']/text()").get().split(' ')[0]
 
                     self.write_source_level(cont_name, src_id, this_utility_value)
+                    self.write_state_avg(source_state, cont_name, state_avg)
 
                 # If the description for non-measured (only detected) contaminants exists
                 elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
@@ -124,7 +154,9 @@ class FindInfo(scrapy.Spider):
 
                     print("B: " + cont_name)
                     this_utility_value = None
+                    state_avg = None
                     self.write_source_level(cont_name, src_id, this_utility_value)
+                    self.write_state_avg(source_state, cont_name, state_avg)
 
             except Exception as e:
                 with open('./debugLog.txt', 'a') as f:
