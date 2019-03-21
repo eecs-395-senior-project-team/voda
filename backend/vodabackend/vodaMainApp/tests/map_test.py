@@ -1,8 +1,10 @@
 """
 Tests for the map endpoint.
 """
-import requests
+from vodabackend.vodaMainApp.views import map_endpoint
 
+# inputs for http requests
+mapRequest = '/map'
 
 ###############################################################################
 # Helper functions.
@@ -18,15 +20,19 @@ def request_map():
 ###############################################################################
 # Tests.
 ###############################################################################
-def test_map_status_code():
+def test_map_status_code(rf):
     """
     test that the status_code of the map http response is 200
     """
-    assert request_map().status_code == 200
+    request = rf.get(mapRequest)
+    response = map_endpoint(request)
+    assert response.status_code == 200
 
 
-def test_map_content():
+def test_map_content(rf):
     """
     test that the map http response body returns the proper message
     """
-    assert request_map().content == b'Returns a list of water supplies and a 1-10 value with the quality of the water.'
+    request = rf.get(mapRequest)
+    response = map_endpoint(request)
+    assert response.content == b'Returns a list of water supplies and a 1-10 value with the quality of the water.'
