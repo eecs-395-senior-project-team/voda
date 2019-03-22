@@ -6,21 +6,18 @@ var fs = require("fs");
 
 const axios = require('axios');
 
-/*
-//read a JSON file
-var content = fs.readFile("keys.JSON");
-var key = JSON.parse(content);
-*/
-
 /** Class that handles small popup when a district is clicked */
 class Popup extends React.Component {
   render() {
     return ( 
       <div className='popup'>
         <div className='popup_inner'>
+          <div className='header_popup'>
+            <p>{this.props.header}</p>
+          </div>
           <p>{this.props.text}</p>
-          <button onClick={this.props.closePopup}>Back</button>
-          <button onClick={this.props.toggleFullView}>More Details</button>
+          <button className = "square2" onClick={this.props.closePopup}>Back</button>
+          <button className = "square2" onClick={this.props.toggleFullView}>More</button>
         </div>
       </div>
     );
@@ -31,11 +28,12 @@ class Popup extends React.Component {
 class FullView extends React.Component {
   render() {
     return (
-      <div className='full_view'>i
+      <div className='full_view'>
         <div className='full_view_inner'>
-          <p>{this.props.text}</p>
-
-          // goes back to the main page
+          <p>{this.props.header}</p>
+          <div className = 'full_view_paragraph'>
+            <p>{this.props.text}</p>
+          </div>
           <button className = "square" onClick={this.props.closeFullView}>Back</button>
         </div>
       </div>
@@ -56,76 +54,118 @@ class App extends Component {
       value: null,
       showPopup: false,
       showFullView: false,
+      text: '',
+      header: '',
       map: null,
       data: [
       ['State', 'Contamination'],
-      ['Nevada', 2761477],
-      ['California', 1324110],
-      ['Texas', 959574],
-    ]
+      ['Alabama', 1],
+      ['Alaska', 2],
+      ['Arizona', 3],
+      ['Arkansas', 4],
+      ['California', 5],
+      ['Colorado', 6],
+      ['Connecticut', 7],
+      ['Delaware', 8],
+      ['Florida', 9],
+      ['Georgia', 10],
+      ['Hawaii', 11],
+      ['Idaho', 12],
+      ['Georgia', 13],
+      ['Illinois', 14],
+      ['Indiana', 15],
+      ['Iowa', 16],
+      ['Kansas', 17],
+      ['Kentucky', 18],
+      ['Louisiana', 19],
+      ['Maine', 20],
+      ['Maryland', 21],
+      ['Massachusetts', 22],
+      ['Michigan', 23],
+      ['Minnesota', 24],
+      ['Mississippi', 25],
+      ['Missouri', 26],
+      ['Montana', 27],
+      ['Nebraska', 28],
+      ['Nevada', 29],
+      ['New Hampshire', 30],
+      ['New Jersey', 31],
+      ['New Mexico', 32],
+      ['New York', 33],
+      ['North Carolina', 34],
+      ['North Dakota', 35],
+      ['Ohio', 36],
+      ['Oklahoma', 37],
+      ['Oregon', 38],
+      ['Pennsylvania', 39],
+      ['Rhode Island', 40],
+      ['South Carolina', 41],
+      ['South Dakota', 42],
+      ['Tennessee', 43],
+      ['Texas', 44],
+      ['Utah', 45],
+      ['Vermont', 46],
+      ['Virginia', 47],
+      ['Washington', 48],
+      ['West Virginia', 49],
+      ['Wisconsin', 50],
+      ['Wyoming', 50],
+
+      ],
+      selectedState: '',
     };
-    this.popupInfo = this.popupInfo.bind(this)
-    this.fullViewInfo = this.fullViewInfo.bind(this)
+    this.togglePopupRegion = this.togglePopupRegion.bind(this)
+    this.toggleFullViewRegion = this.toggleFullViewRegion.bind(this)
   }
 
   /* Updates map on startup*/
   componentWillMount() {
+
+     //to be executed when JSON file imported from backend
     axios.get('http://localhost:8000/map').then(function(response) {
       console.log(response);
-      /**
-      * get data from response
-      * this.setState({map: response})
-      **/
-
-      //this is the part where we setup the map
-
+      this.setState( {
+        data: response.data
+      }) 
     })
     .catch (function (error){
       console.log(error);
     })
     .then (function (){
       //always executed
-    });
-  }
-
-  /* Gets info for the popup*/
-  popupInfo() {
-    axios.get('http://localhost:8000/summary').then(function(response) {
-      console.log(response);
-      /**
-      * get data from response
-      * this.setState({map: response})
-      **/
-    })
-    .catch (function (error){
-      console.log(error);
-    })
-    .then (function (){
-      //always executed
-    });
-  }
-
-  /* Gets info for the fullview*/
-  fullViewInfo() {
-    axios.get('http://localhost:8000/details').then(function(response) {
-      console.log(response);
-      /**
-      * get data from response
-      * this.setState({map: response})
-      **/
-    })
-    .catch (function (error){
-      console.log(error);
-    })
-    .then (function (){
-      //always executed
-    });
+    }); 
   }
 
   /**
   * Changes the state of the popup
   */
   togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+  }
+
+  /**
+  * Changes the state of the popup and gets backend info
+  */
+  togglePopupRegion(state) {
+    axios.get('http://localhost:8000/summary', {
+      params: {
+        source: this.state.selectedState
+      }
+    }).then(function(response) {
+      
+      //over write text on summary
+      var text2 = response.data
+      console.log(text2)
+      this.setState({
+        text: text2
+      })
+    }.bind(this))
+    .catch (function (error){
+      console.log(error);
+    });
+
     this.setState({
       showPopup: !this.state.showPopup
     });
@@ -142,16 +182,50 @@ class App extends Component {
   }
 
   /**
+  * Changes the state of the popup and gets backend info
+  */
+
+  toggleFullViewRegion(state) {
+    axios.get('http://localhost:8000/details', {
+      params: {
+        source: this.state.selectedState
+      }
+    }).then(function(response) {
+      
+      // over write text on detail
+      var text3 = response.data
+      console.log(text3)
+      this.setState({
+        text: text3
+      })
+
+    }.bind(this))
+    .catch (function (error){
+      console.log(error);
+    });
+
+    this.setState({
+      showPopup: !this.state.showPopup,
+      showFullView: !this.state.showFullView
+    });
+  } 
+
+  /**
   * Fully renders the application
   */
   render() {
-    const status = 'voda';
+
+    //header
+    const title = 'voda';
+
+    //footer
+    const footer = 'created by anna, david n, david n, david f || 2019'
 
     // event listener for map
     const chartEvents = [{
       eventName: "regionClick",
-      callback({ chartWrapper }) {
-      console.log("region clicked", Chart.chart.getSelection());
+      callback( {chartWrapper} ) {
+        console.log("region clicked");
       }
     }];
 
@@ -167,7 +241,7 @@ class App extends Component {
 
     return (
       <div className = "App">
-        <div className ="header"> {status} </div>
+        <div className ="header"> {title} </div>
         <div className = "map">
           <Chart
             width={'1000px'}
@@ -175,28 +249,41 @@ class App extends Component {
             chartType="GeoChart"
             data={this.state.data}
             options={options}
-            chartEvents={chartEvents}
+            chartEvents = {[{
+                eventName: "select",
+                callback: ({chartWrapper}) => {
+                  if(chartWrapper.getChart().getSelection().length > 0) {
+                    var location = chartWrapper.getChart().getSelection()[0]['row'] + 1;
+                    this.setState({
+                      selectedState:this.state.data[location][0]
+                    })
+                    this.togglePopupRegion()
+                  }
+                },
+              }
+            ]}
 
             // Note: you will need to get a mapsApiKey for your project.
             // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-            mapsApiKey="AIzaSyDPQzcjtqG88UJbV2_mv3zSfVMWBqYeue8"
+            mapsApiKey=""
             rootProps={{ 'data-testid': '2' }}/>
         </div> 
-
-        <button className = "square" onClick={this.togglePopup.bind(this)}>Show</button>
         {this.state.showPopup ? 
           <Popup
-            text='Contaminents Detail'
+            header='Summary'
+            text={this.state.text}
             closePopup={this.togglePopup.bind(this)}
-            toggleFullView ={this.toggleFullView.bind(this)} />
+            toggleFullView ={this.toggleFullViewRegion.bind(this)} />
           : null
         }
         {this.state.showFullView ? 
           <FullView
-            text='VODA'
+            header='VODA'
+            text={this.state.text}
             closeFullView ={this.toggleFullView.bind(this)} />
           : null
         }
+        <div className ="footer"> {footer} </div>
       </div>
     );
   }
