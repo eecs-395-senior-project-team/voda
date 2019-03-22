@@ -11,6 +11,9 @@ The spiders must be run in the following order:
 - findUtilitiesScraper.py (this one will take a long time)
 - utilityInfoScraper.py
 
+Then run the python script:
+- calculateSourceRating.py
+
 ## Running the Scraper with Docker
 First build the image:
 `docker build --tag=vodawebscraper .`
