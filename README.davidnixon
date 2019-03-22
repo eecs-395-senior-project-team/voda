@@ -1,3 +1,13 @@
+Week 5:
+	I added the state_avg_levels table and the scraper to collect and write the necessary data. I also implemented the fix to 
+	the bug I mentioned last week, so we can collect all contaminant data now. I also added a ratings function for the water sources
+	that will be used to display the correct color on the front end map.
+	
+	Files worked on:
+		webscraper/contaminantInfoScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/calculateSourceRating.py
+
 Week 4:
 	I made corrections to the schema from last week and spent time getting the scraper into compliance
 	with our linter. I also implemented methods for scraping the data and writing it for the 
