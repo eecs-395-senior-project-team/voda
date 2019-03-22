@@ -13,9 +13,19 @@
   font-size: 16px;
   border-radius: 2px;
   position: absolute;
-  top: 90%;
+  top: 85%;
   right: 46%;
 }
+
+.square2 {
+  background-color: #7A9D96; /* Green */
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-size: 10px;
+  border-radius: 2px;
+}
+
 
 .header {
   text-transform: uppercase;
@@ -47,9 +57,17 @@
   bottom: 25%;
   margin: auto;
   text-align: center;
-  font-size: 20px;
+  font-size: 12px;
   background: white;
 }
+
+.header_popup{
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-top: 30px;
+}
+
 
 .full_view {
   position: fixed;
@@ -85,3 +103,18 @@
   padding-right: 40px;
 }
 
+.full_view_paragraph{
+    font-size: 15px;
+    text-transform: lowercase;
+}
+
+.footer{
+  position: fixed;
+  font-size: 15px;
+  letter-spacing: 2px;
+  left: 0;
+  bottom: 20px;
+  color: grey;
+  width: 100%;
+  text-align: center;
+}
