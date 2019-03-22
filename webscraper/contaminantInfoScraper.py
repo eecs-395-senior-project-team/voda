@@ -30,7 +30,7 @@ class FindInfo(scrapy.Spider):
             if float_to_be_parsed is None:
                 return None
             elif float_to_be_parsed == 'ND':
-                return None
+                return 0.0
             else:
                 return float(float_to_be_parsed.replace(',', ''))
         except Exception:
@@ -51,7 +51,6 @@ class FindInfo(scrapy.Spider):
             result = cursor.fetchone()
 
             if not result:
-                print("insert: " + response.meta["cont_name"])
                 cursor.execute("INSERT INTO contaminants "
                                "(name, legal_limit, national_avg, summary, health_concerns,"
                                " long_health_concerns, health_guideline)"
@@ -61,7 +60,6 @@ class FindInfo(scrapy.Spider):
                                 response.meta["health_concerns"], response.meta["long_concerns"],
                                 self.try_parse_float(response.meta["health_guideline"])))
             else:
-                print("update: " + response.meta["cont_name"])
                 cursor.execute("UPDATE contaminants SET "
                                "name=(%s), legal_limit=(%s), national_avg=(%s), summary=(%s),"
                                "health_concerns=(%s), long_health_concerns=(%s), health_guideline=(%s)"

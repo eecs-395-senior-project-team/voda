@@ -22,11 +22,11 @@ class CalculateSourceRating(object):
         for contaminant in cursor:
             sub_cursor = self.connection.cursor()
             sub_cursor.execute(
-                "SELECT STDDEV(source_level) FROM source_levels WHERE source_levels.contaminant_id=%s",
+                "SELECT source_level FROM source_levels WHERE source_levels.contaminant_id=%s",
                 (contaminant[0],))
+            # STDDEV(source_level)
             self.contaminant_stdev_dict[contaminant[0]] = sub_cursor.fetchone()
             sub_cursor.close()
-        print(self.contaminant_stdev_dict)
         cursor.close()
 
     def collect_contaminant_nat_avgs(self):
@@ -35,26 +35,33 @@ class CalculateSourceRating(object):
 
         for contaminant in cursor:
             self.contaminant_nat_avg_dict[contaminant[0]] = contaminant[3]
-        print(self.contaminant_nat_avg_dict)
         cursor.close()
 
     def find_scores(self):
         source_cursor = self.connection.cursor()
         source_cursor.execute("SELECT * FROM sources")
-        score = 0
         for source in source_cursor:
-            score = 0
+            rating = 0
             cont_cursor = self.connection.cursor()
             cont_cursor.execute("SELECT * FROM source_levels WHERE "
                                "source_levels.source_id = %s", (source[0],))
             for cont in cont_cursor:
-                print(cont[0])
-                print(cont[1])
-            # level print(result[2])
+                # amount above the national average
+                if cont[2] is not None:
+                    amountAboveAverage = cont[2] - self.contaminant_nat_avg_dict[cont[0]]
+                    if self.contaminant_stdev_dict[cont[0]] is not None:
+                        amount_to_add = amountAboveAverage / self.contaminant_stdev_dict.get(cont[0])[0]
+                        if amount_to_add > 0:
+                            rating = rating + amount_to_add
+
+            cont_cursor = self.connection.cursor()
+            cont_cursor.execute("UPDATE sources SET rating = %s WHERE source_id = %s", (rating, source[0]))
+            cont_cursor.close()
+        source_cursor.close()
 
 
 if __name__ == '__main__':
     calculateRating = CalculateSourceRating()
     calculateRating.collect_contaminants_stdev()
     calculateRating.collect_contaminant_nat_avgs()
-#    find_scores()
+    calculateRating.find_scores()

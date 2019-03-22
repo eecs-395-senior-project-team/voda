@@ -23,8 +23,8 @@ class FindInfo(scrapy.Spider):
             urls = f.read().splitlines()
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
-        #  url = "https://www.ewg.org/tapwater/system.php?pws=OH1800403"
-        # yield scrapy.Request(url=url, callback=self.parse)
+        url = "https://www.ewg.org/tapwater/system.php?pws=RI1592010"
+        yield scrapy.Request(url=url, callback=self.parse)
 
     @staticmethod
     def try_parse_float(float_to_be_parsed):
@@ -84,8 +84,7 @@ class FindInfo(scrapy.Spider):
         cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
                        "AND source_levels.contaminant_id = %s", (src_id, cont_id))
         results = cursor.fetchall()
-        print(cont_id)
-        print(cont_name)
+
         # if there is not already a row for this contaminant-utility pair, add one,
         if not results:
             cursor.execute("INSERT INTO source_levels (source_id, contaminant_id, source_level)"
@@ -122,7 +121,8 @@ class FindInfo(scrapy.Spider):
         cursor.close()
 
     def scrape_source_levels(self, response):
-        cont_above_gl_raw = response.xpath("//ul[@id='contams_above_hbl']/li/section[@class='contaminant-data']")
+        # cont_above_gl_raw = response.xpath("//ul[@id='contams_above_hbl']/li/section[@class='contaminant-data']")
+        cont_raw = response.xpath("//ul[@class='contaminants-list']/li/section[contains(@class, 'contaminant-data')]")
         source_name = response.xpath("//h1/text()").get()
         source_state = response.url.split('=')[1][0:2]
 
@@ -132,10 +132,10 @@ class FindInfo(scrapy.Spider):
         src_id = cursor.fetchone()
         cursor.close()
 
-        for cont in cont_above_gl_raw:
+        for cont in cont_raw:
             try:
                 # If the description for measured contaminants exists
-                if cont.xpath(".//div[@class='health-guideline-ppb']/text()").get() is not None:
+                if cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() is not None:
                     cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
 
                     this_utility_value = \
