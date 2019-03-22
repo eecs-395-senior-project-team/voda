@@ -1,3 +1,10 @@
+Week 5 (MVP):
+Fixed up map display, and connected API endpoints and displayed them to the user. 
+The map is now clickable and displayed proper content per state clicked.
+Files worked on:
+    -App.js
+    -App.css
+
 Week 4:
 Changed the way the map is layed out and registered the project to an Google map API service.
 Files worked on:
