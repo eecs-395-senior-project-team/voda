@@ -107,8 +107,8 @@ class FindInfo(scrapy.Spider):
         cursor.execute("SELECT * FROM state_avg_levels WHERE state_avg_levels.state_id = %s "
                        "AND state_avg_levels.contaminant_id = %s", (state_id, cont_id))
         results = cursor.fetchall()
-        # if there is not already a row for this contaminant-state pair, add one,
 
+        # if there is not already a row for this contaminant-state pair, add one,
         if not results:
             cursor.execute("INSERT INTO state_avg_levels (state_id, contaminant_id, state_avg)"
                            " VALUES (%s, %s, %s)", (state_id, cont_id, self.try_parse_float(state_avg)))

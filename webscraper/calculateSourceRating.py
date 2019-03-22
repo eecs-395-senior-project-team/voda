@@ -17,7 +17,6 @@ class CalculateSourceRating(object):
 
     def collect_contaminants_stdev(self):
         cursor = self.connection.cursor()
-        # cursor.execute("SELECT * FROM states WHERE states.state_id = (%s)", (state_id, ))
         cursor.execute("SELECT * FROM contaminants")
         for contaminant in cursor:
             sub_cursor = self.connection.cursor()
@@ -48,9 +47,9 @@ class CalculateSourceRating(object):
             for cont in cont_cursor:
                 # amount above the national average
                 if cont[2] is not None:
-                    amountAboveAverage = cont[2] - self.contaminant_nat_avg_dict[cont[0]]
+                    amount_above_average = cont[2] - self.contaminant_nat_avg_dict[cont[0]]
                     if self.contaminant_stdev_dict[cont[0]] is not None:
-                        amount_to_add = amountAboveAverage / self.contaminant_stdev_dict.get(cont[0])[0]
+                        amount_to_add = amount_above_average / self.contaminant_stdev_dict.get(cont[0])[0]
                         if amount_to_add > 0:
                             rating = rating + amount_to_add
 
