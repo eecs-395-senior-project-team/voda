@@ -7,7 +7,7 @@ class State(models.Model):
 
 
 class Sources(models.Model):
-    source_id = models.AutoField(primary_key=True)
+    source_id = models.IntegerField(primary_key=True)
     utility_name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
@@ -17,7 +17,7 @@ class Sources(models.Model):
 
 
 class Contaminants(models.Model):
-    contaminant_id = models.AutoField(primary_key=True)
+    contaminant_id = models.IntegerField(primary_key=True)
     contaminant_name = models.CharField(max_length=200)
     health_guideline = models.DecimalField(decimal_places=3, max_digits=10)
     legal_limit = models.DecimalField(decimal_places=3, max_digits=10)
