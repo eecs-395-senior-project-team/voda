@@ -1,3 +1,6 @@
+Week 5:
+Finished productionizing the front end which was the final needed system. Got everything working on AWS for our MVP.
+
 Week 4:
 Slower week. Dockerized webscraper. Configured EC2 instances. Working on setting up production pipeline on the EC2 instances to allow for automated rebuilds of the production side. Added the Sphynx documentation generator to the backend.
 
