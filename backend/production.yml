@@ -18,6 +18,8 @@ services:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
     command: /start
+    ports:
+       - "0.0.0.0:5000:5000
 
   postgres:
     build:
@@ -29,20 +31,19 @@ services:
       - production_postgres_data_backups:/backups
     env_file:
       - ./.envs/.production/.postgres
-
-  caddy:
-    build:
-      context: .
-      dockerfile: ./compose/production/caddy/Dockerfile
-    image: vodabackend_production_caddy
-    depends_on:
-      - django
-    volumes:
-      - production_caddy:/root/.caddy
-    env_file:
-      - ./.envs/.production/.caddy
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
+  # caddy:
+  #   build:
+  #     context: .
+  #     dockerfile: ./compose/production/caddy/Dockerfile
+  #   image: vodabackend_production_caddy
+  #   depends_on:
+  #     - django
+  #   volumes:
+  #     - production_caddy:/root/.caddy
+  #   env_file:
+  #     - ./.envs/.production/.caddy
+  #   ports:
+  #     - "0.0.0.0:80:80"
+  #     - "0.0.0.0:443:443"
   redis:
     image: redis:3.2
