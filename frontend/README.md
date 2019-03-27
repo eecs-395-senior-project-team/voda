@@ -3,6 +3,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Running the Frontend Using Docker
 `docker-compose -f local.yml up --build`
 
+## Running the linter
+`npm run lint`
+
 ## Available Scripts
 
 In the project directory, you can run:
