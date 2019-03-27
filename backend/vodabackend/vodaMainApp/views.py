@@ -4,6 +4,8 @@ Views for VodaBackend.
 # Create your views here.
 from django.http import HttpResponse, HttpResponseBadRequest
 import random, array #temporary for dummy data
+from .models import State, Sources, Contaminants, SourceLevels, State_Avg_Levels
+import json
 
 def root(request):
     """ Root endpoint.
@@ -32,12 +34,19 @@ def map_endpoint(request):
     Returns:
         An HTTP Response with a list of water supplies and their associated 1-10 values.
     """
-    returnArr = array.array('i',(0 for i in range(0,50)))
 
-    for i in range(0,50):
-        returnArr[i] = random.randint(1,10)
+    # sorts the Sources model by states then by number_served in decending order. Only including
+    # the first unique state
+    largestSourceByState = Sources.objects.order_by('state', '-number_served').distinct('state')
+    
+    # makes the list of QuerySets into a list of State's and a list of cooresponding scores
+    largestSourceStates = list(map(lambda qSet : qSet.state, largestSourceByState))
+    largestSourceScores = list(map(lambda qSet : qSet.score, largestSourceByState))
 
-    return HttpResponse(returnArr)
+    data = {"State": largestSourceStates, "Score": largestSourceScores}
+    json_data = json.dumps(data)
+        
+    return HttpResponse(json_data)
 
 
 def summary(request):
@@ -50,16 +59,21 @@ def summary(request):
 
     Returns:
         An HTTP Response with the summary for the requested water supply.
-
         or
-
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
     supply_id = request.GET.get('source')
-
+   
     if supply_id:
-        response = "Returns the summary details for water supply %s."
-        return HttpResponse(response % supply_id)
+        searchedSource = SourceLevels.objects.filter(source_id = supply_id) #list of contaminants in that source
+        contaminantIds = list(map(lambda qSet : qSet.contaminant_id, searchedSource))
+        contaminantLevels = list(map(lambda qSet : qSet.contaminant_level, searchedSource))
+        contaminantName = list(map(lambda qSet : Contaminants.objects.get(contaminant_id = qset), contaminantIds))
+        data = {"Contaminant": contaminantName, "Level": contaminantLevels}
+        #response = "Returns the summary details for water supply %s."
+        #return HttpResponse(response % supply_id)
+        json_data = json.dumps(data)
+        return HttpResponse(json_data)
     else:
         return HttpResponseBadRequest(400)
 
@@ -83,6 +97,9 @@ def details(request):
     supply_id = request.GET.get('source')
 
     if supply_id:
+        #searchedSource = SourcesLevels.objects.filter(source_id = supply_id) #list of contaminants in that source
+        #contaminantIds = map(lambda qSet : qSet.contaminant_id, searchedSource)
+
         response = "Returns the full details for water supply %s."
         return HttpResponse(response % supply_id)
     else:

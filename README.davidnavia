@@ -18,3 +18,10 @@ Week 4
 I didn't have time to work on this because of midterms and other projects. I will be doing the work for this weeks commit over the weekend/ break. I understand if you have to grade my commit before I do the work over break/the weekend but I want to clarify my group is not working over break and no one was waiting on me to finish my section so this delay will not impact the progress of my group.
 
 I did have time to switch the output of one of the views from a string to a group of 50 random arrays because front end needed it for testing.
+
+
+
+Week5/ break
+Did the endpoints for the MVP. They now connect properly to the database. Took a while because I had to lear the django queery set api, had to do some work setting up 
+the front end and webscraper parts of the project on my system because previously the backend was independent. Also had to get re used to queerying databases which I 
+haven't done for a while. Also fixed some of the previous tests that wern't working properly. 
