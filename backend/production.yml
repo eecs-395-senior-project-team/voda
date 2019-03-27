@@ -19,7 +19,7 @@ services:
       - ./.envs/.production/.postgres
     command: /start
     ports:
-       - "0.0.0.0:5000:5000
+       - "0.0.0.0:5000:5000"
 
   postgres:
     build:
