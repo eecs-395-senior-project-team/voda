@@ -59,8 +59,8 @@ class App extends Component {
       map: null,
       data: [
       ['State', 'Contamination'],
-      ['Alabama', 1],
-      ['Alaska', 2],
+      ['Alabama', -1.0],
+      ['Alaska', 2.5],
       ['Arizona', 3],
       ['Arkansas', 4],
       ['California', 5],
@@ -110,7 +110,6 @@ class App extends Component {
       ['West Virginia', 49],
       ['Wisconsin', 50],
       ['Wyoming', 50],
-
       ],
       selectedState: '',
     };
