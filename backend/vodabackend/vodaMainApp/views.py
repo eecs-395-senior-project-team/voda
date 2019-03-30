@@ -40,10 +40,10 @@ def map_endpoint(request):
     largestSourceByState = Sources.objects.order_by('state', '-number_served').distinct('state')
     
     # makes the list of QuerySets into a list of State's and a list of cooresponding scores
-    largestSourceStates = list(map(lambda qSet : qSet.state, largestSourceByState))
-    largestSourceScores = list(map(lambda qSet : qSet.score, largestSourceByState))
+    largestSourceByState = list(map(lambda qSet : list(qSet.state, qSet.score), largestSourceByState))
+    #largestSourceScores = list(map(lambda qSet : qSet.score, largestSourceByState))
 
-    data = {"State": largestSourceStates, "Score": largestSourceScores}
+    data = {"data": largestSourceByState}
     json_data = json.dumps(data)
         
     return HttpResponse(json_data)
@@ -62,6 +62,16 @@ def summary(request):
         or
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
+
+    # going to be formated as 
+
+    # if there are no contaminants over the recomended amount
+    # All contaminants are below the health guideline set by the California Office of Environmental Health Hazard Assessment.
+
+    # <number of contaminants over recomended> contaminants were found in the water from the <source name> source.
+    # They are as follows <list of contaminant names over the regulated amount
+
+
     supply_id = request.GET.get('source')
    
     if supply_id:
@@ -73,6 +83,7 @@ def summary(request):
         #response = "Returns the summary details for water supply %s."
         #return HttpResponse(response % supply_id)
         json_data = json.dumps(data)
+
         return HttpResponse(json_data)
     else:
         return HttpResponseBadRequest(400)
@@ -94,6 +105,20 @@ def details(request):
 
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
+
+    # details will be formated as a list of all of the contaminants that are above regulation it will have the following information
+
+    # The following contaminants in <source name> were over the maximum amount in parts per billion 
+    #recomended by the California Office of Environmental Health Hazard Assessment.
+
+    # <Name Of Contaminant>
+    # Level in water <contaminant_level>
+    # Level recomented <health_guideline>
+    # Legal limit <legal limit>
+    # High levels of <Name of contaminant> can lead to.
+    # <Health Concerns>
+
+
     supply_id = request.GET.get('source')
 
     if supply_id:
