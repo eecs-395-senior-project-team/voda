@@ -25,3 +25,11 @@ Week5/ break
 Did the endpoints for the MVP. They now connect properly to the database. Took a while because I had to lear the django queery set api, had to do some work setting up 
 the front end and webscraper parts of the project on my system because previously the backend was independent. Also had to get re used to queerying databases which I 
 haven't done for a while. Also fixed some of the previous tests that wern't working properly. 
+
+
+Week 6
+Now that we've done the mvp most of my work this week wasn't coding related but was helping figuring out the next steps for the project. We wanted to change are mapping 
+system because we felt it didn't have all the capabilities we needed so I helped Anna and spent most of my time this week reaserching different mapping programs and helped
+her with setting up a proof of concept with a google fusion table. In addition I helped finalize what we want to have displayed for the summary and detail pages for the 
+sources and how we're going to get those set up. Also I'm stuck on a blocker with finishing the endpoints because we hit a snag with the database and I can't test that my
+queries are working without it.
