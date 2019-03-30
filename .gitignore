@@ -2,6 +2,8 @@
 .pytest_cache/
 */env/
 *.vscode/
-./webscraper/resultFiles/
+./webscraper/vodaData/AllEWGUtilities.txt
+./webscraper/vodaData/AllContaminants.txt
 *.pyc
 node_modules
+./webscraper/vodaData/.idea
