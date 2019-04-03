@@ -1,10 +1,10 @@
-from getContaminantsScraper import FindContaminants
-from contaminantInfoScraper import FindContInfo
-from findUtilitiesScraper import FindUtilities
-from utilityInfoScraper import FindUtilInfo
-from calculateSourceRating import CalculateSourceRating
-from twisted.internet import reactor, defer
-from scrapy.crawler import CrawlerRunner
+from vodadata.getContaminantsScraper import FindContaminants
+from vodadata.contaminantInfoScraper import FindContInfo
+from vodadata.findUtilitiesScraper import FindUtilities
+from vodadata.utilityInfoScraper import FindUtilInfo
+from vodadata.calculateSourceRating import CalculateSourceRating
+from vodadata.twisted.internet import reactor, defer
+from vodadata.scrapy.crawler import CrawlerRunner
 
 
 if __name__ == '__main__':
