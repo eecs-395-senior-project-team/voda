@@ -78,8 +78,6 @@ class CalculateSourceRating(object):
 
     def main(self):
         signal.signal(signal.SIGINT, self.signal_handler)
-        with open('./vodaData/test.txt', 'a') as f:
-            f.write("calculate source ratings\n")
         self.collect_contaminants_stdev()
         self.collect_contaminant_nat_avgs()
         self.find_scores()

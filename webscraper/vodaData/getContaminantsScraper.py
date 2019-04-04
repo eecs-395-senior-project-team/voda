@@ -4,8 +4,6 @@ import scrapy
 class FindContaminants(scrapy.Spider):
     name = "findContaminantsScraper"
     open('./vodaData/AllContaminants.txt', "w").close()
-    with open('./vodaData/debugLog.txt', 'a') as f:
-        f.write("test")
 
     def start_requests(self):
         url = "https://www.ewg.org/tapwater/chemical-contaminants.php"
@@ -13,8 +11,6 @@ class FindContaminants(scrapy.Spider):
 
     @staticmethod
     def parse(response):
-        with open('./vodaData/debugLog.txt', 'a') as f:
-            f.write("test1")
         try:
             info = response.xpath("//tr[@class='clickable-row']/@data-href").getall()
 

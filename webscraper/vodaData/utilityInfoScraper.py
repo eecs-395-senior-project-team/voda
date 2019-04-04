@@ -17,7 +17,7 @@ class FindUtilInfo(scrapy.Spider):
     print("UtilInfoScraper DB Connection status: " + str(connection.closed))  # should be zero if connection is open
 
     def start_requests(self):
-        with open("./vodaData/AllEWGUtilities.txt") as f:
+        with open("AllEWGUtilities.txt") as f:
             urls = f.read().splitlines()
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -38,35 +38,49 @@ class FindUtilInfo(scrapy.Spider):
         try:
             util_code = response.url.split('=')[1]
             utility_name = response.xpath("//h1/text()").get()
-            city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get().split(',')[0]
-            state_id = util_code[0:2]
-            number_people_served = int(response.xpath("//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1]
-                                       .replace(',', ''))
+            scraped_city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get().split(',')[0]
+            if len(scraped_city.split(' ')) <= 1 or scraped_city.split(' ')[len(scraped_city.split(' '))-1] != 'County':
 
-            cursor = self.connection.cursor()
-            cursor.execute("SELECT * FROM states WHERE states.state_id = (%s)", (state_id, ))
-            result = cursor.fetchone()
-            # if the state is not already in the table, add it
-            if not result:
-                cursor.execute("INSERT INTO states (state_id) VALUES (%s)", (state_id, ))
+                state_id = util_code[0:2]
+                number_people_served = int(response.xpath("//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1]
+                                           .replace(',', ''))
 
-            cursor.execute("SELECT * FROM sources WHERE sources.utility_name = (%s)", (utility_name, ))
-            result = cursor.fetchone()
-            # if the utility does not exist, add it.
-            if not result:
-                cursor.execute("INSERT INTO sources (utility_name, city, state, number_served)"
-                               " VALUES (%s, %s, %s, %s)", (utility_name, city, state_id, number_people_served))
-            # Otherwise, update the data in it
-            else:
-                cursor.execute("UPDATE sources SET "
-                               "utility_name=(%s), city=(%s), state=(%s), number_served=(%s)"
-                               "WHERE source_id=(%s)",
-                               (utility_name, city, state_id, number_people_served, result[0]))
-            self.connection.commit()
-            cursor.close()
+                cursor = self.connection.cursor()
+                cursor.execute("SELECT cities.id FROM cities WHERE cities.name = %s AND cities.state_id = %s",
+                               (scraped_city, state_id))
+                db_city = cursor.fetchone()
+
+                if not db_city:
+                    with open('debugLog.txt', 'a') as f:
+                        f.write("No city found for {}. \n".format(scraped_city))
+                    print("No city found for {}. ".format(scraped_city))
+                    raise Exception("No city found for {}. ".format(scraped_city))
+
+                else:
+                    cursor.execute("SELECT cities.county_id FROM cities WHERE cities.id = %s",
+                                   (db_city, ))
+                    county = cursor.fetchone()
+
+                cursor.execute("SELECT * FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
+                               (utility_name, state_id))
+                result = cursor.fetchone()
+
+                # if the utility does not exist, add it.
+                if not result:
+                    cursor.execute("INSERT INTO sources (utility_name, city, county, state, number_served)"
+                                   " VALUES (%s, %s, %s, %s, %s)",
+                                   (utility_name, db_city, county, state_id, number_people_served))
+                # Otherwise, update the data in it
+                else:
+                    cursor.execute("UPDATE sources SET "
+                                   "utility_name=%s, city=%s, county = %s, state=%s, number_served=%s"
+                                   "WHERE source_id=%s",
+                                   (utility_name, db_city, county, state_id, number_people_served, result[0]))
+                self.connection.commit()
+                cursor.close()
         except Exception as e:
-            with open('./vodaData/debugLog.txt', 'a') as f:
-                f.write("ERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
+            # with open('debugLog.txt', 'a') as f:
+            #     f.write("ERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
             print("ERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
 
     def write_source_level(self, cont_name, src_id, this_utility_value):
@@ -151,15 +165,13 @@ class FindUtilInfo(scrapy.Spider):
                     self.write_state_avg(source_state, cont_name, state_avg)
 
             except Exception as e:
-                with open('./vodaData/debugLog.txt', 'a') as f:
-                    f.write("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
+                # with open('debugLog.txt', 'a') as f:
+                #     f.write("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
                 print("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
         self.connection.commit()
 
     def parse(self, response):
         try:
-            with open('./vodaData/test.txt', 'a') as f:
-                f.write("utilityInfoScraper\n")
             self.scrape_source_info(response)
             self.scrape_source_levels(response)
 
