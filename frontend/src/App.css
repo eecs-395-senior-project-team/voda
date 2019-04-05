@@ -86,6 +86,11 @@
     left: 20%;
 }
 
+.map2{
+  position: absolute;
+  left: 12%;
+}
+
 .full_view_inner {
   position: absolute;
   left: 0%;
