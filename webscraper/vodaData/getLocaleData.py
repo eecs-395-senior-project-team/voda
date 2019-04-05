@@ -18,23 +18,23 @@ class GetLocaleData:
 
     def get_locale_data(self):
         try:
-            # with open('us.txt', encoding='utf8') as csv_file:
-            #     csv_reader = csv.reader(csv_file, delimiter='\t')
-            #     for row in csv_reader:
-            #         self.write_state_data(state_id=row[4])
-            #         self.write_county_data(county_name=row[5], state_id=row[4])
-            #         self.write_city_data(city_name=row[2], state_id=row[4], county_name=row[5])
-            #
-            # with open('cityAndCountyData.csv', encoding='utf8') as csv_file:
-            #     csv_reader = csv.reader(csv_file, delimiter=',')
-            #
-            #     next(csv_reader)
-            #     for row in csv_reader:
-            #         self.write_state_data(state_id=row[2])
-            #         self.write_county_data(county_name=row[5], state_id=row[2])
-            #         self.write_city_data(city_name=row[1], state_id=row[2], county_name=row[5])
+            with open('localeData_1.txt', encoding='utf8') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter='\t')
+                for row in csv_reader:
+                    self.write_state_data(state_id=row[4])
+                    self.write_county_data(county_name=row[5], state_id=row[4])
+                    self.write_city_data(city_name=row[2], state_id=row[4], county_name=row[5])
 
-            with open('us_cities_states_counties.csv', encoding='utf8') as csv_file:
+            with open('localeData_2.csv', encoding='utf8') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
+
+                next(csv_reader)
+                for row in csv_reader:
+                    self.write_state_data(state_id=row[2])
+                    self.write_county_data(county_name=row[5], state_id=row[2])
+                    self.write_city_data(city_name=row[1], state_id=row[2], county_name=row[5])
+
+            with open('localeData_3.csv', encoding='utf8') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter='|')
 
                 next(csv_reader)

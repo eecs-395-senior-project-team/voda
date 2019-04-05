@@ -17,10 +17,10 @@ class FindUtilInfo(scrapy.Spider):
     print("UtilInfoScraper DB Connection status: " + str(connection.closed))  # should be zero if connection is open
 
     def start_requests(self):
-        with open("AllEWGUtilities.txt") as f:
-            urls = f.read().splitlines()
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+        # with open("AllEWGUtilities.txt") as f:
+        #     urls = f.read().splitlines()
+        # for url in urls:
+        yield scrapy.Request(url="https://www.ewg.org/tapwater/system.php?pws=MA4351000", callback=self.parse)
 
     @staticmethod
     def try_parse_float(float_to_be_parsed):
@@ -32,6 +32,53 @@ class FindUtilInfo(scrapy.Spider):
             return float(float_to_be_parsed.replace(',', ''))
         else:
             return float(float_to_be_parsed)
+
+    def scrape_city_name(self, response):
+        utility_name = response.meta["utility_name"]
+        state_id = response.meta["state_id"]
+        number_people_served = response.meta["number_people_served"]
+        scraped_city = response.meta["scraped_city"]
+        util_code = response.meta["util_code"]
+
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT cities.id FROM cities WHERE cities.name = %s AND cities.state_id = %s",
+                       (scraped_city, state_id))
+        db_city = cursor.fetchone()
+
+        # ("//ul[@class='contaminants-list']/li[section/div[@class='contaminant-name']"
+        #  "/h3/text() = '{}']//div[@class='national-ppb-popup']/text()"
+        #  .format(response.meta["cont_name"])).get()
+        print("Aaaaaaaaaaaa {}".format(scraped_city))
+
+        if not db_city:
+            new_scraped_city = response.xpath("//tr[td/a[@href='system.php@pws={}']]/td[2]/text()".
+                                              format(util_code)).get()
+            cursor.execute("SELECT cities.id FROM cities WHERE cities.name = %s AND cities.state_id = %s",
+                           (new_scraped_city, state_id))
+            db_city = cursor.fetchone()
+
+        cursor.execute("SELECT cities.county_id FROM cities WHERE cities.id = %s",
+                       (db_city,))
+        county = cursor.fetchone()
+
+        # Check if the utility already exists
+        cursor.execute("SELECT * FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
+                       (utility_name, state_id))
+        result = cursor.fetchone()
+
+        # if the utility does not exist, add it.
+        if not result:
+            cursor.execute("INSERT INTO sources (utility_name, city, county, state, number_served)"
+                           " VALUES (%s, %s, %s, %s, %s)",
+                           (utility_name, db_city, county, state_id, number_people_served))
+        # Otherwise, update the data in it
+        else:
+            cursor.execute("UPDATE sources SET "
+                           "utility_name=%s, city=%s, county = %s, state=%s, number_served=%s"
+                           "WHERE source_id=%s",
+                           (utility_name, db_city, county, state_id, number_people_served, result[0]))
+        self.connection.commit()
+        cursor.close()
 
     # this finds and writes all the info required for the sources table, and for the states table
     def scrape_source_info(self, response):
@@ -45,42 +92,18 @@ class FindUtilInfo(scrapy.Spider):
                 number_people_served = int(response.xpath("//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1]
                                            .replace(',', ''))
 
-                cursor = self.connection.cursor()
-                cursor.execute("SELECT cities.id FROM cities WHERE cities.name = %s AND cities.state_id = %s",
-                               (scraped_city, state_id))
-                db_city = cursor.fetchone()
+                # https://www.ewg.org/tapwater/search-results.php?systemname=
+                # West+Milford+Township+Municipal+Utilities+Authority+-+Birch+Hill+Park&stab=NJ&searchtype=systemname
+                processed_city_name = scraped_city.replace(' ', '+')
+                city_name_url = "https://www.ewg.org/tapwater/search-results.php?systemname={}&stab={}&" \
+                                "searchtype=systemname".format(processed_city_name, state_id)
+                yield scrapy.Request(url=city_name_url, callback=self.scrape_city_name, dont_filter=True, meta={
+                    "utility_name": utility_name, "state_id": state_id, "number_people_served": number_people_served,
+                    "scraped_city": scraped_city, "util_code": util_code})
 
-                if not db_city:
-                    with open('debugLog.txt', 'a') as f:
-                        f.write("No city found for {}. \n".format(scraped_city))
-                    print("No city found for {}. ".format(scraped_city))
-                    raise Exception("No city found for {}. ".format(scraped_city))
-
-                else:
-                    cursor.execute("SELECT cities.county_id FROM cities WHERE cities.id = %s",
-                                   (db_city, ))
-                    county = cursor.fetchone()
-
-                cursor.execute("SELECT * FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
-                               (utility_name, state_id))
-                result = cursor.fetchone()
-
-                # if the utility does not exist, add it.
-                if not result:
-                    cursor.execute("INSERT INTO sources (utility_name, city, county, state, number_served)"
-                                   " VALUES (%s, %s, %s, %s, %s)",
-                                   (utility_name, db_city, county, state_id, number_people_served))
-                # Otherwise, update the data in it
-                else:
-                    cursor.execute("UPDATE sources SET "
-                                   "utility_name=%s, city=%s, county = %s, state=%s, number_served=%s"
-                                   "WHERE source_id=%s",
-                                   (utility_name, db_city, county, state_id, number_people_served, result[0]))
-                self.connection.commit()
-                cursor.close()
         except Exception as e:
-            # with open('debugLog.txt', 'a') as f:
-            #     f.write("ERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
+            with open('debugLog.txt', 'a') as f:
+                f.write("ERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
             print("ERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
 
     def write_source_level(self, cont_name, src_id, this_utility_value):
@@ -165,8 +188,8 @@ class FindUtilInfo(scrapy.Spider):
                     self.write_state_avg(source_state, cont_name, state_avg)
 
             except Exception as e:
-                # with open('debugLog.txt', 'a') as f:
-                #     f.write("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
+                with open('debugLog.txt', 'a') as f:
+                    f.write("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
                 print("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
         self.connection.commit()
 

@@ -1,0 +1,201 @@
+ERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1034, null, 2.34).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (908, null, 0.208).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (993, null, null).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1011, null, 2).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (848, null, 0.00731).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (861, null, 0.0412).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (876, null, 29.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (905, null, 0.00423).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (910, null, 0.132).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (964, null, 64.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1042, null, 0.82).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (975, null, 2.79).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1002, null, 49.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (890, null, 8.26).
+. Source Name: Freetown Water Commission, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1034, null, 39.5).
+. Source Name: Freetown Water Commission, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1037, null, 1.51).
+. Source Name: Freetown Water Commission, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (925, null, 13).
+. Source Name: Freetown Water Commission, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1011, null, 49.2).
+. Source Name: Freetown Water Commission, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1032, null, 10.5).
+. Source Name: Freetown Water Commission, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (952, null, 24.2).
+. Source Name: Freetown Water Commission, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (971, null, 0.775).
+. Source Name: Freetown Water Commission, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (975, null, 5.63).
+. Source Name: Kings Grant Water Company Inc., State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (993, null, null).
+. Source Name: Kings Grant Water Company Inc., State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (876, null, 90).
+. Source Name: Kings Grant Water Company Inc., State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (984, null, 0.361).
+. Source Name: Kings Grant Water Company Inc., State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (890, null, 5.3).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (891, null, 1.18).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1034, null, 4.17).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (908, null, 0.0724).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1037, null, 4.93).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (925, null, 3.79).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (993, null, null).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1011, null, 20.2).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1032, null, 3.06).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (848, null, 0.0103).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (861, null, 0.046).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (876, null, 34.8).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (888, null, 0.145).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1026, null, 81.3).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (910, null, 0.121).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (922, null, 2.34).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (947, null, 0.45).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (952, null, 9.61).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (971, null, 0.3).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (975, null, 2.69).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (984, null, 0.228).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1002, null, 165.6).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1015, null, 0.369).
+. Source Name: North Attleboro Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1034, null, 2.34).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (908, null, 0.208).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (993, null, null).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1011, null, 2).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (848, null, 0.00731).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (861, null, 0.0412).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (876, null, 29.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (905, null, 0.00423).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (910, null, 0.132).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (964, null, 64.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1042, null, 0.82).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (975, null, 2.79).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1002, null, 49.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1034, null, 2.34).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (908, null, 0.208).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (993, null, null).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1011, null, 2).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (848, null, 0.00731).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (861, null, 0.0412).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (876, null, 29.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (905, null, 0.00423).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (910, null, 0.132).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (964, null, 64.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1042, null, 0.82).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (975, null, 2.79).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1002, null, 49.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1034, null, 2.34).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (908, null, 0.208).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (993, null, null).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1011, null, 2).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (848, null, 0.00731).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (861, null, 0.0412).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (876, null, 29.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (905, null, 0.00423).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (910, null, 0.132).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (964, null, 64.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1042, null, 0.82).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (975, null, 2.79).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1002, null, 49.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1034, null, 2.34).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (908, null, 0.208).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (993, null, null).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1011, null, 2).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (848, null, 0.00731).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (861, null, 0.0412).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (876, null, 29.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (905, null, 0.00423).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (910, null, 0.132).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (964, null, 64.3).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1042, null, 0.82).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (975, null, 2.79).
+. Source Name: Yarmouth Water Department, State: MAERROR: null value in column "source_id" violates not-null constraint
+DETAIL:  Failing row contains (1002, null, 49.3).
+. Source Name: Yarmouth Water Department, State: MA
