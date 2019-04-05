@@ -1,4 +1,38 @@
+Week 6:
+Did a bunch of production bug fixes. The site is now live and viewable at http://18.218.254.220/.
+
+Week 5:
+Finished productionizing the front end which was the final needed system. Got everything working on AWS for our MVP.
+
+Week 4:
+Slower week. Dockerized webscraper. Configured EC2 instances. Working on setting up production pipeline on the EC2 instances to allow for automated rebuilds of the production side. Added the Sphynx documentation generator to the backend.
+
+Files worked on:
+    - Things outside of the repo on AWS
+    - webscraper/Dockerfile
+
+Week 3:
+Fixed backend testing in the docker environment. Fixed backend documentation. Fixed all backend linter errors. Fixed Travis-CI.
+
+Files worked on:
+    -backend/vodabackend/vodaMainApp/urls.py
+    -backend/vodabackend/vodaMainApp/views.py
+    -Most backend files with a linter error
+    -.travis.yml
+
+Week 2:
+Finished Dockerizing Backend Server. Debugged backend code. Wrote database models
+
+Files worked on:
+    -backend/.envs
+    -backend/compose
+    -backend/config
+    -backend/config/settings/base.py
+    -backend/config/urls.py
+    -backend/vodabackend/vodaMainApp/views.py
+    -backend/vodabackend/vodaMainApp/models.py
+
 Week 1:
 Set up repository structure and initialized everyone's frameworks. Set up EC2 instances. Set up Devops tools including Travis-CI for continuous integration.
 Files worked on:
-    -
+    - Literally every file in this repository up to this commit

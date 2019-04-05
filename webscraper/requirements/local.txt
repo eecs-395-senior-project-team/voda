@@ -1,0 +1,6 @@
+scrapy
+psycopg2
+pytest
+flake8
+coverage
+requests
