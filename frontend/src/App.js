@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { render } from "react-dom";
 import { Chart } from "react-google-charts";
 import './App.css';
+import renderHTML from 'react-render-html';
 var fs = require("fs");
 
 const axios = require('axios');
@@ -241,8 +242,32 @@ class App extends Component {
     return (
       <div className = "App">
         <div className ="header"> {title} </div>
+        <div className = "map2"> {renderHTML("<iframe width='1100' height='650' scrolling='no' frameborder='no' src='https://fusiontables.google.com/embedviz?q=select+col4+from+1xdysxZ94uUFIit9eXmnw1fYc6VcQiXhceFd_CVKa&amp;viz=MAP&amp;h=false&amp;lat=39.762395982083866&amp;lng=-96.29560473484912&amp;t=1&amp;z=5&amp;l=col4&amp;y=307&amp;tmplt=340&amp;hml=KML'></iframe>")} </div>
         <div className = "map">
-          <Chart
+     
+        </div> 
+        {this.state.showPopup ? 
+          <Popup
+            header='Summary'
+            text={this.state.text}
+            closePopup={this.togglePopup.bind(this)}
+            toggleFullView ={this.toggleFullViewRegion.bind(this)} />
+          : null
+        }
+        {this.state.showFullView ? 
+          <FullView
+            header='VODA'
+            text={this.state.text}
+            closeFullView ={this.toggleFullView.bind(this)} />
+          : null
+        }
+        <div className ="footer"> {footer} </div>
+      </div>
+    );
+  }
+}
+
+     /*<Chart
             width={'1000px'}
             height={'600px'}
             chartType="GeoChart"
@@ -265,27 +290,6 @@ class App extends Component {
             // Note: you will need to get a mapsApiKey for your project.
             // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
             mapsApiKey=""
-            rootProps={{ 'data-testid': '2' }}/>
-        </div> 
-        {this.state.showPopup ? 
-          <Popup
-            header='Summary'
-            text={this.state.text}
-            closePopup={this.togglePopup.bind(this)}
-            toggleFullView ={this.toggleFullViewRegion.bind(this)} />
-          : null
-        }
-        {this.state.showFullView ? 
-          <FullView
-            header='VODA'
-            text={this.state.text}
-            closeFullView ={this.toggleFullView.bind(this)} />
-          : null
-        }
-        <div className ="footer"> {footer} </div>
-      </div>
-    );
-  }
-}
+            rootProps={{ 'data-testid': '2' }}/> */
 
 export default App;

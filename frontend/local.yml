@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+  vodafrontend:
+    container_name: vodafrontend
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development

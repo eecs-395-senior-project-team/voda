@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+  voda-frontend-prod:
+    container_name: voda-frontend-prod
+    build:
+      context: .
+      dockerfile: ./compose/production/Dockerfile
+    ports:
+      - '80:80'
