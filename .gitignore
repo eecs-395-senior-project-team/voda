@@ -6,4 +6,5 @@
 ./webscraper/vodaData/AllContaminants.txt
 *.pyc
 node_modules
-./webscraper/vodaData/.idea
+./webscraper/vodaData/.idea/*
+./webscraper/vodaData/debugLog.txt
