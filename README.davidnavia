@@ -1,25 +1,20 @@
 Set up environments on my computer
+
 Week 1
 Created a basic Django project as practice that we'll be working on for the backend of the project
 all files in voda/backend/voda were created by me
 
 Week 2
-
 Finished up the backend for the most part. Got rid of my test directory. Had some trouble with setting up environments because i've never worked with a backend framework before so progress was a little on the slow side. Have started looking into setting up testing but because of some unexpected errors that I will have to fix in the beggining of next week they will not be up till next commit. After that I will be switching over to frontend development which I'm more familiar with and should go faster as a result.
 
 
 Week 3
-
 Finished writing tests and comments for the backend. Reaserched into how to make the maps for the front end.
 Made proof of concept maps, more information in the read me in the mapFiles folder in the fronte end folder 
 
 Week 4
-
 I didn't have time to work on this because of midterms and other projects. I will be doing the work for this weeks commit over the weekend/ break. I understand if you have to grade my commit before I do the work over break/the weekend but I want to clarify my group is not working over break and no one was waiting on me to finish my section so this delay will not impact the progress of my group.
-
 I did have time to switch the output of one of the views from a string to a group of 50 random arrays because front end needed it for testing.
-
-
 
 Week5/ break
 Did the endpoints for the MVP. They now connect properly to the database. Took a while because I had to lear the django queery set api, had to do some work setting up 
@@ -33,3 +28,13 @@ system because we felt it didn't have all the capabilities we needed so I helped
 her with setting up a proof of concept with a google fusion table. In addition I helped finalize what we want to have displayed for the summary and detail pages for the 
 sources and how we're going to get those set up. Also I'm stuck on a blocker with finishing the endpoints because we hit a snag with the database and I can't test that my
 queries are working without it.
+
+
+Week 7
+Wasn't able to make too much progress this week because I spent most of the time trying to fix a bug that prevented me from running the stack. I looked up and tried 
+various solutions for a while but the error message it gave me didn't give me enough info for me to fix the problem. Eventually David Fan was able to fix the problem
+but that ate up a decent amount of time, and while I was trying to get it fixed I was unable to test the code I was writing. So the main contribution I made this week
+was writing up the queries in the views. I also continued to look into how to implement the fusion tables with Anna but we decided we're not going to use them, because
+there are better options that don't require us to post the information to google. Also looked into how to temporarily write to the database for Unit tests. I think I should
+be able to implement it pretty easily this weekend, but it's getting late on Friday night so I won't be able to have that done for this commit. For that reason the code 
+I wrote up in views.py is commented out until I can verrify it with Unit tests.
