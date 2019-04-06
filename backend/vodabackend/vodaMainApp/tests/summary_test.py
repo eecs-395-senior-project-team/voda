@@ -2,6 +2,7 @@
 Tests for summary endpoint.
 """
 from vodabackend.vodaMainApp.views import summary
+import pytest
 
 
 requestWithSource = '/summary?source=7'
@@ -18,7 +19,7 @@ def test_summary_status_code_with_soure(rf):
     response = summary(request)
     assert response.status_code == 200
 
-
+@pytest.mark.django_db
 def test_summary_content(rf):
     """
     test that the summary http response body returns the proper message when it has a source value
