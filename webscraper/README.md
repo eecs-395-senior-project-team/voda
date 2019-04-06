@@ -3,7 +3,7 @@ Using Python 3.6
 Using Scrapy
 
 To Run the scraper run:
-python vodaData/
+python scraper.py
 
 ## Running the Scraper with Docker
 First build the image:

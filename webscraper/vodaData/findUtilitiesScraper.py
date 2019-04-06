@@ -7,7 +7,7 @@ class FindUtilities(scrapy.Spider):
     open('./vodaData/AllEWGUtilities.txt', "w").close()
 
     def start_requests(self):
-        with open("./vodaData/zipCodes.txt") as csv_file:
+        with open("./vodaData/zipCodes.txt", encoding='utf8') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter='\t')
 
             for row in csv_reader:
@@ -16,8 +16,6 @@ class FindUtilities(scrapy.Spider):
 
     def parse(self, response):
         try:
-            with open('./vodaData/test.txt', 'a') as f:
-                f.write("findUtilitiesScraper\n")
             info = response.xpath("//figure[@class='search-results-figure'][2]/table/tbody/tr/td/a[contains"
                                   "(@href,'system')]/@href").getall()
 
