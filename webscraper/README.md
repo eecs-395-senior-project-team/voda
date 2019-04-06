@@ -3,16 +3,7 @@ Using Python 3.6
 Using Scrapy
 
 To Run the scraper run:
-> scrapy runspider [pathToSpiderFile]
-
-The spiders must be run in the following order:
-- getContaminantsScraper.py
-- contaminantInfoScraper.py
-- findUtilitiesScraper.py (this one will take a long time)
-- utilityInfoScraper.py
-
-Then run the python script:
-- calculateSourceRating.py
+python scraper.py
 
 ## Running the Scraper with Docker
 First build the image:

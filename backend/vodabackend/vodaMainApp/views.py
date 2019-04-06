@@ -37,13 +37,13 @@ def map_endpoint(request):
 
     # sorts the Sources model by states then by number_served in decending order. Only including
     # the first unique state
-    largestSourceByState = Sources.objects.order_by('state', '-number_served').distinct('state')
+    largestSourceByState = Sources.objects.order_by('state', '-number_served').distinct('state') #state needs to be changed to county when moudles update
     
     # makes the list of QuerySets into a list of State's and a list of cooresponding scores
-    largestSourceStates = list(map(lambda qSet : qSet.state, largestSourceByState))
-    largestSourceScores = list(map(lambda qSet : qSet.score, largestSourceByState))
+    largestSourceByState = list(map(lambda qSet : list(qSet.state, qSet.score), largestSourceByState))
+    #largestSourceScores = list(map(lambda qSet : qSet.score, largestSourceByState))
 
-    data = {"State": largestSourceStates, "Score": largestSourceScores}
+    data = {"data": largestSourceByState}
     json_data = json.dumps(data)
         
     return HttpResponse(json_data)
@@ -62,20 +62,53 @@ def summary(request):
         or
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
+
+    # going to be formated as 
+
+    # if there are no contaminants over the recomended amount
+    # All contaminants are below the health guideline set by the California Office of Environmental Health Hazard Assessment.
+
+    # <number of contaminants over recomended> contaminants were found in the water from the <source name> source.
+    # They are as follows <list of contaminant names over the regulated amount
+
+
     supply_id = request.GET.get('source')
    
     if supply_id:
-        searchedSource = SourceLevels.objects.filter(source_id = supply_id) #list of contaminants in that source
-        contaminantIds = list(map(lambda qSet : qSet.contaminant_id, searchedSource))
-        contaminantLevels = list(map(lambda qSet : qSet.contaminant_level, searchedSource))
-        contaminantName = list(map(lambda qSet : Contaminants.objects.get(contaminant_id = qset), contaminantIds))
-        data = {"Contaminant": contaminantName, "Level": contaminantLevels}
-        #response = "Returns the summary details for water supply %s."
-        #return HttpResponse(response % supply_id)
-        json_data = json.dumps(data)
-        return HttpResponse(json_data)
+        #searchedSource = SourceLevels.objects.filter(source_id = supply_id) #list of contaminants in that source
+        #contaminantIds = list(map(lambda qSet : qSet.contaminant_id, searchedSource))
+        #contaminantLevels = list(map(lambda qSet : qSet.contaminant_level, searchedSource))
+        #presentContaminants = map(lambda qSet : Contaminants.objects.get(contaminant_id = qSet, contaminantIds))
+        #data = map(lambda presentContaminants, contaminantLevels: list(presentContaminants.contaminant_name, presentContaminants.health_guideline, contaminantLevels))
+        #filteredData = filter(lambda dataToFilter : dataToFilter[1] > dataToFilter[2], data) #filter out contaminants that aren't past the health guideline
+        #numberOfHighContams = len(filteredData)
+        #filteredData = map(lambda data : data[0], filteredData)
+        #filteredData = ','.join(filteredData)
+
+        #if numberOfHighContams == 0:
+        #    response = "All contaminants are below the health guideline set by the California Office of Environmental Health Hazard Assessment."
+        #    return HttpResponse(response)
+        #else:
+        #    response = "%s contaminants were found in the water from the <source name> source. They are as follows " + filteredData
+        #    return HttpResponse(response % numberOfHighContams)#/
+
+
+        # if present contaminant regulated level > 
+
+        response = "Returns the summary details for water supply %s."
+        return HttpResponse(response % supply_id)
+
+        # test version        
+        #searchedSource = SourceLevels.objects.filter(source_id = supply_id)
+        #data = {"Level": contaminantLevels}
+        #json_data = json.dumps(data)
+
+        #return HttpResponse(json_data)
     else:
         return HttpResponseBadRequest(400)
+
+
+
 
 
 def details(request):
@@ -94,14 +127,44 @@ def details(request):
 
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
+
+    # details will be formated as a list of all of the contaminants that are above regulation it will have the following information
+
+    # The following contaminants in <source name> were over the maximum amount in parts per billion 
+    #recomended by the California Office of Environmental Health Hazard Assessment.
+
+    # <Name Of Contaminant>
+    # Level in water <contaminant_level>
+    # Level recomented <health_guideline>
+    # Legal limit <legal limit>
+    # High levels of <Name of contaminant> can lead to.
+    # <Health Concerns>
+
     supply_id = request.GET.get('source')
 
     if supply_id:
         #searchedSource = SourcesLevels.objects.filter(source_id = supply_id) #list of contaminants in that source
         #contaminantIds = map(lambda qSet : qSet.contaminant_id, searchedSource)
 
-        response = "Returns the full details for water supply %s."
-        return HttpResponse(response % supply_id)
+        #searchedSource = SourceLevels.objects.filter(source_id = supply_id) #list of contaminants in that source
+        #contaminantIds = list(map(lambda qSet : qSet.contaminant_id, searchedSource))
+        #presentContaminants = map(lambda qSet : Contaminants.objects.get(contaminant_id = qSet, contaminantIds))
+        #contaminantLevels = list(map(lambda qSet : qSet.contaminant_level, searchedSource))
+
+        #responseString = "The following contaminants in <source name> were over the maximum amount in parts per billion recomended by the California Office of Environmental Health Hazard Assessment. \n\n"
+        #responseString += list(map(formatContamDetails, presentContaminants, contaminantLevels))
+
+        #def formatContamDetails(contaminant, contaminantLevels):
+        #    contaminantName = contaminant.contaminant_name
+        #    response = contaminant.contaminant_name + ":\n"
+        #    response += contaminantName + " levels found in water: " + contaminantLevels + "\n"
+        #    response += "Recomended level of " + contaminantName + ": " + contaminant.health_guideline + "\n"
+        #    response += "Legal limit of " + contaminantName + ": " + contaminant.legal_limit + "\n"
+        #    response += "High levels of " + contaminantName + " can lead to:\n"
+        #    response += contaminant.health_concerns + "\n"
+
+        responseString = "This is a test String"
+        return HttpResponse(responseString)
     else:
         return HttpResponseBadRequest(400)
 
