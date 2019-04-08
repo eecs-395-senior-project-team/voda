@@ -1,4 +1,4 @@
-from vodaData.calculateSourceRating import CalculateSourceRating
+from vodadata.calculateSourceRating import CalculateSourceRating
 
 
 def test_size_std_dev_dict():

@@ -1,4 +1,4 @@
-from vodaData.contaminantInfoScraper import FindContInfo
+from vodadata.contaminantInfoScraper import FindContInfo
 
 
 def test_try_parse_float_none():

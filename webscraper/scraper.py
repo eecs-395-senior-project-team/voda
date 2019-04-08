@@ -1,9 +1,9 @@
-from vodaData.getContaminantsScraper import FindContaminants
-from vodaData.contaminantInfoScraper import FindContInfo
-from vodaData.findUtilitiesScraper import FindUtilities
-from vodaData.utilityInfoScraper import FindUtilInfo
-from vodaData.sourceLevelScraper import FindSourceLevels
-from vodaData.calculateSourceRating import CalculateSourceRating
+from vodadata.getContaminantsScraper import FindContaminants
+from vodadata.contaminantInfoScraper import FindContInfo
+from vodadata.findUtilitiesScraper import FindUtilities
+from vodadata.utilityInfoScraper import FindUtilInfo
+from vodadata.sourceLevelScraper import FindSourceLevels
+from vodadata.calculateSourceRating import CalculateSourceRating
 from twisted.internet import reactor, defer
 from scrapy.crawler import CrawlerRunner
 from vodaData.getLocaleData import GetLocaleData

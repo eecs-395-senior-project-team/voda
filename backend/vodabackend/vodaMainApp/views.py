@@ -4,7 +4,7 @@ Views for VodaBackend.
 # Create your views here.
 from django.http import HttpResponse, HttpResponseBadRequest
 import random, array #temporary for dummy data
-from .models import State, Sources, Contaminants, SourceLevels, State_Avg_Levels
+from .models import State, Sources, Contaminants, SourceLevels, StateAvgLevels
 import json
 
 def root(request):

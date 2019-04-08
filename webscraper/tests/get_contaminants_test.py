@@ -1,6 +1,6 @@
 import requests
 from scrapy.http import TextResponse, Request
-from vodaData.getContaminantsScraper import FindContaminants
+from vodadata.getContaminantsScraper import FindContaminants
 
 
 ###############################################################################

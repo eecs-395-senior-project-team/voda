@@ -2,21 +2,21 @@ from django.db import models
 
 
 # Create your models here.
-class Cities(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=200)
-    state_id = models.ForeignKey(State, on_delete=models.CASCADE)
-    county_id = models.ForeignKey(Counties, on_delete=models.CASCADE)
+class State(models.Model):
+    state_id = models.CharField(max_length=2, primary_key=True)
 
 
-class Counties(models.model):
+class Counties(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
 
 
-class State(models.Model):
-    state_id = models.CharField(max_length=2, primary_key=True)
+class Cities(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=200)
+    state_id = models.ForeignKey(State, on_delete=models.CASCADE)
+    county_id = models.ForeignKey(Counties, on_delete=models.CASCADE)
 
 
 class Sources(models.Model):

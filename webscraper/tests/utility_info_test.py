@@ -1,4 +1,4 @@
-from vodaData.utilityInfoScraper import FindUtilInfo
+from vodadata.utilityInfoScraper import FindUtilInfo
 
 
 def test_try_parse_float_none():

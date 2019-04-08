@@ -14,9 +14,4 @@ COPY . /app
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
-RUN pip install -r /requirements/local.txt
-
-CMD [ "scrapy", "runspider", "getContaminantsScraper.py" ]
-CMD [ "scrapy", "runspider", "contaminantInfoScraper.py" ]
-CMD [ "scrapy", "runspider", "findUtilitiesScraper.py" ]
-CMD [ "scrapy", "runspider", "utilityInfoScraper.py" ]
+RUN pip install -r /requirements/production.txt
