@@ -2,9 +2,9 @@
 .pytest_cache/
 */env/
 *.vscode/
-vodaData/AllEWGUtilities.txt
-vodaData/AllContaminants.txt
+vodadata/AllEWGUtilities.txt
+vodadata/AllContaminants.txt
 *.pyc
 node_modules
 *.idea
-vodaData/debugLog.txt
+vodadata/debugLog.txt
