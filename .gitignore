@@ -7,3 +7,4 @@
 *.pyc
 node_modules
 ./webscraper/vodaData/.idea
+*.idea
