@@ -76,8 +76,6 @@ class FindContInfo(scrapy.Spider):
 
     def parse(self, response):
         try:
-            with open('./vodaData/test.txt', 'a') as f:
-                f.write("contaminantInfoScraper\n")
             health_concerns = ""
 
             cont_name = response.xpath("//h1/text()").get()

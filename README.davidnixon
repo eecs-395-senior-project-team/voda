@@ -1,3 +1,16 @@
+Week 7:
+	Found data sets to pair all US cities, towns, and villages with their counties and implemented the code to do the merge.
+	Also updated the model to represent the new database tables.
+	
+	Files worked on:
+		webscraper/vodaData/getLocaleData.py
+		webscraper/vodaData/sourceLevelScraper.py
+		webscraper/vodaData/utilityInfoScraper.py
+		backend/vodabackend/vodaMainApp/models.py
+		webscraper/scraper.py
+
+
+
 Week 6:
 	I merged all of the scrapers and data processors to be run in one command. I also refactored some code to make it easier for testing
 	and implemented a large portion of tests for the scraper. Testing is not completely tested because I will need to find a way to 
