@@ -31,3 +31,28 @@ services:
       - local_postgres_data_backups:/backups
     env_file:
       - ./backend/.envs/.local/.postgres
+
+  voda-frontend:
+    container_name: voda_local_frontend
+    build:
+      context: ./frontend
+      dockerfile: ./compose/local/Dockerfile
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+  
+  voda-webscraper:
+    container_name: voda_local_webscraper
+    build:
+      context: ./webscraper
+      dockerfile: ./compose/local/Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - './webscraper:/app'
+    env_file:
+      - ./backend/.envs/.local/.postgres

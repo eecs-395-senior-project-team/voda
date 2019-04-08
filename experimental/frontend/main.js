@@ -12,7 +12,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 function style(feature) {
     return {
         fillColor: '#800026',
-        weight: .3,
+        weight: 1,
         opacity: .5,
         color: 'black',
         dashArray: '',
