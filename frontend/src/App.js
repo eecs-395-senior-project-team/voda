@@ -1,10 +1,17 @@
+/* eslint-disable no-undef */
+
 import React, { Component } from 'react';
 import { render } from "react-dom";
 import { Chart } from "react-google-charts";
 import './App.css';
 import renderHTML from 'react-render-html';
-var fs = require("fs");
+import { FusionTablesLayer } from "react-google-maps";
+import GoogleMapReact from 'google-map-react';
 
+const { compose, withProps } = require("recompose");
+
+
+var fs = require("fs");
 const axios = require('axios');
 
 /** Class that handles small popup when a district is clicked */
@@ -44,6 +51,17 @@ class FullView extends React.Component {
 
 // Main class
 class App extends Component {
+
+  /**
+  * Adds latitude and longitude information for the map
+  */
+  static defaultProps = {
+    center: {
+      lat: 59.95,
+      lng: 30.33
+    },
+    zoom: 11
+  };
 
 /**
  * Manages the state of the popup components
@@ -242,10 +260,25 @@ class App extends Component {
     return (
       <div className = "App">
         <div className ="header"> {title} </div>
-        <div className = "map2"> {renderHTML("<iframe width='1100' height='650' scrolling='no' frameborder='no' src='https://fusiontables.google.com/embedviz?q=select+col4+from+1xdysxZ94uUFIit9eXmnw1fYc6VcQiXhceFd_CVKa&amp;viz=MAP&amp;h=false&amp;lat=39.762395982083866&amp;lng=-96.29560473484912&amp;t=1&amp;z=5&amp;l=col4&amp;y=307&amp;tmplt=340&amp;hml=KML'></iframe>")} </div>
         <div className = "map">
-     
-        </div> 
+        <div style={{ height: '500px', width: '1000px' }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key:'AIzaSyDPQzcjtqG88UJbV2_mv3zSfVMWBqYeue8'}}
+          defaultCenter={{lat: 41.850033, lng: -87.6500523} }
+          defaultZoom={4}
+        >
+        <FusionTablesLayer
+          url="http://googlemaps.github.io/js-v2-samples/ggeoxml/cta.kml"
+          options={{
+          query: {
+            select: `Address`,
+            from: `15UY2pgiz8sRkq37p2TaJd64U7M_2HDVqHT3Quw`,
+          }
+        }}/>
+
+        </GoogleMapReact>
+        </div>
+        </div>
         {this.state.showPopup ? 
           <Popup
             header='Summary'
@@ -266,6 +299,8 @@ class App extends Component {
     );
   }
 }
+
+//<div className = "map2"> {renderHTML("<iframe width='1100' height='650' scrolling='no' frameborder='no' src='https://fusiontables.google.com/embedviz?q=select+col4+from+1xdysxZ94uUFIit9eXmnw1fYc6VcQiXhceFd_CVKa&amp;viz=MAP&amp;h=false&amp;lat=39.762395982083866&amp;lng=-96.29560473484912&amp;t=1&amp;z=5&amp;l=col4&amp;y=307&amp;tmplt=340&amp;hml=KML'></iframe>")} </div>
 
      /*<Chart
             width={'1000px'}
@@ -292,4 +327,7 @@ class App extends Component {
             mapsApiKey=""
             rootProps={{ 'data-testid': '2' }}/> */
 
+
+/*
+         */
 export default App;
