@@ -2,6 +2,7 @@ import scrapy
 import psycopg2
 import vodadata.constants as consts
 
+
 class FindUtilInfo(scrapy.Spider):
     name = "utilityInfoScraper"
 
@@ -110,7 +111,7 @@ class FindUtilInfo(scrapy.Spider):
                 # West+Milford+Township+Municipal+Utilities+Authority+-+Birch+Hill+Park&stab=NJ&searchtype=systemname
                 processed_utility_name = utility_name
                 for i in range(len(utility_name)):
-                    if utility_name[i] is '#':
+                    if utility_name[i] == '#':
                         processed_utility_name = utility_name[0:i]
 
                 city_name_url = "https://www.ewg.org/tapwater/search-results.php?systemname={}&stab={}&" \
@@ -123,7 +124,3 @@ class FindUtilInfo(scrapy.Spider):
             with open('./vodadata/debugLog.txt', 'a') as f:
                 f.write("\nERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
             print("ERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
-
-
-
-

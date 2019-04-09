@@ -3,6 +3,7 @@ import signal
 import sys
 import vodadata.constants as consts
 
+
 class CalculateSourceRating(object):
     connection = psycopg2.connect(
       dbname=consts.dbname,
@@ -81,4 +82,3 @@ class CalculateSourceRating(object):
         self.collect_contaminants_stdev()
         self.collect_contaminant_nat_avgs()
         self.find_scores()
-

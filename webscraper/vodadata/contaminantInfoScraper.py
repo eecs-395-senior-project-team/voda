@@ -2,6 +2,7 @@ import scrapy
 import psycopg2
 import vodadata.constants as consts
 
+
 class FindContInfo(scrapy.Spider):
     name = "utilityInfoScraper"
 

@@ -76,4 +76,3 @@ if __name__ == '__main__':
     with open('./vodadata/debugLog.txt', 'a') as f:
         f.write("Ending CalculateSourceRating Spider")
     print("Ending CalculateSourceRating")
-

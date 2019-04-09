@@ -3,6 +3,7 @@ import psycopg2
 import traceback
 import vodadata.constants as consts
 
+
 class GetLocaleData:
 
     connection = psycopg2.connect(
@@ -44,7 +45,7 @@ class GetLocaleData:
                     self.write_city_data(city_name=row[0], state_id=row[1], county_name=row[3])
                     self.write_city_data(city_name=row[4], state_id=row[1], county_name=row[3])
 
-        except Exception as e:
+        except Exception:
             print("ERROR\n{}".format(traceback.format_exc()))
 
     def write_state_data(self, state_id):
