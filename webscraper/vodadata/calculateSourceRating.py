@@ -1,15 +1,15 @@
 import psycopg2
 import signal
 import sys
-
+import vodadata.constants as consts
 
 class CalculateSourceRating(object):
     connection = psycopg2.connect(
-        dbname="postgres",
-        user="postgres",
-        password="pswd",
-        host="127.0.0.1",
-        port="5432"
+      dbname=consts.dbname,
+      user=consts.user,
+      password=consts.password,
+      host=consts.host,
+      port=consts.port
     )
     connection.set_session(autocommit=True)
 

@@ -3,7 +3,7 @@ import scrapy
 
 class FindContaminants(scrapy.Spider):
     name = "findContaminantsScraper"
-    open('./vodaData/AllContaminants.txt', "w").close()
+    open('./vodadata/AllContaminants.txt', "w").close()
 
     def start_requests(self):
         url = "https://www.ewg.org/tapwater/chemical-contaminants.php"
@@ -14,9 +14,9 @@ class FindContaminants(scrapy.Spider):
         try:
             info = response.xpath("//tr[@class='clickable-row']/@data-href").getall()
 
-            with open('./vodaData/AllContaminants.txt', 'a') as f:
+            with open('./vodadata/AllContaminants.txt', 'a') as f:
                 for item in info:
                     f.write('https://www.ewg.org/tapwater/{}#\n'.format(item))
         except Exception as e:
-            with open('./vodaData/debugLog.txt', 'a') as f:
+            with open('./vodadata/debugLog.txt', 'a') as f:
                 f.write("ERROR: {}".format(e))

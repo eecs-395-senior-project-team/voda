@@ -1,16 +1,16 @@
 import csv
 import psycopg2
 import traceback
-
+import vodadata.constants as consts
 
 class GetLocaleData:
 
     connection = psycopg2.connect(
-      dbname="postgres",
-      user="postgres",
-      password="pswd",
-      host="127.0.0.1",
-      port="5432"
+      dbname=consts.dbname,
+      user=consts.user,
+      password=consts.password,
+      host=consts.host,
+      port=consts.port
     )
     connection.set_session(autocommit=True)
 
@@ -18,14 +18,14 @@ class GetLocaleData:
 
     def get_locale_data(self):
         try:
-            with open('./vodaData/localeData_1.txt', encoding='utf8') as csv_file:
+            with open('./vodadata/localeData_1.txt', encoding='utf8') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter='\t')
                 for row in csv_reader:
                     self.write_state_data(state_id=row[4])
                     self.write_county_data(county_name=row[5], state_id=row[4])
                     self.write_city_data(city_name=row[2], state_id=row[4], county_name=row[5])
 
-            with open('./vodaData/localeData_2.csv', encoding='utf8') as csv_file:
+            with open('./vodadata/localeData_2.csv', encoding='utf8') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter=',')
 
                 next(csv_reader)
@@ -34,7 +34,7 @@ class GetLocaleData:
                     self.write_county_data(county_name=row[5], state_id=row[2])
                     self.write_city_data(city_name=row[1], state_id=row[2], county_name=row[5])
 
-            with open('./vodaData/localeData_3.csv', encoding='utf8') as csv_file:
+            with open('./vodadata/localeData_3.csv', encoding='utf8') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter='|')
 
                 next(csv_reader)

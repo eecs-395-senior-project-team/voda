@@ -1,23 +1,23 @@
 import scrapy
 import psycopg2
-
+import vodadata.constants as consts
 
 class FindSourceLevels(scrapy.Spider):
     name = "sourceLevelScraper"
 
     connection = psycopg2.connect(
-      dbname="postgres",
-      user="postgres",
-      password="pswd",
-      host="127.0.0.1",
-      port="5432"
+      dbname=consts.dbname,
+      user=consts.user,
+      password=consts.password,
+      host=consts.host,
+      port=consts.port
     )
     connection.set_session(autocommit=True)
 
     print("ScrapeSourceLevel DB Connection status: " + str(connection.closed))  # should be zero if connection is open
 
     def start_requests(self):
-        with open("./vodaData/AllEWGUtilities.txt") as f:
+        with open("./vodadata/AllEWGUtilities.txt") as f:
             urls = f.read().splitlines()
         for url in urls:
             yield scrapy.Request(url=url, callback=self.scrape_source_levels)

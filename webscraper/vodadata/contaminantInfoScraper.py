@@ -1,24 +1,24 @@
 import scrapy
 import psycopg2
-
+import vodadata.constants as consts
 
 class FindContInfo(scrapy.Spider):
     name = "utilityInfoScraper"
 
-    open('./vodaData/debugLog.txt', "w").close()
+    open('./vodadata/debugLog.txt', "w").close()
 
     connection = psycopg2.connect(
-      dbname="postgres",
-      user="postgres",
-      password="pswd",
-      host="127.0.0.1",
-      port="5432"
+      dbname=consts.dbname,
+      user=consts.user,
+      password=consts.password,
+      host=consts.host,
+      port=consts.port
     )
     # should be zero if connection is open
     print("ContaminantInfoScraper DB Connection status: " + str(connection.closed))
 
     def start_requests(self):
-        with open("./vodaData/AllContaminants.txt") as f:
+        with open("./vodadata/AllContaminants.txt") as f:
             urls = f.read().splitlines()
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -70,7 +70,7 @@ class FindContInfo(scrapy.Spider):
             self.connection.commit()
             cursor.close()
         except Exception as e:
-            with open('./vodaData/debugLog.txt', 'a') as f:
+            with open('./vodadata/debugLog.txt', 'a') as f:
                 f.write("Second level ERROR: {}".format(e))
             print(e)
 
@@ -112,6 +112,6 @@ class FindContInfo(scrapy.Spider):
                 "health_guideline": health_guideline})
 
         except Exception as e:
-            with open('./vodaData/debugLog.txt', 'a') as f:
+            with open('./vodadata/debugLog.txt', 'a') as f:
                 f.write("First level ERROR: {}".format(e))
             print(e)
