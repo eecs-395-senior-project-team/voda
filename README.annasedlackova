@@ -1,3 +1,9 @@
+Week 7:
+Adding code to implement a new map from Google API.
+
+Week 6:
+Implementing alternative map options.
+
 Week 5 (MVP):
 Fixed up map display, and connected API endpoints and displayed them to the user. 
 The map is now clickable and displayed proper content per state clicked.
