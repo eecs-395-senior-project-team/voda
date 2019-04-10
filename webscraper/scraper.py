@@ -10,14 +10,14 @@ from vodadata.getLocaleData import GetLocaleData
 
 
 if __name__ == '__main__':
-    runner = CrawlerRunner()
+    RUNNER = CrawlerRunner()
 
     @defer.inlineCallbacks
     def crawl():
         print("Beginning FindContaminants Spider")
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Beginning FindContaminants Spider\n")
-        yield runner.crawl(FindContaminants)
+        yield RUNNER.crawl(FindContaminants)
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Ending FindContaminants Spider\n")
         print("Ending FindContaminants Spider")
@@ -25,7 +25,7 @@ if __name__ == '__main__':
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Beginning FindContInfo Spider\n")
         print("Beginning FindContInfo Spider")
-        yield runner.crawl(FindContInfo)
+        yield RUNNER.crawl(FindContInfo)
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Ending FindContInfo Spider\n")
         print("Ending FindContInfo Spider")
@@ -33,7 +33,7 @@ if __name__ == '__main__':
         print("Beginning FindUtilities Spider")
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilities Spider\n")
-        yield runner.crawl(FindUtilities)
+        yield RUNNER.crawl(FindUtilities)
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Ending FindUtilities \n")
         print("Ending FindUtilities Spider")
@@ -41,7 +41,7 @@ if __name__ == '__main__':
         print("Beginning FindUtilInfo Spider")
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilInfo Spider\n")
-        yield runner.crawl(FindUtilInfo)
+        yield RUNNER.crawl(FindUtilInfo)
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Ending FindUtilInfo Spider\n")
         print("Ending FindUtilInfo Spider")
@@ -49,7 +49,7 @@ if __name__ == '__main__':
         print("Beginning FindSourceLevels Spider")
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Beginning FindSourceLevels Spider\n")
-        yield runner.crawl(FindSourceLevels)
+        yield RUNNER.crawl(FindSourceLevels)
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Ending FindSourceLevels Spider\n")
         print("Ending FindSourceLevels Spider")

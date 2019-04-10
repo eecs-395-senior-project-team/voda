@@ -1,17 +1,17 @@
 import scrapy
 import psycopg2
-import vodadata.constants as consts
+import vodadata.constants as vodaconstants
 
 
 class FindSourceLevels(scrapy.Spider):
     name = "sourceLevelScraper"
 
     connection = psycopg2.connect(
-      dbname=consts.dbname,
-      user=consts.user,
-      password=consts.password,
-      host=consts.host,
-      port=consts.port
+      dbname=vodaconstants.DBNAME,
+      user=vodaconstants.USER,
+      password=vodaconstants.PASSWORD,
+      host=vodaconstants.HOST,
+      port=vodaconstants.PORT
     )
     connection.set_session(autocommit=True)
 

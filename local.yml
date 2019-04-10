@@ -32,7 +32,7 @@ services:
     env_file:
       - ./backend/.envs/.local/.postgres
 
-  voda-frontend:
+  frontend:
     container_name: voda_local_frontend
     build:
       context: ./frontend
@@ -45,7 +45,7 @@ services:
     environment:
       - NODE_ENV=development
   
-  voda-webscraper:
+  webscraper:
     container_name: voda_local_webscraper
     build:
       context: ./webscraper

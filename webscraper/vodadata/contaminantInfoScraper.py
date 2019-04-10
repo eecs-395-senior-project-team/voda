@@ -1,6 +1,6 @@
 import scrapy
 import psycopg2
-import vodadata.constants as consts
+import vodadata.constants as vodaconstants
 
 
 class FindContInfo(scrapy.Spider):
@@ -9,11 +9,11 @@ class FindContInfo(scrapy.Spider):
     open('./vodadata/debugLog.txt', "w").close()
 
     connection = psycopg2.connect(
-      dbname=consts.dbname,
-      user=consts.user,
-      password=consts.password,
-      host=consts.host,
-      port=consts.port
+      dbname=vodaconstants.DBNAME,
+      user=vodaconstants.USER,
+      password=vodaconstants.PASSWORD,
+      host=vodaconstants.HOST,
+      port=vodaconstants.PORT
     )
     # should be zero if connection is open
     print("ContaminantInfoScraper DB Connection status: " + str(connection.closed))
