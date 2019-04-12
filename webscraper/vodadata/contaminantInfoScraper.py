@@ -6,17 +6,8 @@ import vodadata.constants as vodaconstants
 class FindContInfo(scrapy.Spider):
     name = "utilityInfoScraper"
 
-    open('./vodadata/debugLog.txt', "w").close()
-
-    connection = psycopg2.connect(
-      dbname=vodaconstants.DBNAME,
-      user=vodaconstants.USER,
-      password=vodaconstants.PASSWORD,
-      host=vodaconstants.HOST,
-      port=vodaconstants.PORT
-    )
-    # should be zero if connection is open
-    print("ContaminantInfoScraper DB Connection status: " + str(connection.closed))
+    def __init__(self, connection):
+        self.connection = connection
 
     def start_requests(self):
         with open("./vodadata/AllContaminants.txt") as f:

@@ -7,10 +7,28 @@ from vodadata.calculateSourceRating import CalculateSourceRating
 from twisted.internet import reactor, defer
 from scrapy.crawler import CrawlerRunner
 from vodadata.getLocaleData import GetLocaleData
-
+import psycopg2
+import os
 
 if __name__ == '__main__':
     RUNNER = CrawlerRunner()
+
+    DBNAME = os.environ['POSTGRES_DB']
+    USER = os.environ['POSTGRES_USER']
+    PASSWORD = os.environ['POSTGRES_PASSWORD']
+    HOST = os.environ['POSTGRES_HOST']
+    PORT = os.environ['POSTGRES_PORT']
+
+    CONNECTION = psycopg2.connect(
+      dbname=DBNAME,
+      user=USER,
+      password=PASSWORD,
+      host=HOST,
+      port=PORT
+    )
+    CONNECTION.set_session(autocommit=True)
+
+    print("DB Connection status: " + str(CONNECTION.closed))  # should be zero if connection is open
 
     @defer.inlineCallbacks
     def crawl():
@@ -25,7 +43,7 @@ if __name__ == '__main__':
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Beginning FindContInfo Spider\n")
         print("Beginning FindContInfo Spider")
-        yield RUNNER.crawl(FindContInfo)
+        yield RUNNER.crawl(FindContInfo(CONNECTION))
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Ending FindContInfo Spider\n")
         print("Ending FindContInfo Spider")
@@ -41,7 +59,7 @@ if __name__ == '__main__':
         print("Beginning FindUtilInfo Spider")
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilInfo Spider\n")
-        yield RUNNER.crawl(FindUtilInfo)
+        yield RUNNER.crawl(FindUtilInfo(CONNECTION))
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Ending FindUtilInfo Spider\n")
         print("Ending FindUtilInfo Spider")
@@ -49,7 +67,7 @@ if __name__ == '__main__':
         print("Beginning FindSourceLevels Spider")
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Beginning FindSourceLevels Spider\n")
-        yield RUNNER.crawl(FindSourceLevels)
+        yield RUNNER.crawl(FindSourceLevels(CONNECTION))
         with open('./vodadata/debugLog.txt', 'a') as f:
             f.write("Ending FindSourceLevels Spider\n")
         print("Ending FindSourceLevels Spider")
@@ -59,7 +77,7 @@ if __name__ == '__main__':
     print("Beginning GetLocaleData")
     with open('./vodadata/debugLog.txt', 'a') as f:
         f.write("Beginning GetLocaleData Spider")
-    get_locale_data = GetLocaleData()
+    get_locale_data = GetLocaleData(CONNECTION)
     get_locale_data.main()
     with open('./vodadata/debugLog.txt', 'a') as f:
         f.write("Ending GetLocaleData Spider")
@@ -71,7 +89,7 @@ if __name__ == '__main__':
     print("Beginning CalculateSourceRating")
     with open('./vodadata/debugLog.txt', 'a') as f:
         f.write("Beginning CalculateSourceRating Spider")
-    calculate_source_rating = CalculateSourceRating()
+    calculate_source_rating = CalculateSourceRating(CONNECTION)
     calculate_source_rating.main()
     with open('./vodadata/debugLog.txt', 'a') as f:
         f.write("Ending CalculateSourceRating Spider")

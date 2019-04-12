@@ -1,21 +1,12 @@
 import scrapy
 import psycopg2
-import vodadata.constants as vodaconstants
 
 
 class FindUtilInfo(scrapy.Spider):
     name = "utilityInfoScraper"
 
-    connection = psycopg2.connect(
-      dbname=vodaconstants.DBNAME,
-      user=vodaconstants.USER,
-      password=vodaconstants.PASSWORD,
-      host=vodaconstants.HOST,
-      port=vodaconstants.PORT
-    )
-    connection.set_session(autocommit=True)
-
-    print("UtilInfoScraper DB Connection status: " + str(connection.closed))  # should be zero if connection is open
+    def __init__(self, connection):
+        self.connection = connection
 
     def start_requests(self):
         with open("./vodadata/AllEWGUtilities.txt") as f:

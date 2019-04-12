@@ -1,23 +1,14 @@
 import psycopg2
 import signal
 import sys
-import vodadata.constants as vodaconstants
 
 
-class CalculateSourceRating(object):
-    connection = psycopg2.connect(
-      dbname=vodaconstants.DBNAME,
-      user=vodaconstants.USER,
-      password=vodaconstants.PASSWORD,
-      host=vodaconstants.HOST,
-      port=vodaconstants.PORT
-    )
-    connection.set_session(autocommit=True)
-
-    # should be zero if connection is open
-    print("CalculateSourceRating DB Connection status: " + str(connection.closed))
+class CalculateSourceRating:
     contaminant_std_dev_dict = {}
     contaminant_nat_avg_dict = {}
+
+    def __init__(self, connection):
+        self.connection = connection
 
     def collect_contaminants_stdev(self):
         cursor = self.connection.cursor()
