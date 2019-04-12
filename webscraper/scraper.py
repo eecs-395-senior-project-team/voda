@@ -15,53 +15,53 @@ if __name__ == '__main__':
     @defer.inlineCallbacks
     def crawl():
         print("Beginning FindContaminants Spider")
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindContaminants Spider\n")
         yield RUNNER.crawl(FindContaminants)
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindContaminants Spider\n")
         print("Ending FindContaminants Spider")
 
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindContInfo Spider\n")
         print("Beginning FindContInfo Spider")
         yield RUNNER.crawl(FindContInfo)
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindContInfo Spider\n")
         print("Ending FindContInfo Spider")
 
         print("Beginning FindUtilities Spider")
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilities Spider\n")
         yield RUNNER.crawl(FindUtilities)
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindUtilities \n")
         print("Ending FindUtilities Spider")
 
         print("Beginning FindUtilInfo Spider")
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilInfo Spider\n")
         yield RUNNER.crawl(FindUtilInfo)
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindUtilInfo Spider\n")
         print("Ending FindUtilInfo Spider")
 
         print("Beginning FindSourceLevels Spider")
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindSourceLevels Spider\n")
         yield RUNNER.crawl(FindSourceLevels)
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindSourceLevels Spider\n")
         print("Ending FindSourceLevels Spider")
 
         reactor.stop()
 
     print("Beginning GetLocaleData")
-    with open('./vodadata/debugLog.txt', 'a') as f:
+    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Beginning GetLocaleData Spider")
     get_locale_data = GetLocaleData()
     get_locale_data.main()
-    with open('./vodadata/debugLog.txt', 'a') as f:
+    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Ending GetLocaleData Spider")
     print("Ending GetLocaleData")
 
@@ -69,10 +69,10 @@ if __name__ == '__main__':
     reactor.run()  # script will block here until all crawlers are finished
 
     print("Beginning CalculateSourceRating")
-    with open('./vodadata/debugLog.txt', 'a') as f:
+    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Beginning CalculateSourceRating Spider")
     calculate_source_rating = CalculateSourceRating()
     calculate_source_rating.main()
-    with open('./vodadata/debugLog.txt', 'a') as f:
+    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Ending CalculateSourceRating Spider")
     print("Ending CalculateSourceRating")
