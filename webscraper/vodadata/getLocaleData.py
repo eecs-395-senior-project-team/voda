@@ -16,17 +16,18 @@ class GetLocaleData:
     connection.set_session(autocommit=True)
 
     print("getLocaleData DB Connection status: " + str(connection.closed))  # should be zero if connection is open
+    open('./vodadata/datafiles/debugLog.txt', "w+").close()
 
     def get_locale_data(self):
         try:
-            with open('./vodadata/localeData_1.txt', encoding='utf8') as csv_file:
+            with open('./vodadata/datafiles/localeData_1.txt', encoding='utf8') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter='\t')
                 for row in csv_reader:
                     self.write_state_data(state_id=row[4])
                     self.write_county_data(county_name=row[5], state_id=row[4])
                     self.write_city_data(city_name=row[2], state_id=row[4], county_name=row[5])
 
-            with open('./vodadata/localeData_2.csv', encoding='utf8') as csv_file:
+            with open('./vodadata/datafiles/localeData_2.csv', encoding='utf8') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter=',')
 
                 next(csv_reader)
@@ -35,7 +36,7 @@ class GetLocaleData:
                     self.write_county_data(county_name=row[5], state_id=row[2])
                     self.write_city_data(city_name=row[1], state_id=row[2], county_name=row[5])
 
-            with open('./vodadata/localeData_3.csv', encoding='utf8') as csv_file:
+            with open('./vodadata/datafiles/localeData_3.csv', encoding='utf8') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter='|')
 
                 next(csv_reader)

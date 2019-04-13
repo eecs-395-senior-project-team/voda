@@ -6,8 +6,6 @@ import vodadata.constants as vodaconstants
 class FindContInfo(scrapy.Spider):
     name = "utilityInfoScraper"
 
-    open('./vodadata/debugLog.txt', "w").close()
-
     connection = psycopg2.connect(
       dbname=vodaconstants.DBNAME,
       user=vodaconstants.USER,
@@ -19,7 +17,7 @@ class FindContInfo(scrapy.Spider):
     print("ContaminantInfoScraper DB Connection status: " + str(connection.closed))
 
     def start_requests(self):
-        with open("./vodadata/AllContaminants.txt") as f:
+        with open("./vodadata/datafiles/AllContaminants.txt") as f:
             urls = f.read().splitlines()
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
@@ -71,7 +69,7 @@ class FindContInfo(scrapy.Spider):
             self.connection.commit()
             cursor.close()
         except Exception as e:
-            with open('./vodadata/debugLog.txt', 'a') as f:
+            with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
                 f.write("Second level ERROR: {}".format(e))
             print(e)
 
@@ -113,6 +111,6 @@ class FindContInfo(scrapy.Spider):
                 "health_guideline": health_guideline})
 
         except Exception as e:
-            with open('./vodadata/debugLog.txt', 'a') as f:
+            with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
                 f.write("First level ERROR: {}".format(e))
             print(e)
