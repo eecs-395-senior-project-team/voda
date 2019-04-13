@@ -1,0 +1,83 @@
+Week 6:
+	I merged all of the scrapers and data processors to be run in one command. I also refactored some code to make it easier for testing
+	and implemented a large portion of tests for the scraper. Testing is not completely tested because I will need to find a way to 
+	test the scrapy requests in a useful way.
+	
+	Files worked on:
+		webscraper/vodaData/findUtilitiesScraper.py
+		webscraper/vodaData/utilityInfoScraper.py
+		webscraper/vodaData/getContaminantsScraper.py
+		webscraper/vodaData/contaminantInfoScraper.py
+		webscraper/vodaData/calculateSourceRating.py
+		webscraper/vodaData/tests/*
+		webscraper/vodaData/__main__.py
+
+Week 5:
+	I added the state_avg_levels table and the scraper to collect and write the necessary data. I also implemented the fix to 
+	the bug I mentioned last week, so we can collect all contaminant data now. I also added a ratings function for the water sources
+	that will be used to display the correct color on the front end map.
+	
+	Files worked on:
+		webscraper/contaminantInfoScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/calculateSourceRating.py
+
+Week 4:
+	I made corrections to the schema from last week and spent time getting the scraper into compliance
+	with our linter. I also implemented methods for scraping the data and writing it for the 
+	source_levels table. During this process I uncovered a serious bug with the methods written
+	last week to handle the contaminants data. I spent many hours trying to understand this
+	bug and in the end realized that it had to do with the asynchronous nature of
+	the requests Scrapy uses, and now know how to fix the problem. I did not implement a fix this week 
+	because the fix will require refactoring a large portion of the scraper code, and there was not 
+	time to both diagnose and fix it this week. This will be done in the next week. 
+	
+	Files worked on:
+		/backend/vodabackend/vodaMainApp/models.py
+		webscraper/findUtilitiesScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/getContaminantsScraper.py
+		webscraper/contaminantInfoScraper.py
+
+Week 3:
+	I revamped our database schema to better fit the data we had available, and implemented 
+	methods to scrape the data and then write it to the db for 3 of the 5 tables, including
+	the 2 most critical tables (Sources and Contaminants).
+	
+	Files worked on:
+		/backend/vodabackend/vodaMainApp/models.py
+		webscraper/findUtilitiesScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/getContaminantsScraper.py
+		webscraper/contaminantInfoScraper.py
+
+Week 2:
+	I found a found csv of all us zipcodes from us census bureau and changed scraper to pull from every zip codes. 
+	This way we can collect info on even the smallest utilities. I also made a local postgres database to 
+	model the one we will be hosting, and began setting up writes from the scraper to the database after 
+	learning how to use both postgres and psycopg2. 
+	
+	Files worked on:
+		webscraper/findUtilitiesScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/requirements.txt
+		
+		Found zipcodes.txt
+
+
+Week 1:
+	created basic web scraper to collect data from https://www.ewg.org/tapwater/ . 
+	The scraper is split into 3 files. 1 collects all states/territories which data 
+	is available for, 1 collects the water utlity providers from each state, and 1 collects
+	the preliminary batch of data from each utlity provider.
+	
+	Files worked on:
+		webscraper/findStatesScraper.py
+		webscraper/findUtilitiesScraper.py
+		webscraper/utilityInfoScraper.py
+		webscraper/requirements.txt
+		
+		These files were created by the above scripts:
+		webscraper/resultFiles/FinalInfo.txt
+		webscraper/resultFiles/AllEWGUtilities.txt
+		webscraper/resultFiles/EWGStates.txt

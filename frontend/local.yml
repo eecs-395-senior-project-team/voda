@@ -1,8 +1,8 @@
 version: '3.5'
 
 services:
-  vodafrontend:
-    container_name: vodafrontend
+  voda-frontend:
+    container_name: voda-frontend
     build:
       context: .
       dockerfile: ./compose/local/Dockerfile

@@ -1,4 +1,36 @@
-Week 1:
-Set up repository structure and initialized everyone's frameworks. Set up EC2 instances. Set up Devops tools including Travis-CI for continuous integration.
+Week 5 (MVP):
+Fixed up map display, and connected API endpoints and displayed them to the user. 
+The map is now clickable and displayed proper content per state clicked.
 Files worked on:
-    -
+    -App.js
+    -App.css
+
+Week 4:
+Changed the way the map is layed out and registered the project to an Google map API service.
+Files worked on:
+    -App.js
+    -keys.JSON
+
+Week 3:
+Created calls from frontend to backend using axios to retrieve data from the map,popup and detailed view, properly commented all methods, added basic for App.js.
+Files worked on:
+    -App.css
+    -App.js
+    -App.test.js
+
+Week 2:
+Created popups to be later placed over the map of the United States. Set up code for map implementation.
+Files worked on:
+    -App.css
+    -App.js
+
+Week 1:
+Set up initial front end code and designed the popup system for when the map of the United States will be displayed.
+Files worked on:
+    -App.css
+    -App.js
+    -index.css
+    -index.js
+    -serviceWorker.js
+    
+
