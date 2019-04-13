@@ -7,6 +7,7 @@ from vodadata.calculateSourceRating import CalculateSourceRating
 from twisted.internet import reactor, defer
 from scrapy.crawler import CrawlerRunner
 from vodadata.getLocaleData import GetLocaleData
+from vodadata.leadInfoScraper import LeadInfoScraper
 
 
 if __name__ == '__main__':
@@ -53,6 +54,14 @@ if __name__ == '__main__':
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindSourceLevels Spider\n")
         print("Ending FindSourceLevels Spider")
+
+        print("Beginning LeadInfoScraper Spider")
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+            f.write("Beginning LeadInfoScraper Spider\n")
+        yield RUNNER.crawl(LeadInfoScraper)
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+            f.write("Ending LeadInfoScraper Spider\n")
+        print("Ending LeadInfoScraper Spider")
 
         reactor.stop()
 

@@ -62,14 +62,62 @@ class LeadInfoScraper(scrapy.Spider):
                 f.write("Second level ERROR: {}".format(e))
             print(e)
 
-    def scrape_source_lead_data(self):
+    def scrape_source_lead_data(self, response):
+        source_name = response.xpath("//h2[@class='systemname-h2']/text()").get().split('-')[0]
+        source_state = response.url.split('=')[1][0:2]
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT source_id FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
+                       (source_name, source_state))
+        src_id = cursor.fetchone()
+        cursor.close()
+        this_utility_value = 0.0
+        if response.xpath("//p/b[contains(text(), '90 percent of lead samples collected')]") is not None:
+            this_utility_value = response.xpath("//p/b[contains(text(),'90 percent of lead samples collected')]").get(
+            ).split("parts")[0].split("below")[1]
 
+        elif response.xpath("//table[@class = 'system-contaminant-table']") is not None:
+            counter = 0
+            total = 0
+            set = response.xpath("//table[@class = 'system-contaminant-table']/tbody/tr/td[@data-label='Result']")
+            for result in set:
+                counter = counter + 1
+                if result.xpath("//b/text()") is not None:
+                    result_num = result.xpath("//b/text()").get().split(" ")[0]
+                else:
+                    result_num = result.xpath("//text()").get().split(" ")[0]
+                if result_num != 'ND':
+                    total = total + result_num
+            this_utility_value = total/counter
+        self.write_source_lead_data('lead', src_id, this_utility_value)
 
-    def write_source_lead_data(self):
+    def write_source_lead_data(self, cont_name, src_id, this_utility_value):
+        cursor = self.connection.cursor()
 
+        # get the id of this contaminant based on its name
+        cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
+                       (cont_name,))
+        cont_id = cursor.fetchone()
+
+        # check if this source-contaminant relationship exists
+        cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
+                       "AND source_levels.contaminant_id = %s", (src_id, cont_id))
+        results = cursor.fetchall()
+
+        # if there is not already a row for this contaminant-utility pair, add one,
+        if not results:
+            cursor.execute("INSERT INTO source_levels (source_id, contaminant_id, source_level)"
+                           " VALUES (%s, %s, %s)", (src_id, cont_id, this_utility_value))
+        # otherwise update the values
+        else:
+            cursor.execute("UPDATE source_levels SET source_level=%s WHERE source_id=%s AND contaminant_id=%s",
+                           (this_utility_value, src_id, cont_id))
+        cursor.close()
 
     def start_requests(self):
-        with open("./vodadata/datafiles/AllContaminants.txt") as f:
+        self.write_lead_to_contaminants()
+
+        with open("./vodadata/datafiles/AllEWGUtilities.txt") as f:
             urls = f.read().splitlines()
         for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+            url = 'https://www.ewg.org/tapwater/what-about-lead.php?pws={}'.format(url.split('=')[1])
+            yield scrapy.Request(url=url, callback=self.scrape_source_lead_data)
