@@ -9,6 +9,8 @@ from scrapy.crawler import CrawlerRunner
 from vodadata.getLocaleData import GetLocaleData
 import psycopg2
 import os
+from vodadata.leadInfoScraper import LeadInfoScraper
+
 
 if __name__ == '__main__':
     RUNNER = CrawlerRunner()
@@ -33,53 +35,76 @@ if __name__ == '__main__':
     @defer.inlineCallbacks
     def crawl():
         print("Beginning FindContaminants Spider")
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindContaminants Spider\n")
         yield RUNNER.crawl(FindContaminants)
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindContaminants Spider\n")
         print("Ending FindContaminants Spider")
 
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindContInfo Spider\n")
         print("Beginning FindContInfo Spider")
+<<<<<<< HEAD
         yield RUNNER.crawl(FindContInfo(CONNECTION))
         with open('./vodadata/debugLog.txt', 'a') as f:
+=======
+        yield RUNNER.crawl(FindContInfo)
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+>>>>>>> 5381bca056e619d90d334370b647e2c9f10a93c5
             f.write("Ending FindContInfo Spider\n")
         print("Ending FindContInfo Spider")
 
         print("Beginning FindUtilities Spider")
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilities Spider\n")
         yield RUNNER.crawl(FindUtilities)
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindUtilities \n")
         print("Ending FindUtilities Spider")
 
         print("Beginning FindUtilInfo Spider")
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilInfo Spider\n")
+<<<<<<< HEAD
         yield RUNNER.crawl(FindUtilInfo(CONNECTION))
         with open('./vodadata/debugLog.txt', 'a') as f:
+=======
+        yield RUNNER.crawl(FindUtilInfo)
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+>>>>>>> 5381bca056e619d90d334370b647e2c9f10a93c5
             f.write("Ending FindUtilInfo Spider\n")
         print("Ending FindUtilInfo Spider")
 
         print("Beginning FindSourceLevels Spider")
-        with open('./vodadata/debugLog.txt', 'a') as f:
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindSourceLevels Spider\n")
+<<<<<<< HEAD
         yield RUNNER.crawl(FindSourceLevels(CONNECTION))
         with open('./vodadata/debugLog.txt', 'a') as f:
+=======
+        yield RUNNER.crawl(FindSourceLevels)
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+>>>>>>> 5381bca056e619d90d334370b647e2c9f10a93c5
             f.write("Ending FindSourceLevels Spider\n")
         print("Ending FindSourceLevels Spider")
+
+        print("Beginning LeadInfoScraper Spider")
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+            f.write("Beginning LeadInfoScraper Spider\n")
+        yield RUNNER.crawl(LeadInfoScraper)
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+            f.write("Ending LeadInfoScraper Spider\n")
+        print("Ending LeadInfoScraper Spider")
 
         reactor.stop()
 
     print("Beginning GetLocaleData")
-    with open('./vodadata/debugLog.txt', 'a') as f:
+    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Beginning GetLocaleData Spider")
     get_locale_data = GetLocaleData(CONNECTION)
     get_locale_data.main()
-    with open('./vodadata/debugLog.txt', 'a') as f:
+    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Ending GetLocaleData Spider")
     print("Ending GetLocaleData")
 
@@ -87,10 +112,10 @@ if __name__ == '__main__':
     reactor.run()  # script will block here until all crawlers are finished
 
     print("Beginning CalculateSourceRating")
-    with open('./vodadata/debugLog.txt', 'a') as f:
+    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Beginning CalculateSourceRating Spider")
     calculate_source_rating = CalculateSourceRating(CONNECTION)
     calculate_source_rating.main()
-    with open('./vodadata/debugLog.txt', 'a') as f:
+    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Ending CalculateSourceRating Spider")
     print("Ending CalculateSourceRating")

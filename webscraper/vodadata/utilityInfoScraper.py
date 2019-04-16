@@ -9,7 +9,7 @@ class FindUtilInfo(scrapy.Spider):
         self.connection = connection
 
     def start_requests(self):
-        with open("./vodadata/AllEWGUtilities.txt") as f:
+        with open("./vodadata/datafiles/AllEWGUtilities.txt") as f:
             urls = f.read().splitlines()
         for url in urls:
             yield scrapy.Request(url=url, callback=self.scrape_source_info)
@@ -57,7 +57,7 @@ class FindUtilInfo(scrapy.Spider):
                     db_city = cursor.fetchone()
 
                 if db_city is None:
-                    with open('./vodadata/debugLog.txt', 'a') as f:
+                    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
                         f.write("\n{}\n, {}, {}, {}, {}, {}, {}".format(response.url,
                                                                         utility_name, scraped_city, new_scraped_city,
                                                                         reduced_scraped_city, state_id,
@@ -112,6 +112,6 @@ class FindUtilInfo(scrapy.Spider):
                     "number_people_served": number_people_served, "scraped_city": scraped_city, "util_code": util_code})
 
         except Exception as e:
-            with open('./vodadata/debugLog.txt', 'a') as f:
+            with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
                 f.write("\nERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))
             print("ERROR: {}. Source Code: {}".format(e, response.url.split('=')[1]))

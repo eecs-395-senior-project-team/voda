@@ -1,10 +1,17 @@
+/* eslint-disable no-undef */
+
 import React, { Component } from 'react';
 import { render } from "react-dom";
 import { Chart } from "react-google-charts";
 import './App.css';
 import renderHTML from 'react-render-html';
-var fs = require("fs");
+import { FusionTablesLayer } from "react-google-maps";
+import GoogleMapReact from 'google-map-react';
 
+const { compose, withProps } = require("recompose");
+
+
+var fs = require("fs");
 const axios = require('axios');
 
 /** Class that handles small popup when a district is clicked */
@@ -45,6 +52,17 @@ class FullView extends React.Component {
 // Main class
 class App extends Component {
 
+  /**
+  * Adds latitude and longitude information for the map
+  */
+  static defaultProps = {
+    center: {
+      lat: 59.95,
+      lng: 30.33
+    },
+    zoom: 11
+  };
+
 /**
  * Manages the state of the popup components
  * @constructor
@@ -58,60 +76,7 @@ class App extends Component {
       text: '',
       header: '',
       map: null,
-      data: [
-      ['State', 'Contamination'],
-      ['Alabama', -1.0],
-      ['Alaska', 2.5],
-      ['Arizona', 3],
-      ['Arkansas', 4],
-      ['California', 5],
-      ['Colorado', 6],
-      ['Connecticut', 7],
-      ['Delaware', 8],
-      ['Florida', 9],
-      ['Georgia', 10],
-      ['Hawaii', 11],
-      ['Idaho', 12],
-      ['Georgia', 13],
-      ['Illinois', 14],
-      ['Indiana', 15],
-      ['Iowa', 16],
-      ['Kansas', 17],
-      ['Kentucky', 18],
-      ['Louisiana', 19],
-      ['Maine', 20],
-      ['Maryland', 21],
-      ['Massachusetts', 22],
-      ['Michigan', 23],
-      ['Minnesota', 24],
-      ['Mississippi', 25],
-      ['Missouri', 26],
-      ['Montana', 27],
-      ['Nebraska', 28],
-      ['Nevada', 29],
-      ['New Hampshire', 30],
-      ['New Jersey', 31],
-      ['New Mexico', 32],
-      ['New York', 33],
-      ['North Carolina', 34],
-      ['North Dakota', 35],
-      ['Ohio', 36],
-      ['Oklahoma', 37],
-      ['Oregon', 38],
-      ['Pennsylvania', 39],
-      ['Rhode Island', 40],
-      ['South Carolina', 41],
-      ['South Dakota', 42],
-      ['Tennessee', 43],
-      ['Texas', 44],
-      ['Utah', 45],
-      ['Vermont', 46],
-      ['Virginia', 47],
-      ['Washington', 48],
-      ['West Virginia', 49],
-      ['Wisconsin', 50],
-      ['Wyoming', 50],
-      ],
+      data: [],
       selectedState: '',
     };
     this.togglePopupRegion = this.togglePopupRegion.bind(this)
@@ -242,10 +207,16 @@ class App extends Component {
     return (
       <div className = "App">
         <div className ="header"> {title} </div>
-        <div className = "map2"> {renderHTML("<iframe width='1100' height='650' scrolling='no' frameborder='no' src='https://fusiontables.google.com/embedviz?q=select+col4+from+1xdysxZ94uUFIit9eXmnw1fYc6VcQiXhceFd_CVKa&amp;viz=MAP&amp;h=false&amp;lat=39.762395982083866&amp;lng=-96.29560473484912&amp;t=1&amp;z=5&amp;l=col4&amp;y=307&amp;tmplt=340&amp;hml=KML'></iframe>")} </div>
         <div className = "map">
-     
-        </div> 
+        <div style={{ height: '500px', width: '1000px' }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key:'AIzaSyDPQzcjtqG88UJbV2_mv3zSfVMWBqYeue8'}}
+          defaultCenter={{lat: 41.850033, lng: -87.6500523} }
+          defaultZoom={4}>
+
+        </GoogleMapReact>
+        </div>
+        </div>
         {this.state.showPopup ? 
           <Popup
             header='Summary'
@@ -266,30 +237,5 @@ class App extends Component {
     );
   }
 }
-
-     /*<Chart
-            width={'1000px'}
-            height={'600px'}
-            chartType="GeoChart"
-            data={this.state.data}
-            options={options}
-            chartEvents = {[{
-                eventName: "select",
-                callback: ({chartWrapper}) => {
-                  if(chartWrapper.getChart().getSelection().length > 0) {
-                    var location = chartWrapper.getChart().getSelection()[0]['row'] + 1;
-                    this.setState({
-                      selectedState:this.state.data[location][0]
-                    })
-                    this.togglePopupRegion()
-                  }
-                },
-              }
-            ]}
-
-            // Note: you will need to get a mapsApiKey for your project.
-            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-            mapsApiKey=""
-            rootProps={{ 'data-testid': '2' }}/> */
 
 export default App;

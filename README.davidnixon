@@ -1,3 +1,11 @@
+Week 8:
+	Refactored the webscraper to reduce overhead in git, added code to scrape contaminant data for lead for all sources. 
+	
+	Files worked on:
+		webscraper/vodadata/leadInfoScraper.py
+		webscraper/scraper.py
+		webscraper/vodadata/datafiles/*
+
 Week 7:
 	Found data sets to pair all US cities, towns, and villages with their counties and implemented the code to do the merge.
 	Also updated the model to represent the new database tables.
