@@ -4,7 +4,7 @@ Views for VodaBackend.
 # Create your views here.
 from django.http import HttpResponse, HttpResponseBadRequest
 import random, array #temporary for dummy data
-from .models import State, Sources, Contaminants, SourceLevels, StateAvgLevels
+from .models import States, Sources, Contaminants, SourceLevels, StateAvgLevels
 import json
 
 def root(request):
@@ -37,13 +37,13 @@ def map_endpoint(request):
 
     # sorts the Sources model by states then by number_served in decending order. Only including
     # the first unique state
-    largestSourceByState = Sources.objects.order_by('state', '-number_served').distinct('state') #state needs to be changed to county when moudles update
+    largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county') #state needs to be changed to county when moudles update
     
     # makes the list of QuerySets into a list of State's and a list of cooresponding scores
-    largestSourceByState = list(map(lambda qSet : list(qSet.state, qSet.score), largestSourceByState))
+    largest_source_by_county = list(map(lambda qSet: list(qSet.county, qSet.county), largest_source_by_county))
     #largestSourceScores = list(map(lambda qSet : qSet.score, largestSourceByState))
 
-    data = {"data": largestSourceByState}
+    data = {"data": largest_source_by_county}
     json_data = json.dumps(data)
         
     return HttpResponse(json_data)
@@ -63,8 +63,7 @@ def summary(request):
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
 
-    # going to be formated as 
-
+    # going to be formated as
     # if there are no contaminants over the recomended amount
     # All contaminants are below the health guideline set by the California Office of Environmental Health Hazard Assessment.
 
@@ -163,10 +162,9 @@ def details(request):
         #    response += "High levels of " + contaminantName + " can lead to:\n"
         #    response += contaminant.health_concerns + "\n"
 
-        responseString = "This is a test String"
-        return HttpResponse(responseString)
-    else:
-        return HttpResponseBadRequest(400)
+        response_string = "This is a test String"
+        return HttpResponse(response_string)
+    return HttpResponseBadRequest(400)
 
 
 def debug(request):
