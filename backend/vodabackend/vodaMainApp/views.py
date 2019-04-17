@@ -2,10 +2,10 @@
 Views for VodaBackend.
 """
 # Create your views here.
-from django.http import HttpResponse, HttpResponseBadRequest
-import random, array #temporary for dummy data
-from .models import States, Sources, Contaminants, SourceLevels, StateAvgLevels
 import json
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from .models import Sources
+
 
 def root(request):
     """ Root endpoint.
@@ -38,16 +38,15 @@ def map_endpoint(request):
     # sorts the Sources model by County then by number_served in decending order. Only including
     # the first unique County
     largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county')
-    
-    largest_source_by_county = list(map(lambda qSet: list(qSet.county, qSet.county), largest_source_by_county))
-    largest_source_scores = list(map(lambda qSet : qSet.score, largest_source_by_county))
 
-    data = {
+    largest_source_by_county = list(map(lambda qSet: list(qSet.county, qSet.county), largest_source_by_county))
+    largest_source_scores = list(map(lambda qSet: qSet.score, largest_source_by_county))
+
+    response = {
         "counties": largest_source_by_county,
         "scores": largest_source_scores}
-    json_data = json.dumps(data)
-        
-    return HttpResponse(json_data)
+
+    return JsonResponse(response)
 
 
 def summary(request):
@@ -177,10 +176,15 @@ def debug(request):
         request: Incoming Django request object.
 
     Returns:
-        An HTTP Response with details from the request object.
+        A JsonResponse with details from the request object.
     """
-    return HttpResponse(("Request received: ",
-                         "host: %s, " % request.get_host(),
-                         "type: %s, " % request.method,
-                         "GET params: " + str(request.GET) + ", ",
-                         "POST params: " + str(request.POST)))
+    response = {
+        "Request Received":
+            {
+                "Host": request.get_host(),
+                "Type": request.method,
+                "GET Params": request.GET,
+                "POST Params": request.POST,
+            }
+    }
+    return JsonResponse(response)
