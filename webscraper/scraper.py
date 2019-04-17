@@ -77,7 +77,7 @@ if __name__ == '__main__':
         print("Beginning LeadInfoScraper Spider")
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning LeadInfoScraper Spider\n")
-        yield RUNNER.crawl(LeadInfoScraper)
+        yield RUNNER.crawl(LeadInfoScraper(CONNECTION))
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending LeadInfoScraper Spider\n")
         print("Ending LeadInfoScraper Spider")
