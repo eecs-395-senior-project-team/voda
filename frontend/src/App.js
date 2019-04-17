@@ -1,17 +1,6 @@
-/* eslint-disable no-undef */
-
 import React, { Component } from 'react';
-import { render } from "react-dom";
-import { Chart } from "react-google-charts";
 import './App.css';
-import renderHTML from 'react-render-html';
-import { FusionTablesLayer } from "react-google-maps";
-import GoogleMapReact from 'google-map-react';
 
-const { compose, withProps } = require("recompose");
-
-
-var fs = require("fs");
 const axios = require('axios');
 
 /** Class that handles small popup when a district is clicked */

@@ -33,10 +33,10 @@ services:
       - ./backend/.envs/.local/.postgres
 
   frontend:
-    container_name: voda_local_frontend
     build:
       context: ./frontend
       dockerfile: ./compose/local/Dockerfile
+    image: voda_local_frontend
     volumes:
       - './frontend:/app'
       - '/app/node_modules'
@@ -46,10 +46,10 @@ services:
       - NODE_ENV=development
   
   webscraper:
-    container_name: voda_local_webscraper
     build:
       context: ./webscraper
       dockerfile: ./compose/local/Dockerfile
+    image: voda_local_webscraper
     depends_on:
       - postgres
     volumes:

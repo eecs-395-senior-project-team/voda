@@ -1,36 +1,17 @@
 {
   "name": "frontend",
-  "jest": {
-    "verbose": true,
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/App.js",
-      "\\.(css|less)$": "<rootDir>/src/CSSStub.js"
-    },
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ]
-  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "google-map-react": "^1.1.4",
-    "jest": "^23.6.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "react-google-charts": "^3.0.11",
-    "react-google-maps": "^9.4.5",
-    "react-render-html": "^0.6.0",
     "react-scripts": "^2.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src"
   },
@@ -47,9 +28,6 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "google-charts": "^2.0.0",
-    "jest": "^23.6.0",
-    "react-test-renderer": "^16.8.6"
+    "eslint-plugin-react": "^7.12.4"
   }
 }

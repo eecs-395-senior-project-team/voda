@@ -36,18 +36,18 @@ services:
     image: redis:3.2
 
   frontend:
-    container_name: voda_production_frontend
     build:
       context: ./frontend
       dockerfile: ./compose/production/Dockerfile
+    image: voda_production_frontend
     ports:
       - '80:80'
 
   webscraper:
-    container_name: voda_production_webscraper
     build:
       context: ./webscraper
       dockerfile: ./compose/production/Dockerfile
+    image: voda_production_webscraper
     depends_on:
       - postgres
     volumes:
