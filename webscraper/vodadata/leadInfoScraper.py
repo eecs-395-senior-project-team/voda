@@ -1,6 +1,5 @@
 import scrapy
 import psycopg2
-import vodadata.constants as vodaconstants
 
 
 class LeadInfoScraper(scrapy.Spider):
