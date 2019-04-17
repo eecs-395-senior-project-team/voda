@@ -1,0 +1,26 @@
+[
+  {
+    "model": "vodaMainApp.State",
+    "pk": 1,
+    "fields": {
+      "state_id": 10
+    }
+  },
+  {
+    "model": "vodaMainApp.State",
+    "pk": 2,
+    "fields": {
+      "state_id": 12
+    }
+  },
+  {
+    "model": "vodaMainApp.State",
+    "pk": 3,
+    "fields": {
+      "state_id": 3
+    }
+  }
+
+
+
+]

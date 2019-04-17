@@ -1,0 +1,56 @@
+version: '3'
+
+volumes:
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+  production_caddy: {}
+
+services:
+  django:
+    build:
+      context: ./backend
+      dockerfile: ./compose/production/django/Dockerfile
+    image: vodabackend_production_django
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./backend/.envs/.production/.django
+      - ./backend/.envs/.production/.postgres
+    command: /start
+    ports:
+       - "8000:8000"
+
+  postgres:
+    build:
+      context: ./backend
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: vodabackend_production_postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
+    env_file:
+      - ./backend/.envs/.production/.postgres
+
+  redis:
+    image: redis:3.2
+
+  frontend:
+    container_name: voda_production_frontend
+    build:
+      context: ./frontend
+      dockerfile: ./compose/production/Dockerfile
+    ports:
+      - '80:80'
+
+  webscraper:
+    container_name: voda_production_webscraper
+    build:
+      context: ./webscraper
+      dockerfile: ./compose/production/Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - './webscraper:/app'
+    env_file:
+      - ./backend/.envs/.production/.postgres
