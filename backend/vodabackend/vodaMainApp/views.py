@@ -35,15 +35,16 @@ def map_endpoint(request):
         An HTTP Response with a list of water supplies and their associated 1-10 values.
     """
 
-    # sorts the Sources model by states then by number_served in decending order. Only including
-    # the first unique state
-    largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county') #state needs to be changed to county when moudles update
+    # sorts the Sources model by County then by number_served in decending order. Only including
+    # the first unique County
+    largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county')
     
-    # makes the list of QuerySets into a list of State's and a list of cooresponding scores
     largest_source_by_county = list(map(lambda qSet: list(qSet.county, qSet.county), largest_source_by_county))
-    #largestSourceScores = list(map(lambda qSet : qSet.score, largestSourceByState))
+    largest_source_scores = list(map(lambda qSet : qSet.score, largest_source_by_county))
 
-    data = {"data": largest_source_by_county}
+    data = {
+        "counties": largest_source_by_county,
+        "scores": largest_source_scores}
     json_data = json.dumps(data)
         
     return HttpResponse(json_data)

@@ -23,8 +23,8 @@ class Sources(models.Model):
     source_id = models.IntegerField(primary_key=True)
     utility_name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
-    state = models.ForeignKey(States, on_delete=models.CASCADE)
-    county = models.ForeignKey(Counties, on_delete=models.CASCADE)
+    state = models.ForeignKey(States, on_delete=models.CASCADE, default="None")
+    county = models.ForeignKey(Counties, on_delete=models.CASCADE, default=-1)
     number_served = models.IntegerField()
     score = models.FloatField()
     # TODO: Add congressional information etc.
