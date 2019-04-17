@@ -52,17 +52,6 @@ class FullView extends React.Component {
 // Main class
 class App extends Component {
 
-  /**
-  * Adds latitude and longitude information for the map
-  */
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
-  };
-
 /**
  * Manages the state of the popup components
  * @constructor
