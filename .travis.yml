@@ -19,7 +19,7 @@ matrix:
     - name: "Frontend Local Unit Tests"
       script:
         - docker-compose --log-level WARNING -f local.yml run frontend npm run lint
-        - docker-compose --log-level WARNING -f local.yml run frontend npm run test
+        - docker-compose --log-level WARNING -f local.yml run frontend npm test
     - name: "Webscraper Local Unit Tests"
       script:
         - docker-compose --log-level WARNING -f local.yml run webscraper flake8
