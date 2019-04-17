@@ -3,7 +3,8 @@
   "jest": {
     "verbose": true,
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/App.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/App.js",
+      "\\.(css|less)$": "<rootDir>/src/CSSStub.js"
     },
     "moduleFileExtensions": [
       "js",
@@ -48,6 +49,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "google-charts": "^2.0.0",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "react-test-renderer": "^16.8.6"
   }
 }
