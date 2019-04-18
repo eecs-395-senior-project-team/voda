@@ -2,7 +2,6 @@
 Views for VodaBackend.
 """
 # Create your views here.
-import json
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from .models import Sources
 

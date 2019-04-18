@@ -1,3 +1,4 @@
+let counties = require('./counties.json');
 var mapboxAccessToken = 'pk.eyJ1Ijoidm9kYSIsImEiOiJjanU0bXR6NXIwemxoNDRxdm9wMTc2YTd5In0.Z3LcZt3raPAfcQan-k59XQ';
 var mymap = L.map('mapid', {
     minZoom: 3,
