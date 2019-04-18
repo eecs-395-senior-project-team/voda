@@ -3,7 +3,7 @@ import L from 'leaflet';
 import './Map.sass';
 import Alert from './Alert';
 
-const countiesJson = require('./counties.json');
+const countiesJson = require('./data/counties.json');
 
 /**
  * Component containing the geomap.
@@ -101,7 +101,7 @@ class Map extends Component {
       <div className="row justify-content-center">
         <div className="col-xs-12">
           {alert}
-            <div className="Map border border-dark rounded" id="map" />
+          <div className="Map border border-dark rounded" id="map" />
         </div>
       </div>
     );
