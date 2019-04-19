@@ -35,7 +35,7 @@ class Popup extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className="lead">{summary}alskdjflkajs lksjd flkajsd lfkaj slkdfj alksjd flkajs dlfkaj skdlfjalskd jfalksjdf lak jsdlkfj alskd jfalsk djflaksjdf</p>
+          <p className="lead">{summary}</p>
         </Modal.Body>
         <Modal.Footer>
           <button type="button" className="btn btn-secondary" onClick={hidePopup}>

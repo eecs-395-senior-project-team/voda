@@ -19,7 +19,9 @@ function Header({ header }) {
       </div>
       <div className="col-xs-4">
         <div className="github">
-          <i class="fa fa-github-square"></i>
+          <a href="https://github.com/eecs-395-senior-project-team/voda">
+            <i className="fab fa-github fa-2x" />
+          </a>
         </div>
       </div>
     </div>
