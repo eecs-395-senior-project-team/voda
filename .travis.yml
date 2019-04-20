@@ -1,18 +1,26 @@
 language:
-    - generic
+  - minimal
 
 env:
   COMPOSE_VERSION: 1.23.2
 
 before_install:
- - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
- - chmod +x docker-compose
- - sudo mv docker-compose /usr/local/bin
+  - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose --log-level WARNING -f local.yml build
 
 matrix:
-    include:
-        name: "Backend Local Unit Tests"
-        script:
-            - docker-compose --log-level WARNING -f backend/local.yml build
-            - docker-compose --log-level WARNING -f backend/local.yml run django flake8
-            - docker-compose --log-level WARNING -f backend/local.yml run django pytest -vv
+  include:
+    - name: "Backend Local Unit Tests"
+      script:
+        - docker-compose --log-level WARNING -f local.yml run django flake8
+        - docker-compose --log-level WARNING -f local.yml run django pytest -vv
+    - name: "Frontend Local Unit Tests"
+      script:
+        - docker-compose --log-level WARNING -f local.yml run frontend npm run lint
+        - docker-compose --log-level WARNING -f local.yml run frontend npm run test
+    - name: "Webscraper Local Unit Tests"
+      script:
+        - docker-compose --log-level WARNING -f local.yml run webscraper flake8
+        - docker-compose --log-level WARNING -f local.yml run webscraper pytest -vv

@@ -1,0 +1,58 @@
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+
+services:
+  django:
+    build:
+      context: ./backend
+      dockerfile: ./compose/local/django/Dockerfile
+    image: vodabackend_local_django
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.envs/.local/.django
+      - ./backend/.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    build:
+      context: ./backend
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: vodabackend_local_postgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
+    env_file:
+      - ./backend/.envs/.local/.postgres
+
+  frontend:
+    container_name: voda_local_frontend
+    build:
+      context: ./frontend
+      dockerfile: ./compose/local/Dockerfile
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+  
+  webscraper:
+    container_name: voda_local_webscraper
+    build:
+      context: ./webscraper
+      dockerfile: ./compose/local/Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - './webscraper:/app'
+    env_file:
+      - ./backend/.envs/.local/.postgres
