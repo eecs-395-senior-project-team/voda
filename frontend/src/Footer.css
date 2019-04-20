@@ -1,0 +1,8 @@
+.Footer {
+    color: grey;
+    font-size: 15px;
+    letter-spacing: 2px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}

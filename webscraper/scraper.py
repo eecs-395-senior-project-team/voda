@@ -45,13 +45,8 @@ if __name__ == '__main__':
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindContInfo Spider\n")
         print("Beginning FindContInfo Spider")
-<<<<<<< HEAD
         yield RUNNER.crawl(FindContInfo(CONNECTION))
-        with open('./vodadata/debugLog.txt', 'a') as f:
-=======
-        yield RUNNER.crawl(FindContInfo)
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
->>>>>>> 5381bca056e619d90d334370b647e2c9f10a93c5
             f.write("Ending FindContInfo Spider\n")
         print("Ending FindContInfo Spider")
 
@@ -66,33 +61,23 @@ if __name__ == '__main__':
         print("Beginning FindUtilInfo Spider")
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilInfo Spider\n")
-<<<<<<< HEAD
         yield RUNNER.crawl(FindUtilInfo(CONNECTION))
-        with open('./vodadata/debugLog.txt', 'a') as f:
-=======
-        yield RUNNER.crawl(FindUtilInfo)
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
->>>>>>> 5381bca056e619d90d334370b647e2c9f10a93c5
             f.write("Ending FindUtilInfo Spider\n")
         print("Ending FindUtilInfo Spider")
 
         print("Beginning FindSourceLevels Spider")
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindSourceLevels Spider\n")
-<<<<<<< HEAD
         yield RUNNER.crawl(FindSourceLevels(CONNECTION))
-        with open('./vodadata/debugLog.txt', 'a') as f:
-=======
-        yield RUNNER.crawl(FindSourceLevels)
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
->>>>>>> 5381bca056e619d90d334370b647e2c9f10a93c5
             f.write("Ending FindSourceLevels Spider\n")
         print("Ending FindSourceLevels Spider")
 
         print("Beginning LeadInfoScraper Spider")
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning LeadInfoScraper Spider\n")
-        yield RUNNER.crawl(LeadInfoScraper)
+        yield RUNNER.crawl(LeadInfoScraper(CONNECTION))
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending LeadInfoScraper Spider\n")
         print("Ending LeadInfoScraper Spider")

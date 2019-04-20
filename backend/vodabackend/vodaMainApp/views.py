@@ -2,10 +2,9 @@
 Views for VodaBackend.
 """
 # Create your views here.
-from django.http import HttpResponse, HttpResponseBadRequest
-import random, array #temporary for dummy data
-from .models import State, Sources, Contaminants, SourceLevels, StateAvgLevels
-import json
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from .models import Sources
+
 
 def root(request):
     """ Root endpoint.
@@ -35,18 +34,31 @@ def map_endpoint(request):
         An HTTP Response with a list of water supplies and their associated 1-10 values.
     """
 
-    # sorts the Sources model by states then by number_served in decending order. Only including
-    # the first unique state
-    largestSourceByState = Sources.objects.order_by('state', '-number_served').distinct('state') #state needs to be changed to county when moudles update
-    
-    # makes the list of QuerySets into a list of State's and a list of cooresponding scores
-    largestSourceByState = list(map(lambda qSet : list(qSet.state, qSet.score), largestSourceByState))
-    #largestSourceScores = list(map(lambda qSet : qSet.score, largestSourceByState))
+    # sorts the Sources model by County then by number_served in decending order. Only including
+    # the first unique County
+    largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county')
 
-    data = {"data": largestSourceByState}
-    json_data = json.dumps(data)
-        
-    return HttpResponse(json_data)
+    largest_source_by_county = list(
+        map(
+            lambda qSet: list(qSet.county, qSet.county),
+        largest_source_by_county))
+    largest_source_scores = list(
+        map(
+            lambda qSet: qSet.score, largest_source_by_county))
+
+    response_data = list(
+        map(
+            lambda county, score: {
+                'county': county,
+                'score': score,
+            },
+            largest_source_by_county, largest_source_scores))
+
+    response = {
+        "sources": response_data
+    }
+
+    return JsonResponse(response)
 
 
 def summary(request):
@@ -63,8 +75,7 @@ def summary(request):
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
 
-    # going to be formated as 
-
+    # going to be formated as
     # if there are no contaminants over the recomended amount
     # All contaminants are below the health guideline set by the California Office of Environmental Health Hazard Assessment.
 
@@ -163,10 +174,9 @@ def details(request):
         #    response += "High levels of " + contaminantName + " can lead to:\n"
         #    response += contaminant.health_concerns + "\n"
 
-        responseString = "This is a test String"
-        return HttpResponse(responseString)
-    else:
-        return HttpResponseBadRequest(400)
+        response_string = "This is a test String"
+        return HttpResponse(response_string)
+    return HttpResponseBadRequest(400)
 
 
 def debug(request):
@@ -178,10 +188,15 @@ def debug(request):
         request: Incoming Django request object.
 
     Returns:
-        An HTTP Response with details from the request object.
+        A JsonResponse with details from the request object.
     """
-    return HttpResponse(("Request received: ",
-                         "host: %s, " % request.get_host(),
-                         "type: %s, " % request.method,
-                         "GET params: " + str(request.GET) + ", ",
-                         "POST params: " + str(request.POST)))
+    response = {
+        "Request Received":
+            {
+                "Host": request.get_host(),
+                "Type": request.method,
+                "GET Params": request.GET,
+                "POST Params": request.POST,
+            }
+    }
+    return JsonResponse(response)

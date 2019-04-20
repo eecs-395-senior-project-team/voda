@@ -1,19 +1,12 @@
 import scrapy
 import psycopg2
-import vodadata.constants as vodaconstants
 
 
 class LeadInfoScraper(scrapy.Spider):
     name = "LeadInfoScraper"
 
-    connection = psycopg2.connect(
-      dbname=vodaconstants.DBNAME,
-      user=vodaconstants.USER,
-      password=vodaconstants.PASSWORD,
-      host=vodaconstants.HOST,
-      port=vodaconstants.PORT
-    )
-    connection.set_session(autocommit=True)
+    def __init__(self, connection):
+        self.connection = connection
 
     def write_lead_to_contaminants(self):
         long_health_concerns = "Complying with the EPA's lead rules doesn't mean that the water is safe for " \
