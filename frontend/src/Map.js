@@ -33,8 +33,6 @@ class Map extends Component {
   componentWillMount() {
     Axios.all([getCounties(), getScores()])
       .then(Axios.spread((counties, scores) => {
-        Log.info('GeoJSON Loaded', 'Map Component');
-        Log.info(scores, 'Map Component');
         this.setState({
           counties: counties.data
         });
@@ -79,12 +77,15 @@ class Map extends Component {
     );
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(_, prevState) {
     const { counties, map } = this.state;
-    const { prevCounties } = prevState;
+    let { counties: prevCounties } = prevState;
+    if (typeof prevCounties === 'undefined') {
+      prevCounties = {features: []};
+    }
+
     // When counties change
-    if (counties !== prevCounties && counties !== {}) {
-      Log.info(counties);
+    if (counties.features !== prevCounties.features && Object.entries(counties).length !== 0 && counties.constructor === Object) {
       let geoJson;
       const highlightFeature = (e) => {
         const selectedLayer = e.target;
@@ -113,7 +114,6 @@ class Map extends Component {
           NAME,
           STATE,
         } = e.target.feature.properties;
-        Log.info(e.target.feature.properties, 'Map Component');
         showPopup(COUNTY, NAME, STATE);
       };
       geoJson = L.geoJson(counties, {
@@ -138,6 +138,7 @@ class Map extends Component {
       this.setState({
         map: map.addLayer(geoJson)
       });
+
     }
   }
 
