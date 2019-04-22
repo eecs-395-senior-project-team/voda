@@ -6,7 +6,11 @@ import './Map.sass';
 import Alert from './Alert';
 import Log from './Log';
 
-const countiesJson = require('./data/counties_20m.json');
+// Axios get request for counties
+const getCounties = () => Axios.get('https://s3.us-east-2.amazonaws.com/voda-counties-data/data/counties_20m.json');
+
+// Axios get request for scores
+const getScores = () => Axios.get('http://localhost:8000/map');
 
 /**
  * Component containing the geomap.
@@ -16,7 +20,8 @@ class Map extends Component {
     super(props);
     this.mapboxAccessToken = 'pk.eyJ1Ijoidm9kYSIsImEiOiJjanU0bXR6NXIwemxoNDRxdm9wMTc2YTd5In0.Z3LcZt3raPAfcQan-k59XQ';
     this.state = {
-      counties: countiesJson,
+      counties: {},
+      map: {},
       lat: 37.8,
       lng: -96,
       zoom: 4,
@@ -26,10 +31,14 @@ class Map extends Component {
 
   // Initializes map colors
   componentWillMount() {
-    Axios.get('http://localhost:8000/map')
-      .then((response) => {
-        Log.info(response, 'Map Component');
-      })
+    Axios.all([getCounties(), getScores()])
+      .then(Axios.spread((counties, scores) => {
+        Log.info('GeoJSON Loaded', 'Map Component');
+        Log.info(scores, 'Map Component');
+        this.setState({
+          counties: counties.data
+        });
+      }))
       .catch((error) => {
         Log.error(error, 'Map Component');
       });
@@ -38,77 +47,98 @@ class Map extends Component {
   // Enable Map
   componentDidMount() {
     const {
-      lat, lng, zoom, counties,
-    } = this.state;
-    this.map = L.map('map', {
-      center: [lat, lng],
+      lat,
+      lng,
       zoom,
-      minZoom: 4,
-      maxZoom: 10,
-      zoomSnap: 1,
-      wheelDebounceTime: 10,
-      maxBounds: L.latLngBounds(
-        L.latLng(-4, -55),
-        L.latLng(71.6, -180),
-      ),
-      layers: [
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-          id: 'mapbox.light',
-          accessToken: this.mapboxAccessToken,
-        }),
-      ],
-    });
-    let geoJson;
-    const highlightFeature = (e) => {
-      const selectedLayer = e.target;
-      selectedLayer.setStyle({
-        weight: 5,
-        color: '#666',
-        dashArray: '',
-        fillOpacity: 0.7,
-      });
-      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        selectedLayer.bringToFront();
-      } else {
-        this.setState({
-          browserAlert: true,
-        });
-      }
-    };
-    const resetHighlight = (e) => {
-      geoJson.resetStyle(e.target);
-    };
-    const zoomToFeature = (e) => {
-      const { showPopup } = this.props;
-      this.map.fitBounds(e.target.getBounds());
-      const {
-        COUNTY,
-        NAME,
-        STATE,
-      } = e.target.feature.properties;
-      Log.info(e.target.feature.properties, 'Map Component');
-      showPopup(COUNTY, NAME, STATE);
-    };
-    geoJson = L.geoJson(counties, {
-      style() {
-        return {
-          fillColor: '#800026',
-          weight: 1,
-          opacity: 0.5,
-          color: 'black',
+    } = this.state;
+    this.setState(
+      {
+        map: L.map(
+          'map',
+          {
+            center: [lat, lng],
+            zoom,
+            minZoom: 4,
+            maxZoom: 10,
+            zoomSnap: 1,
+            wheelDebounceTime: 10,
+            maxBounds: L.latLngBounds(
+              L.latLng(-4, -55),
+              L.latLng(71.6, -180),
+            ),
+            layers: [
+              L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox.light',
+                accessToken: this.mapboxAccessToken,
+              }),
+            ],
+          },
+        ),
+      },
+    );
+  }
+
+  componentDidUpdate(prevState) {
+    const { counties, map } = this.state;
+    const { prevCounties } = prevState;
+    // When counties change
+    if (counties !== prevCounties && counties !== {}) {
+      Log.info(counties);
+      let geoJson;
+      const highlightFeature = (e) => {
+        const selectedLayer = e.target;
+        selectedLayer.setStyle({
+          weight: 5,
+          color: '#666',
           dashArray: '',
           fillOpacity: 0.7,
-        };
-      },
-      onEachFeature(feature, layer) {
-        layer.on({
-          mouseover: highlightFeature,
-          mouseout: resetHighlight,
-          click: zoomToFeature,
         });
-      },
-    }).addTo(this.map);
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+          selectedLayer.bringToFront();
+        } else {
+          this.setState({
+            browserAlert: true,
+          });
+        }
+      };
+      const resetHighlight = (e) => {
+        geoJson.resetStyle(e.target);
+      };
+      const zoomToFeature = (e) => {
+        const { showPopup } = this.props;
+        map.fitBounds(e.target.getBounds());
+        const {
+          COUNTY,
+          NAME,
+          STATE,
+        } = e.target.feature.properties;
+        Log.info(e.target.feature.properties, 'Map Component');
+        showPopup(COUNTY, NAME, STATE);
+      };
+      geoJson = L.geoJson(counties, {
+        style() {
+          return {
+            fillColor: '#800026',
+            weight: 1,
+            opacity: 0.5,
+            color: 'black',
+            dashArray: '',
+            fillOpacity: 0.7,
+          };
+        },
+        onEachFeature(feature, layer) {
+          layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: zoomToFeature,
+          });
+        },
+      });
+      this.setState({
+        map: map.addLayer(geoJson)
+      });
+    }
   }
 
   render() {
