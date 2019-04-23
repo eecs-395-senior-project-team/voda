@@ -38,12 +38,25 @@ def map_endpoint(request):
     # the first unique County
     largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county')
 
-    largest_source_by_county = list(map(lambda qSet: list(qSet.county, qSet.county), largest_source_by_county))
-    largest_source_scores = list(map(lambda qSet: qSet.score, largest_source_by_county))
+    largest_source_by_county = list(
+        map(
+            lambda qSet: list(qSet.county, qSet.county),
+        largest_source_by_county))
+    largest_source_scores = list(
+        map(
+            lambda qSet: qSet.score, largest_source_by_county))
+
+    response_data = list(
+        map(
+            lambda county, score: {
+                'county': county,
+                'score': score,
+            },
+            largest_source_by_county, largest_source_scores))
 
     response = {
-        "counties": largest_source_by_county,
-        "scores": largest_source_scores}
+        "sources": response_data
+    }
 
     return JsonResponse(response)
 

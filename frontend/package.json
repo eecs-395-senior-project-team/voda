@@ -4,13 +4,21 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-scripts": "^2.1.8"
+    "bootstrap": "^4.3.1",
+    "debug": "^4.1.1",
+    "leaflet": "^1.4.0",
+    "node-sass": "^4.11.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
+    "react-dom": "^16.8.6",
+    "react-scripts": "2.1.8",
+    "source-map-explorer": "^1.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src"
@@ -26,7 +34,8 @@
   ],
   "devDependencies": {
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4"
   }
