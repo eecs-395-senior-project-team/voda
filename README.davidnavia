@@ -50,6 +50,16 @@ on using fixtures, because I was unable to get the variables and data migrations
 environment for everyone at this late stage in the project wouldn't be a good idea. I've gotten the program to work with reading data from the fixture as can be seen from
 this response from the pytest that shows the data from populating the database with states with id's 10, 12 and 3. 
 
+Week 9
+
+Because we're reaching the end of the semester and I was still having trouble setting up endpoints David F wanted to take over the backend and have me work on, style isntead.
+I spend the begining of the week still trying to get the fixtures to work properly, but with the way I was implementing it seems like it would take me too long to get over
+the blockers. After transitioning off of the backend most of what I did was helping to prepare the poster for intersections, spent the full time manning the poster at intersections
+and providing some smaller help here and there with helping with the implementation, (things like providing coordinates for the map's outer limits and removing the non 50 state
+territories from the maps. Most recently I've started looking into the bootstrap api so Anna and I can build wire frames for the website this week.
+
+
+
 
 E         - b'{"data": "[\\"10\\", \\"12\\", \\"3\\"]"}'
 E         + (b'Returns a list of water supplies and a 1-10 value with the quality of the wa'
