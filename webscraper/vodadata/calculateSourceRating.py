@@ -12,11 +12,11 @@ class CalculateSourceRating:
 
     def collect_contaminants_stdev(self):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM contaminants")
+        cursor.execute('SELECT * FROM "vodaMainApp_contaminants"')
         for contaminant in cursor:
             sub_cursor = self.connection.cursor()
             sub_cursor.execute(
-                "SELECT STDDEV(source_level) FROM source_levels WHERE source_levels.contaminant_id=%s",
+                'SELECT STDDEV(source_level) FROM "vodaMainApp_source_levels" WHERE contaminant_id=%s',
                 (contaminant[0],))
             self.contaminant_std_dev_dict[contaminant[0]] = sub_cursor.fetchone()
             sub_cursor.close()
@@ -24,7 +24,7 @@ class CalculateSourceRating:
 
     def collect_contaminant_nat_avgs(self):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM contaminants")
+        cursor.execute('SELECT * FROM "vodaMainApp_contaminants"')
 
         for contaminant in cursor:
             self.contaminant_nat_avg_dict[contaminant[0]] = contaminant[3]
@@ -43,12 +43,12 @@ class CalculateSourceRating:
 
     def find_scores(self):
         source_cursor = self.connection.cursor()
-        source_cursor.execute("SELECT * FROM sources")
+        source_cursor.execute('SELECT * FROM "vodaMainApp_sources"')
         for source in source_cursor:
             rating = 0
             cont_cursor = self.connection.cursor()
-            cont_cursor.execute("SELECT * FROM source_levels WHERE "
-                                "source_levels.source_id = %s", (source[0],))
+            cont_cursor.execute('SELECT * FROM "vodaMainApp_source_levels" WHERE '
+                                'source_id = %s', (source[0],))
             for cont in cont_cursor:
                 # amount above the national average
                 if cont[2] is not None:
@@ -60,7 +60,7 @@ class CalculateSourceRating:
                         rating + amt_to_add
 
             cont_cursor = self.connection.cursor()
-            cont_cursor.execute("UPDATE sources SET rating = %s WHERE source_id = %s", (rating, source[0]))
+            cont_cursor.execute('UPDATE "vodaMainApp_sources" SET rating = %s WHERE source_id = %s', (rating, source[0]))
             cont_cursor.close()
         source_cursor.close()
 

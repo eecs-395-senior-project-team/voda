@@ -37,46 +37,46 @@ class GetLocaleData:
                     self.write_city_data(city_name=row[4], state_id=row[1], county_name=row[3])
 
         except Exception:
-            print("ERROR\n{}".format(traceback.format_exc()))
+            print('ERROR\n{}'.format(traceback.format_exc()))
 
     def write_state_data(self, state_id):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM states WHERE states.state_id = %s", (state_id,))
+        cursor.execute('SELECT * FROM "vodaMainApp_states" WHERE state_id = %s', (state_id,))
         result = cursor.fetchone()
 
         # if the state does not already exist, add it
         if not result and state_id != 'PR' and state_id != 'VI' and state_id != '':
-            cursor.execute("INSERT INTO states (state_id) VALUES (%s)", (state_id,))
+            cursor.execute('INSERT INTO "vodaMainApp_states" (state_id) VALUES (%s)', (state_id,))
 
         self.connection.commit()
         cursor.close()
 
     def write_county_data(self, county_name, state_id):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM counties WHERE counties.name = %s AND counties.state = %s",
+        cursor.execute('SELECT * FROM "vodaMainApp_counties" WHERE name = %s AND state_id = %s',
                        (county_name, state_id))
         result = cursor.fetchone()
 
         # if the county does not already exist, add it
         if not result and state_id != 'PR' and state_id != 'VI' and state_id != '':
-            cursor.execute("INSERT INTO counties (name, state) VALUES (%s, %s)", (county_name, state_id))
+            cursor.execute('INSERT INTO "vodaMainApp_counties" (name, state_id) VALUES (%s, %s)', (county_name, state_id))
 
         self.connection.commit()
         cursor.close()
 
     def write_city_data(self, city_name, state_id, county_name):
         cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM cities WHERE cities.name = %s AND cities.state_id = %s", (city_name, state_id))
+        cursor.execute('SELECT * FROM "vodaMainApp_cities" WHERE name = %s AND state_id = %s', (city_name, state_id))
         result = cursor.fetchone()
 
-        cursor.execute("SELECT id FROM counties WHERE counties.name = %s AND counties.state = %s",
+        cursor.execute('SELECT id FROM "vodaMainApp_counties" WHERE name = %s AND state_id = %s',
                        (county_name, state_id))
         county_id = cursor.fetchone()
 
         # if the city does not already exist, add it
         if not result and state_id != 'PR' and state_id != 'VI' and state_id != '':
-            cursor.execute("INSERT INTO cities (name, state_id, county_id) "
-                           "VALUES (%s, %s, %s)", (city_name, state_id, county_id))
+            cursor.execute('INSERT INTO "vodaMainApp_cities" (name, state_id, county_id) '
+                           'VALUES (%s, %s, %s)', (city_name, state_id, county_id))
 
         self.connection.commit()
         cursor.close()

@@ -7,11 +7,14 @@ from vodadata.calculateSourceRating import CalculateSourceRating
 from twisted.internet import reactor, defer
 from scrapy.crawler import CrawlerRunner
 from vodadata.getLocaleData import GetLocaleData
+from vodadata.leadInfoScraper import LeadInfoScraper
 import psycopg2
 import os
-from vodadata.leadInfoScraper import LeadInfoScraper
 
 
+# SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
+
+# select column_name,data_type,character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = "vodaMainApp_counties"
 if __name__ == '__main__':
     RUNNER = CrawlerRunner()
 
@@ -21,13 +24,7 @@ if __name__ == '__main__':
     HOST = os.environ['POSTGRES_HOST']
     PORT = os.environ['POSTGRES_PORT']
 
-    CONNECTION = psycopg2.connect(
-      dbname=DBNAME,
-      user=USER,
-      password=PASSWORD,
-      host=HOST,
-      port=PORT
-    )
+    CONNECTION = psycopg2.connect(dbname=DBNAME, user=USER, password=PASSWORD, host=HOST, port=PORT)
     CONNECTION.set_session(autocommit=True)
 
     print("DB Connection status: " + str(CONNECTION.closed))  # should be zero if connection is open
@@ -87,8 +84,8 @@ if __name__ == '__main__':
     print("Beginning GetLocaleData")
     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Beginning GetLocaleData Spider")
-    get_locale_data = GetLocaleData(CONNECTION)
-    get_locale_data.main()
+    #get_locale_data = GetLocaleData(CONNECTION)
+    #get_locale_data.main()
     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Ending GetLocaleData Spider")
     print("Ending GetLocaleData")
