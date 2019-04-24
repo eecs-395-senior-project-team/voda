@@ -10,7 +10,13 @@ import Log from './Log';
 const getCounties = () => Axios.get('https://s3.us-east-2.amazonaws.com/voda-counties-data/data/counties_20m.json');
 
 // Axios get request for scores
-const getScores = () => Axios.get('http://localhost:8000/map');
+const getScores = () => {
+  if (process.env.NODE_ENV === 'development') {
+    Axios.get('http://localhost:8000/map');
+  } else {
+    Axios.get('http://3.19.113.236:8000/map');
+  }
+};
 
 /**
  * Component containing the geomap.
