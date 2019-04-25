@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-import './Popup.sass';
+import './Detail.sass';
 
 
 /**
  * Popup card component.
  */
-class Popup extends Component {
+class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      summary: '',
+      detail: '',
     };
   }
 
@@ -21,14 +21,13 @@ class Popup extends Component {
   }
 
   render() {
-    const { summary } = this.state;
-    const { hidePopup, countyName, showDetail} = this.props;
+    const { detail } = this.state;
+    const { hideDetail, countyName } = this.props;
     return (
       <Modal
         show
-        onHide={hidePopup}
-        onShowDetail={showDetail}
-        dialogClassName="popup"
+        onHide={hideDetail}
+        dialogClassName="detail"
       >
         <Modal.Header closeButton>
           <Modal.Title>
@@ -36,26 +35,22 @@ class Popup extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className="lead">{summary}</p>
+          <p className="lead">{detail}</p>
         </Modal.Body>
         <Modal.Footer>
-          <button type="button" className="btn btn-secondary" onClick={hidePopup}>
+          <button type="button" className="btn btn-secondary" onClick={hideDetail}>
             Close
-          </button>
-          <button type="button" className="btn btn-primary" onClick = {showDetail}>
-            More Details
           </button>
         </Modal.Footer>
       </Modal>
     );
   }
 }
-Popup.propTypes = {
-  hidePopup: PropTypes.func.isRequired,
-  showDetail: PropTypes.func.isRequired,
+Detail.propTypes = {
+  hideDetail: PropTypes.func.isRequired,
   countyID: PropTypes.string.isRequired,
   countyName: PropTypes.string.isRequired,
   stateID: PropTypes.string.isRequired,
 };
 
-export default Popup;
+export default Detail;

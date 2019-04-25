@@ -4,6 +4,7 @@ import Map from './Map';
 import Header from './Header';
 import Footer from './Footer';
 import Popup from './Popup';
+import Detail from './Detail';
 
 /**
  * Top level application component
@@ -13,8 +14,11 @@ class App extends Component {
     super(props);
     this.hidePopup = this.hidePopup.bind(this);
     this.showPopup = this.showPopup.bind(this);
+    this.hideDetail = this.hideDetail.bind(this);
+    this.showDetail = this.showDetail.bind(this);
     this.state = {
       popupIsVisible: false,
+      detailIsVisible: false,
       selectedCountyID: '',
       selectedCountyName: '',
       selectedStateID: '',
@@ -39,27 +43,51 @@ class App extends Component {
     });
   }
 
+    hideDetail() {
+    this.setState({
+      detailIsVisible: false
+    });
+  }
+
+  showDetail() {
+    this.setState({
+      detailIsVisible: true
+    });
+  }
+
   render() {
     const header = 'Voda';
     const footer = 'created by anna, david f, david n, david n || 2019';
     const {
       popupIsVisible,
+      detailIsVisible,
       selectedCountyID,
       selectedCountyName,
       selectedStateID,
     } = this.state;
     let popUp;
+    let detail;
     if (popupIsVisible) {
       popUp = (
         <Popup
           hidePopup={this.hidePopup}
           countyID={selectedCountyID}
           countyName={selectedCountyName}
-          stateID={selectedStateID}
-        />
+          stateID={selectedStateID}/>
       );
     } else {
       popUp = null;
+    }
+    if (detailIsVisible) {
+      detail = (
+        <Detail
+          hideDetail={this.hideDetail}
+          countyID={selectedCountyID}
+          countyName={selectedCountyName}
+          stateID={selectedStateID}/>
+      );
+    } else {
+      detail = null;
     }
     return (
       <div className="App container-fluid">
