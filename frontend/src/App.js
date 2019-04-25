@@ -26,6 +26,7 @@ class App extends Component {
   }
 
   hidePopup() {
+    console.log("HEREHIDE")
     this.setState({
       popupIsVisible: false,
       selectedCountyID: '',
@@ -43,15 +44,18 @@ class App extends Component {
     });
   }
 
-    hideDetail() {
+  hideDetail() {
     this.setState({
-      detailIsVisible: false
+      popupIsVisible: false,
+      detailIsVisible: false,
     });
   }
 
   showDetail() {
+     console.log("HEREDETAIL")
     this.setState({
-      detailIsVisible: true
+       popupIsVisible: false,
+       detailIsVisible: true,
     });
   }
 
@@ -67,6 +71,7 @@ class App extends Component {
     } = this.state;
     let popUp;
     let detail;
+
     if (popupIsVisible) {
       popUp = (
         <Popup
@@ -78,6 +83,7 @@ class App extends Component {
     } else {
       popUp = null;
     }
+
     if (detailIsVisible) {
       detail = (
         <Detail
@@ -89,12 +95,14 @@ class App extends Component {
     } else {
       detail = null;
     }
+
     return (
       <div className="App container-fluid">
         <Header header={header} />
         <div className="row justify-content-center">
           <div className="col-xs-12 content">
-            <Map showPopup={this.showPopup} />
+            <Map showPopup={this.showPopup} showDetail={this.showDetail}/>
+            {detail}
             {popUp}
           </div>
         </div>

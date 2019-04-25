@@ -4,7 +4,6 @@ import Axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import './Popup.sass';
 
-
 /**
  * Popup card component.
  */
@@ -22,12 +21,11 @@ class Popup extends Component {
 
   render() {
     const { summary } = this.state;
-    const { hidePopup, countyName, showDetail} = this.props;
+    const { hidePopup, showDetail, countyName} = this.props;
     return (
       <Modal
-        show
+        show 
         onHide={hidePopup}
-        onShowDetail={showDetail}
         dialogClassName="popup"
       >
         <Modal.Header closeButton>
@@ -50,6 +48,7 @@ class Popup extends Component {
     );
   }
 }
+
 Popup.propTypes = {
   hidePopup: PropTypes.func.isRequired,
   showDetail: PropTypes.func.isRequired,

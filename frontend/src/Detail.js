@@ -25,13 +25,13 @@ class Detail extends Component {
     const { hideDetail, countyName } = this.props;
     return (
       <Modal
-        show
+        show = {this.state.show}
         onHide={hideDetail}
         dialogClassName="detail"
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {`Contaminant Summary For ${countyName} County`}
+            {`Contaminant DETAILS For ${countyName} County`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
