@@ -1,0 +1,18 @@
+.nav-item{
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgba(128,128,128,0.39);
+	border-radius: 3px;
+}
+
+.phead{
+	color: blue;
+}
+
+.ptext{
+	border-style:solid;
+	border-width: 1px;
+	border-color: rgba(128,128,128,0.39);
+	border-radius: 3px;
+	font-size: 17px;
+}
