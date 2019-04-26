@@ -49,25 +49,24 @@ class App extends Component {
       selectedStateID,
     } = this.state;
     let popUp;
-
     if (popupIsVisible) {
       popUp = (
         <Popup
           hidePopup={this.hidePopup}
           countyID={selectedCountyID}
           countyName={selectedCountyName}
-          stateID={selectedStateID}/>
+          stateID={selectedStateID}
+        />
       );
     } else {
       popUp = null;
     }
-
     return (
       <div className="App container-fluid">
         <Header header={header} />
         <div className="row justify-content-center">
           <div className="col-xs-12 content">
-            <Map showPopup={this.showPopup}/>
+            <Map showPopup={this.showPopup} />
             {popUp}
           </div>
         </div>
