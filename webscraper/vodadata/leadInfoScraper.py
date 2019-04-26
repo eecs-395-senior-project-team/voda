@@ -46,7 +46,7 @@ class LeadInfoScraper(scrapy.Spider):
                 cursor.execute('INSERT INTO "vodaMainApp_contaminants" '
                                '(name, legal_limit, summary,'
                                ' long_health_concerns, health_guideline)'
-                               ' VALUES ('lead', 15, %s, %s, .2)',
+                               ' VALUES ("lead", 15, %s, %s, .2)',
                                (summary, long_health_concerns))
             self.connection.commit()
             cursor.close()
@@ -93,7 +93,7 @@ class LeadInfoScraper(scrapy.Spider):
 
         # check if this source-contaminant relationship exists
         cursor.execute('SELECT * FROM "vodaMainApp_source_levels" WHERE source_id = %s '
-                       'AND contaminant_id = %s", (src_id, cont_id))
+                       'AND contaminant_id = %s', (src_id, cont_id))
         results = cursor.fetchall()
 
         # if there is not already a row for this contaminant-utility pair, add one,

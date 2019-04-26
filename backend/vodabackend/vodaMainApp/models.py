@@ -33,12 +33,12 @@ class Sources(models.Model):
 class Contaminants(models.Model):
     contaminant_id = models.AutoField(primary_key=True)
     contaminant_name = models.CharField(max_length=200)
-    health_guideline = models.DecimalField(decimal_places=3, max_digits=10)
-    legal_limit = models.DecimalField(decimal_places=3, max_digits=10)
-    national_avg = models.DecimalField(decimal_places=3, max_digits=10)
-    summary = models.TextField()
-    health_concerns = models.TextField()
-    long_health_concerns = models.TextField()
+    health_guideline = models.DecimalField(decimal_places=3, max_digits=10, null=True)
+    legal_limit = models.DecimalField(decimal_places=3, max_digits=10, null=True)
+    national_avg = models.DecimalField(decimal_places=3, max_digits=10, null=True)
+    summary = models.TextField(null=True)
+    health_concerns = models.TextField(null=True)
+    long_health_concerns = models.TextField(null=True)
 
 
 class SourceLevels(models.Model):
