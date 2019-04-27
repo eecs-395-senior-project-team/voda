@@ -26,6 +26,8 @@ class FindUtilInfo(scrapy.Spider):
             return float(float_to_be_parsed)
 
     def scrape_city_name(self, response):
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+            f.write("\ntest")
         utility_name = response.meta["utility_name"]
         state_id = response.meta["state_id"]
         number_people_served = response.meta["number_people_served"]
@@ -33,7 +35,7 @@ class FindUtilInfo(scrapy.Spider):
         util_code = response.meta["util_code"]
 
         cursor = self.connection.cursor()
-        cursor.execute("SELECT cities.id FROM cities WHERE cities.name = %s AND cities.state_id = %s",
+        cursor.execute('SELECT cities.id FROM "vodaMainApp_cities" WHERE name = %s AND state_id = %s',
                        (scraped_city, state_id))
         db_city = cursor.fetchone()
 
@@ -44,7 +46,7 @@ class FindUtilInfo(scrapy.Spider):
         if not db_city:
             new_scraped_city = response.xpath("//tr[td/a[@href='system.php?pws={}']]/td[2]/text()".
                                               format(util_code)).get()
-            cursor.execute("SELECT cities.id FROM cities WHERE cities.name = %s AND cities.state_id = %s",
+            cursor.execute('SELECT cities.id FROM "vodaMainApp_cities" WHERE name = %s AND state_id = %s',
                            (new_scraped_city, state_id))
             db_city = cursor.fetchone()
             if db_city is None:
@@ -52,7 +54,7 @@ class FindUtilInfo(scrapy.Spider):
                 if len(new_scraped_city.split(' ')) > 1:
                     reduced_scraped_city = ' '.join(scraped_city.split(' ')[0: len(scraped_city.split(' '))-1])
 
-                    cursor.execute("SELECT cities.id FROM cities WHERE cities.name = %s AND cities.state_id = %s",
+                    cursor.execute('SELECT cities.id FROM "vodaMainApp_cities" WHERE name = %s AND state_id = %s',
                                    (reduced_scraped_city, state_id))
                     db_city = cursor.fetchone()
 
@@ -63,25 +65,25 @@ class FindUtilInfo(scrapy.Spider):
                                                                         reduced_scraped_city, state_id,
                                                                         util_code))
 
-        cursor.execute("SELECT cities.county_id FROM cities WHERE cities.id = %s",
+        cursor.execute('SELECT county_id FROM "vodaMainApp_cities" WHERE id = %s',
                        (db_city,))
         county = cursor.fetchone()
 
         # Check if the utility already exists
-        cursor.execute("SELECT * FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
+        cursor.execute('SELECT * FROM "vodaMainApp_sources" WHERE utility_name = %s AND state = %s',
                        (utility_name, state_id))
         result = cursor.fetchone()
 
         # if the utility does not exist, add it.
         if not result:
-            cursor.execute("INSERT INTO sources (utility_name, city, county, state, number_served)"
-                           " VALUES (%s, %s, %s, %s, %s)",
+            cursor.execute('INSERT INTO "vodaMainApp_sources" (utility_name, city, county, state, number_served)'
+                           ' VALUES (%s, %s, %s, %s, %s)',
                            (utility_name, db_city, county, state_id, number_people_served))
         # Otherwise, update the data in it
         else:
-            cursor.execute("UPDATE sources SET "
-                           "utility_name=%s, city=%s, county = %s, state=%s, number_served=%s"
-                           "WHERE source_id=%s",
+            cursor.execute('UPDATE "vodaMainApp_sources" SET '
+                           'utility_name=%s, city=%s, county = %s, state=%s, number_served=%s'
+                           'WHERE source_id=%s',
                            (utility_name, db_city, county, state_id, number_people_served, result[0]))
         self.connection.commit()
         cursor.close()

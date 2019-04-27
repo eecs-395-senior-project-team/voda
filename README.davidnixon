@@ -1,3 +1,13 @@
+Week 9:
+	Spent at least 12 hours this week debugging the database to figure out why the webscraper couldn't talk to the Django
+	database. Found out it was because Django appends things to the table and column names. Spent this week alligning the
+	names in the Webscraper with the ones in Django and modified the models accordingly.
+	
+	Files worked on:
+		webscraper/vodadata/*
+		webscraper/scraper.py
+		backend/vodabackend/vodaMainApp/models.py
+
 Week 8:
 	Refactored the webscraper to reduce overhead in git, added code to scrape contaminant data for lead for all sources. 
 	

@@ -39,15 +39,15 @@ class LeadInfoScraper(scrapy.Spider):
                                "City and Chicago."
         try:
             cursor = self.connection.cursor()
-            cursor.execute("SELECT * FROM contaminants WHERE contaminants.name = 'lead'")
+            cursor.execute('SELECT * FROM "vodaMainApp_contaminants" WHERE contaminant_name = %s', ('lead',))
             result = cursor.fetchone()
 
             if not result:
-                cursor.execute("INSERT INTO contaminants "
-                               "(name, legal_limit, summary,"
-                               " long_health_concerns, health_guideline)"
-                               " VALUES ('lead', 15, %s, %s, .2)",
-                               (summary, long_health_concerns))
+                cursor.execute('INSERT INTO "vodaMainApp_contaminants" '
+                               '(contaminant_name, legal_limit, summary,'
+                               ' long_health_concerns, health_guideline)'
+                               ' VALUES (%s, 15, %s, %s, .2)',
+                               ('lead', summary, long_health_concerns))
             self.connection.commit()
             cursor.close()
         except Exception as e:
@@ -59,7 +59,7 @@ class LeadInfoScraper(scrapy.Spider):
         source_name = response.xpath("//h2[@class='systemname-h2']/text()").get().split('-')[0]
         source_state = response.url.split('=')[1][0:2]
         cursor = self.connection.cursor()
-        cursor.execute("SELECT source_id FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
+        cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state = %s',
                        (source_name, source_state))
         src_id = cursor.fetchone()
         cursor.close()
@@ -87,22 +87,22 @@ class LeadInfoScraper(scrapy.Spider):
         cursor = self.connection.cursor()
 
         # get the id of this contaminant based on its name
-        cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
+        cursor.execute('SELECT contaminant_id FROM "vodaMainApp_contaminants" WHERE contaminant_name = %s',
                        (cont_name,))
         cont_id = cursor.fetchone()
 
         # check if this source-contaminant relationship exists
-        cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
-                       "AND source_levels.contaminant_id = %s", (src_id, cont_id))
+        cursor.execute('SELECT * FROM "vodaMainApp_source_levels" WHERE source_id = %s '
+                       'AND contaminant_id = %s', (src_id, cont_id))
         results = cursor.fetchall()
 
         # if there is not already a row for this contaminant-utility pair, add one,
         if not results:
-            cursor.execute("INSERT INTO source_levels (source_id, contaminant_id, source_level)"
-                           " VALUES (%s, %s, %s)", (src_id, cont_id, this_utility_value))
+            cursor.execute('INSERT INTO "vodaMainApp_source_levels" (source_id, contaminant_id, source_level)'
+                           ' VALUES (%s, %s, %s)', (src_id, cont_id, this_utility_value))
         # otherwise update the values
         else:
-            cursor.execute("UPDATE source_levels SET source_level=%s WHERE source_id=%s AND contaminant_id=%s",
+            cursor.execute('UPDATE "vodaMainApp_source_levels" SET source_level=%s WHERE source_id=%s AND contaminant_id=%s',
                            (this_utility_value, src_id, cont_id))
         cursor.close()
 
