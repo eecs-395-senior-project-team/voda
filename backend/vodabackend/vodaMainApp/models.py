@@ -27,7 +27,6 @@ class Sources(models.Model):
     county = models.ForeignKey(Counties, on_delete=models.CASCADE, default=-1)
     number_served = models.IntegerField()
     score = models.FloatField()
-    # TODO: Add congressional information etc.
 
 
 class Contaminants(models.Model):

@@ -39,15 +39,15 @@ class LeadInfoScraper(scrapy.Spider):
                                "City and Chicago."
         try:
             cursor = self.connection.cursor()
-            cursor.execute('SELECT * FROM "vodaMainApp_contaminants" WHERE name = "lead"')
+            cursor.execute('SELECT * FROM "vodaMainApp_contaminants" WHERE contaminant_name = %s', ('lead',))
             result = cursor.fetchone()
 
             if not result:
                 cursor.execute('INSERT INTO "vodaMainApp_contaminants" '
-                               '(name, legal_limit, summary,'
+                               '(contaminant_name, legal_limit, summary,'
                                ' long_health_concerns, health_guideline)'
-                               ' VALUES ("lead", 15, %s, %s, .2)',
-                               (summary, long_health_concerns))
+                               ' VALUES (%s, 15, %s, %s, .2)',
+                               ('lead', summary, long_health_concerns))
             self.connection.commit()
             cursor.close()
         except Exception as e:
@@ -87,7 +87,7 @@ class LeadInfoScraper(scrapy.Spider):
         cursor = self.connection.cursor()
 
         # get the id of this contaminant based on its name
-        cursor.execute('SELECT contaminant_id FROM "vodaMainApp_contaminants" WHERE name = %s',
+        cursor.execute('SELECT contaminant_id FROM "vodaMainApp_contaminants" WHERE contaminant_name = %s',
                        (cont_name,))
         cont_id = cursor.fetchone()
 
