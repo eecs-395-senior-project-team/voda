@@ -7,20 +7,20 @@ class States(models.Model):
 
 
 class Counties(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     state = models.ForeignKey(States, on_delete=models.CASCADE)
 
 
 class Cities(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
-    state_id = models.ForeignKey(States, on_delete=models.CASCADE)
-    county_id = models.ForeignKey(Counties, on_delete=models.CASCADE)
+    state = models.ForeignKey(States, on_delete=models.CASCADE)
+    county = models.ForeignKey(Counties, on_delete=models.CASCADE)
 
 
 class Sources(models.Model):
-    source_id = models.IntegerField(primary_key=True)
+    source_id = models.AutoField(primary_key=True)
     utility_name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     state = models.ForeignKey(States, on_delete=models.CASCADE, default="None")
@@ -31,7 +31,7 @@ class Sources(models.Model):
 
 
 class Contaminants(models.Model):
-    contaminant_id = models.IntegerField(primary_key=True)
+    contaminant_id = models.AutoField(primary_key=True)
     contaminant_name = models.CharField(max_length=200)
     health_guideline = models.DecimalField(decimal_places=3, max_digits=10)
     legal_limit = models.DecimalField(decimal_places=3, max_digits=10)
@@ -42,12 +42,12 @@ class Contaminants(models.Model):
 
 
 class SourceLevels(models.Model):
-    source_id = models.ForeignKey(Sources, on_delete=models.CASCADE)
-    contaminant_id = models.ForeignKey(Contaminants, on_delete=models.CASCADE)
+    source = models.ForeignKey(Sources, on_delete=models.CASCADE)
+    contaminant = models.ForeignKey(Contaminants, on_delete=models.CASCADE)
     contaminant_level = models.DecimalField(decimal_places=3, max_digits=10)
 
 
 class StateAvgLevels(models.Model):
-    state_id = models.ForeignKey(States, on_delete=models.CASCADE)
-    contaminant_id = models.ForeignKey(Contaminants, on_delete=models.CASCADE)
+    state = models.ForeignKey(States, on_delete=models.CASCADE)
+    contaminant = models.ForeignKey(Contaminants, on_delete=models.CASCADE)
     state_avg = models.DecimalField(decimal_places=3, max_digits=10)

@@ -29,22 +29,22 @@ class FindSourceLevels(scrapy.Spider):
         cursor = self.connection.cursor()
 
         # get the id of this contaminant based on its name
-        cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
+        cursor.execute('SELECT contaminant_id FROM "vodaMainApp_contaminants" WHERE name = %s',
                        (cont_name,))
         cont_id = cursor.fetchone()
 
         # check if this source-contaminant relationship exists
-        cursor.execute("SELECT * FROM source_levels WHERE source_levels.source_id = %s "
-                       "AND source_levels.contaminant_id = %s", (src_id, cont_id))
+        cursor.execute('SELECT * FROM "vodaMainApp_source_levels" WHERE source_id = %s '
+                       'AND contaminant_id = %s', (src_id, cont_id))
         results = cursor.fetchall()
 
         # if there is not already a row for this contaminant-utility pair, add one,
         if not results:
-            cursor.execute("INSERT INTO source_levels (source_id, contaminant_id, source_level)"
-                           " VALUES (%s, %s, %s)", (src_id, cont_id, self.try_parse_float(this_utility_value)))
+            cursor.execute('INSERT INTO "vodaMainApp_source_levels" (source_id, contaminant_id, source_level)'
+                           ' VALUES (%s, %s, %s)', (src_id, cont_id, self.try_parse_float(this_utility_value)))
         # otherwise update the values
         else:
-            cursor.execute("UPDATE source_levels SET source_level=%s WHERE source_id=%s AND contaminant_id=%s",
+            cursor.execute('UPDATE "vodaMainApp_source_levels" SET source_level=%s WHERE source_id=%s AND contaminant_id=%s',
                            (self.try_parse_float(this_utility_value), src_id, cont_id))
         cursor.close()
 
@@ -52,22 +52,21 @@ class FindSourceLevels(scrapy.Spider):
         cursor = self.connection.cursor()
 
         # get the id of this contaminant based on its name
-        cursor.execute("SELECT contaminant_id FROM contaminants WHERE contaminants.name = %s",
+        cursor.execute('SELECT contaminant_id FROM "vodaMainApp_contaminants" WHERE name = %s',
                        (cont_name,))
         cont_id = cursor.fetchone()
 
         # check if this state-contaminant relationship exists
-        cursor.execute("SELECT * FROM state_avg_levels WHERE state_avg_levels.state_id = %s "
-                       "AND state_avg_levels.contaminant_id = %s", (state_id, cont_id))
+        cursor.execute('SELECT * FROM "vodaMainApp_state_avg_levels" WHERE state_id = %s '
+                       'AND contaminant_id = %s', (state_id, cont_id))
         results = cursor.fetchall()
 
         # if there is not already a row for this contaminant-state pair, add one,
         if not results:
-            cursor.execute("INSERT INTO state_avg_levels (state_id, contaminant_id, state_avg)"
-                           " VALUES (%s, %s, %s)", (state_id, cont_id, self.try_parse_float(state_avg)))
+            cursor.execute('INSERT INTO "vodaMainApp_state_avg_levels" (state_id, contaminant_id, state_avg) VALUES (%s, %s, %s)', (state_id, cont_id, self.try_parse_float(state_avg)))
         # otherwise update the values
         else:
-            cursor.execute("UPDATE state_avg_levels SET state_avg=%s WHERE state_id=%s AND contaminant_id=%s",
+            cursor.execute('UPDATE "vodaMainApp_state_avg_levels" SET state_avg=%s WHERE state_id=%s AND contaminant_id=%s',
                            (self.try_parse_float(state_avg), state_id, cont_id))
 
         self.connection.commit()
@@ -81,7 +80,7 @@ class FindSourceLevels(scrapy.Spider):
             source_state = response.url.split('=')[1][0:2]
 
             cursor = self.connection.cursor()
-            cursor.execute("SELECT source_id FROM sources WHERE sources.utility_name = %s AND sources.state = %s",
+            cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state = %s',
                            (source_name, source_state))
             src_id = cursor.fetchone()
             cursor.close()
