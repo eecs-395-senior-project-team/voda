@@ -40,7 +40,7 @@ class Map extends Component {
     Axios.all([getCounties(), getScores()])
       .then(Axios.spread((counties, scores) => {
         this.setState({
-          counties: counties.data
+          counties: counties.data,
         });
       }))
       .catch((error) => {
@@ -83,11 +83,12 @@ class Map extends Component {
     );
   }
 
+  // Move to ComponentWillMount
   componentDidUpdate(_, prevState) {
     const { counties, map } = this.state;
     let { counties: prevCounties } = prevState;
     if (typeof prevCounties === 'undefined') {
-      prevCounties = {features: []};
+      prevCounties = { features: [] };
     }
 
     // When counties change
@@ -142,9 +143,8 @@ class Map extends Component {
         },
       });
       this.setState({
-        map: map.addLayer(geoJson)
+        map: map.addLayer(geoJson),
       });
-
     }
   }
 
