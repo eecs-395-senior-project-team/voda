@@ -59,6 +59,14 @@ and providing some smaller help here and there with helping with the implementat
 territories from the maps. Most recently I've started looking into the bootstrap api so Anna and I can build wire frames for the website this week.
 
 
+Week 10
+
+Switched over to frontend work. Spent a lot of time designing and implementing the popup. Took a little bit of time because I haven't done too much
+bootstrap in the past and I'm a little bit rusty on front end development. The popup has gone through multiple iterations and is almost done.
+I also designed the details window and helped Anna implement it.
+
+
+
 
 
 E         - b'{"data": "[\\"10\\", \\"12\\", \\"3\\"]"}'
