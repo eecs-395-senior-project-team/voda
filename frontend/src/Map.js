@@ -10,7 +10,13 @@ import Log from './Log';
 const getCounties = () => Axios.get('https://s3.us-east-2.amazonaws.com/voda-counties-data/data/counties_20m.json');
 
 // Axios get request for scores
-const getScores = () => Axios.get('http://localhost:8000/map');
+const getScores = () => {
+  if (process.env.NODE_ENV === 'development') {
+    Axios.get('http://localhost:8000/map');
+  } else {
+    Axios.get('http://3.19.113.236:8000/map');
+  }
+};
 
 /**
  * Component containing the geomap.
@@ -34,7 +40,7 @@ class Map extends Component {
     Axios.all([getCounties(), getScores()])
       .then(Axios.spread((counties, scores) => {
         this.setState({
-          counties: counties.data
+          counties: counties.data,
         });
       }))
       .catch((error) => {
@@ -77,11 +83,12 @@ class Map extends Component {
     );
   }
 
+  // Move to ComponentWillMount
   componentDidUpdate(_, prevState) {
     const { counties, map } = this.state;
     let { counties: prevCounties } = prevState;
     if (typeof prevCounties === 'undefined') {
-      prevCounties = {features: []};
+      prevCounties = { features: [] };
     }
 
     // When counties change
@@ -136,9 +143,8 @@ class Map extends Component {
         },
       });
       this.setState({
-        map: map.addLayer(geoJson)
+        map: map.addLayer(geoJson),
       });
-
     }
   }
 

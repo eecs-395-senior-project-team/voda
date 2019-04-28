@@ -11,14 +11,28 @@ import Popup from './Popup';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.hideDetailView = this.hideDetailView.bind(this);
+    this.showDetailView = this.showDetailView.bind(this);
     this.hidePopup = this.hidePopup.bind(this);
     this.showPopup = this.showPopup.bind(this);
     this.state = {
+      detailViewIsVisible: false,
       popupIsVisible: false,
       selectedCountyID: '',
       selectedCountyName: '',
       selectedStateID: '',
     };
+  }
+
+  hideDetailView() {
+    this.setState({ detailViewIsVisible: false });
+  }
+
+  showDetailView() {
+    this.setState({
+      detailViewIsVisible: true,
+      popupIsVisible: false,
+    });
   }
 
   hidePopup() {
@@ -43,6 +57,7 @@ class App extends Component {
     const header = 'Voda';
     const footer = 'created by anna, david f, david n, david n || 2019';
     const {
+      detailViewIsVisible,
       popupIsVisible,
       selectedCountyID,
       selectedCountyName,
@@ -61,13 +76,31 @@ class App extends Component {
     } else {
       popUp = null;
     }
+    let content;
+    if (detailViewIsVisible) {
+      content=null
+      // content = (
+      //   <DetailView
+      //     hideDetailView={this.hideDetailView}
+      //     countyID={selectedCountyID}
+      //     countyName={selectedCountyName}
+      //     stateID={selectedStateID}
+      //   />
+      // );
+    } else {
+      content = (
+        <div>
+          <Map showPopup={this.showPopup} />
+          {popUp}
+        </div>
+      );
+    }
     return (
       <div className="App container-fluid">
         <Header header={header} />
         <div className="row justify-content-center">
           <div className="col-xs-12 content">
-            <Map showPopup={this.showPopup} />
-            {popUp}
+            {content}
           </div>
         </div>
         <Footer footer={footer} />

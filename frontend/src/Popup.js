@@ -4,7 +4,6 @@ import Axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import './Popup.sass';
 
-
 /**
  * Popup card component.
  */
@@ -35,7 +34,44 @@ class Popup extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className="lead">{summary}</p>
+          <div className="container-fluid">
+            <div className="row justify-content-center">
+              <div className="col-sm-4 bg-danger">
+                <div>
+                  <h2><i className="fas fa-exclamation-triangle"></i></h2>
+                </div>
+                <h2 className="value">3</h2>
+              </div>
+              <div className="col-sm-4 bg-warning">
+                  <div>
+                    <h2><i className="fas fa-notes-medical"></i></h2>
+                  </div>
+                  <h2 className="value">8</h2>
+              </div>
+              <div className="col-sm-4 bg-success">
+                  <div>
+                    <h2><i className="fas fa-check"></i></h2>
+                  </div>
+                <h2 className="value">189</h2>
+              </div>
+            </div>
+            <div className="row justify-content-center">
+              <div className="col full-width">
+                <ul className="list-group">
+                  <li className="list-group-item">
+                    <div className="concerns">
+                      <p>Health concerns from the contaminants over the legal limit: cancer, change in blood pressure</p>
+                    </div>
+                  </li>
+                  <li className="list-group-item">
+                    <div className="concerns">
+                      <p>Health concerns from the contaminants over the health guidelines: Harm to the central nervous system, Harm to the adrenal gland, Change to blood cells</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <button type="button" className="btn btn-secondary" onClick={hidePopup}>
@@ -49,6 +85,7 @@ class Popup extends Component {
     );
   }
 }
+
 Popup.propTypes = {
   hidePopup: PropTypes.func.isRequired,
   countyID: PropTypes.string.isRequired,
