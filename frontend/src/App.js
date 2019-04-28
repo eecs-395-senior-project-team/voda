@@ -4,6 +4,7 @@ import Map from './Map';
 import Header from './Header';
 import Footer from './Footer';
 import Popup from './Popup';
+import DetailView from './DetailView';
 
 /**
  * Top level application component
@@ -67,6 +68,7 @@ class App extends Component {
     if (popupIsVisible) {
       popUp = (
         <Popup
+          showDetailView={this.showDetailView}
           hidePopup={this.hidePopup}
           countyID={selectedCountyID}
           countyName={selectedCountyName}
@@ -78,15 +80,14 @@ class App extends Component {
     }
     let content;
     if (detailViewIsVisible) {
-      content=null
-      // content = (
-      //   <DetailView
-      //     hideDetailView={this.hideDetailView}
-      //     countyID={selectedCountyID}
-      //     countyName={selectedCountyName}
-      //     stateID={selectedStateID}
-      //   />
-      // );
+      content = (
+        <DetailView
+          hideDetailView={this.hideDetailView}
+          countyID={selectedCountyID}
+          countyName={selectedCountyName}
+          stateID={selectedStateID}
+        />
+      );
     } else {
       content = (
         <div>
