@@ -16,7 +16,7 @@ class CalculateSourceRating:
         for contaminant in cursor:
             sub_cursor = self.connection.cursor()
             sub_cursor.execute(
-                'SELECT STDDEV(source_level) FROM "vodaMainApp_source_levels" WHERE contaminant_id=%s',
+                'SELECT STDDEV(contaminant_level) FROM "vodaMainApp_sourcelevels" WHERE contaminant_id=%s',
                 (contaminant[0],))
             self.contaminant_std_dev_dict[contaminant[0]] = sub_cursor.fetchone()
             sub_cursor.close()
@@ -47,7 +47,7 @@ class CalculateSourceRating:
         for source in source_cursor:
             rating = 0
             cont_cursor = self.connection.cursor()
-            cont_cursor.execute('SELECT * FROM "vodaMainApp_source_levels" WHERE '
+            cont_cursor.execute('SELECT * FROM "vodaMainApp_sourcelevels" WHERE '
                                 'source_id = %s', (source[0],))
             for cont in cont_cursor:
                 # amount above the national average

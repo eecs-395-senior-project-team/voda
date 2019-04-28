@@ -36,12 +36,12 @@ class FindContInfo(scrapy.Spider):
                 national_avg = None
 
             cursor = self.connection.cursor()
-            cursor.execute('SELECT * FROM "vodaMainApp_contaminants" WHERE name = (%s)', (response.meta["cont_name"], ))
+            cursor.execute('SELECT * FROM "vodaMainApp_contaminants" WHERE contaminant_name = (%s)', (response.meta["cont_name"], ))
             result = cursor.fetchone()
 
             if not result:
                 cursor.execute('INSERT INTO "vodaMainApp_contaminants" '
-                               '(name, legal_limit, national_avg, summary, health_concerns,'
+                               '(contaminant_name, legal_limit, national_avg, summary, health_concerns,'
                                ' long_health_concerns, health_guideline)'
                                ' VALUES (%s, %s, %s, %s, %s, %s, %s)',
                                (response.meta["cont_name"], self.try_parse_float(response.meta["legal_limit"]),
@@ -50,7 +50,7 @@ class FindContInfo(scrapy.Spider):
                                 self.try_parse_float(response.meta["health_guideline"])))
             else:
                 cursor.execute('UPDATE "vodaMainApp_contaminants" SET '
-                               'name=(%s), legal_limit=(%s), national_avg=(%s), summary=(%s),'
+                               'contaminant_name=(%s), legal_limit=(%s), national_avg=(%s), summary=(%s),'
                                'health_concerns=(%s), long_health_concerns=(%s), health_guideline=(%s)'
                                'WHERE contaminant_id=(%s)',
                                (response.meta["cont_name"], self.try_parse_float(response.meta["legal_limit"]),

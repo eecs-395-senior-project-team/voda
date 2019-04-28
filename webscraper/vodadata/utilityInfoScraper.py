@@ -26,6 +26,8 @@ class FindUtilInfo(scrapy.Spider):
             return float(float_to_be_parsed)
 
     def scrape_city_name(self, response):
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+            f.write("\ntest")
         utility_name = response.meta["utility_name"]
         state_id = response.meta["state_id"]
         number_people_served = response.meta["number_people_served"]
