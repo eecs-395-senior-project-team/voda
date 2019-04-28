@@ -23,10 +23,15 @@ class DetailView extends Component {
     } else {
       apiURL = 'http://3.19.113.236:8000/'
     }
-    Axios.get(`${apiURL}/details`)
+    const url = `${apiURL}details`
+    Axios.get(url, {
+      params: {
+        source: `${stateID}${countyID}`,
+      }
+    })
       .then((details) => {
         this.setState({
-          details,
+          details: details.data,
         });
       })
       .catch((error) => {

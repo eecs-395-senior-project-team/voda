@@ -24,10 +24,16 @@ class Popup extends Component {
     } else {
       apiURL = 'http://3.19.113.236:8000/'
     }
-    Axios.get(`${apiURL}/summary`)
+    const url = `${apiURL}summary`
+    Log.info(url)
+    Axios.get(url, {
+      params: {
+        source: `${stateID}${countyID}`,
+      }
+    })
       .then((summary) => {
         this.setState({
-          summary,
+          summary: summary.data,
         });
       })
       .catch((error) => {
