@@ -78,14 +78,15 @@ class App extends Component {
     }
     let content;
     if (detailViewIsVisible) {
-      content = (
-        <DetailView
-          hideDetailView={this.hideDetailView}
-          countyID={selectedCountyID}
-          countyName={selectedCountyName}
-          stateID={selectedStateID}
-        />
-      );
+      content=null
+      // content = (
+      //   <DetailView
+      //     hideDetailView={this.hideDetailView}
+      //     countyID={selectedCountyID}
+      //     countyName={selectedCountyName}
+      //     stateID={selectedStateID}
+      //   />
+      // );
     } else {
       content = (
         <div>
