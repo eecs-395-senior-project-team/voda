@@ -42,7 +42,7 @@ if __name__ == '__main__':
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindContInfo Spider\n")
         print("Beginning FindContInfo Spider")
-        yield RUNNER.crawl(FindContInfo(CONNECTION))
+        yield RUNNER.crawl(FindContInfo, CONNECTION)
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindContInfo Spider\n")
         print("Ending FindContInfo Spider")
@@ -58,7 +58,7 @@ if __name__ == '__main__':
         print("Beginning FindUtilInfo Spider")
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindUtilInfo Spider\n")
-        yield RUNNER.crawl(FindUtilInfo(CONNECTION))
+        yield RUNNER.crawl(FindUtilInfo, CONNECTION)
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindUtilInfo Spider\n")
         print("Ending FindUtilInfo Spider")
@@ -66,7 +66,7 @@ if __name__ == '__main__':
         print("Beginning FindSourceLevels Spider")
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning FindSourceLevels Spider\n")
-        yield RUNNER.crawl(FindSourceLevels(CONNECTION))
+        yield RUNNER.crawl(FindSourceLevels, CONNECTION)
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending FindSourceLevels Spider\n")
         print("Ending FindSourceLevels Spider")
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         print("Beginning LeadInfoScraper Spider")
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Beginning LeadInfoScraper Spider\n")
-        yield RUNNER.crawl(LeadInfoScraper(CONNECTION))
+        yield RUNNER.crawl(LeadInfoScraper, CONNECTION)
         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
             f.write("Ending LeadInfoScraper Spider\n")
         print("Ending LeadInfoScraper Spider")
@@ -84,8 +84,8 @@ if __name__ == '__main__':
     print("Beginning GetLocaleData")
     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Beginning GetLocaleData Spider")
-    #get_locale_data = GetLocaleData(CONNECTION)
-    #get_locale_data.main()
+    get_locale_data = GetLocaleData(CONNECTION)
+    get_locale_data.main()
     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
         f.write("Ending GetLocaleData Spider")
     print("Ending GetLocaleData")
