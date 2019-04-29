@@ -121,19 +121,19 @@ class Popup extends Component {
                       <h3>Health concerns from the contaminants over the legal limit:</h3>
                       <Table responsive borderless = 'true'>
 
-<tbody>
-  <tr>
-    <td>Cancer</td>
-    <td>Change in blood pressure</td>
-    <td>Filler condition</td>
-  </tr>
-  <tr>
-    <td>Another filler condition</td>
-    <td>Harm to the adrenal gland</td>
-    <td>filler condition</td>
-  </tr>
-</tbody>
-</Table>
+                        <tbody>
+                          <tr>
+                            <td>Cancer</td>
+                            <td>Change in blood pressure</td>
+                            <td>Filler condition</td>
+                          </tr>
+                          <tr>
+                            <td>Another filler condition</td>
+                            <td>Harm to the adrenal gland</td>
+                            <td>filler condition</td>
+                          </tr>
+                        </tbody>
+                      </Table>
 
                     </div>
                   </li>
