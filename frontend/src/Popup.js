@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+import Log from './Log';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'; // maybe keep
 import Tooltip from 'react-bootstrap/Tooltip'; // probs keep
 import Button from 'react-bootstrap/Button'; // probs keep?
