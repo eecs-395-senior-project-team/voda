@@ -6,7 +6,6 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'; // maybe keep
 import Tooltip from 'react-bootstrap/Tooltip'; // probs keep
 import Button from 'react-bootstrap/Button'; // probs keep?
 import Table from 'react-bootstrap/Table';
->>>>>>> 304383748e9c2194518131f3975b10701d7254f0
 import './Popup.sass';
 
 /**
