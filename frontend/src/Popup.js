@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'; // maybe keep
+import Tooltip from 'react-bootstrap/Tooltip'; // probs keep
+import Button from 'react-bootstrap/Button'; // probs keep?
+import Table from 'react-bootstrap/Table';
 import './Popup.sass';
 
 /**
@@ -33,45 +37,96 @@ class Popup extends Component {
             {`Contaminant Summary For ${countyName} County`}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body
+          dialogClassName="body"
+        >
           <div className="container-fluid">
             <div className="row justify-content-center">
-              <div className="col-sm-4 bg-danger">
-                <div>
-                  <h2><i className="fas fa-exclamation-triangle"></i></h2>
+              <OverlayTrigger
+                overlay={
+                  <Tooltip id="tooltip">
+                    Number of contaminants above the legal limit
+                  </Tooltip>
+                }
+                placement='top'
+              >
+                <div className="col-sm-4 bg-danger">
+                  <div>
+                    <h2><i className="fas fa-exclamation-triangle"></i></h2>
+                  </div>
+                  <h2 className="value">3</h2>
                 </div>
-                <h2 className="value">3</h2>
-              </div>
-              <div className="col-sm-4 bg-warning">
-                  <div>
-                    <h2><i className="fas fa-notes-medical"></i></h2>
+              </OverlayTrigger>
+              <OverlayTrigger
+                overlay={
+                  <Tooltip id="tooltip">
+                    Number of contaminants above the health guideline
+                  </Tooltip>
+                }
+                placement='top'
+              >
+                <div className="col-sm-4 bg-warning">
+                    <div>
+                      <h2><i className="fas fa-notes-medical"></i></h2>
+                    </div>
+                    <h2 className="value">8</h2>
+                </div> 
+              </OverlayTrigger>
+              <OverlayTrigger
+                overlay={
+                  <Tooltip id="tooltip">
+                    Number of contaminants that meet the health guideline
+                  </Tooltip>
+                }
+                placement='top'
+                >
+                  <div className="col-sm-4 bg-success">
+                    <div>
+                      <h2><i className="fas fa-check"></i></h2>
+                    </div>
+                    <h2 className="value">189</h2>
                   </div>
-                  <h2 className="value">8</h2>
-              </div>
-              <div className="col-sm-4 bg-success">
-                  <div>
-                    <h2><i className="fas fa-check"></i></h2>
-                  </div>
-                <h2 className="value">189</h2>
-              </div>
+              </OverlayTrigger>
             </div>
             <div className="row justify-content-center">
               <div className="col full-width">
-                <ul className="list-group">
+                <ul className="list-group-flush">
                   <li className="list-group-item">
                     <div className="concerns">
-                      <p>Health concerns from the contaminants over the legal limit: cancer, change in blood pressure</p>
+                      <h3>Health concerns from the contaminants over the legal limit:</h3>
+                      <Table responsive borderless = 'true'>
+
+<tbody>
+  <tr>
+    <td>Cancer</td>
+    <td>Change in blood pressure</td>
+    <td>Filler condition</td>
+  </tr>
+  <tr>
+    <td>Another filler condition</td>
+    <td>Harm to the adrenal gland</td>
+    <td>filler condition</td>
+  </tr>
+</tbody>
+</Table>
+
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="concerns">
-                      <p>Health concerns from the contaminants over the health guidelines: Harm to the central nervous system, Harm to the adrenal gland, Change to blood cells</p>
+                      <h3>Health concerns from the contaminants over the health guidelines:</h3>
+                      <p> Harm to the central nervous system, Harm to the adrenal gland, Change to blood cells</p>
                     </div>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
+
+
+
+
+
         </Modal.Body>
         <Modal.Footer>
           <button type="button" className="btn btn-secondary" onClick={hidePopup}>
