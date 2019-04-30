@@ -7,7 +7,7 @@ class States(models.Model):
 
 
 class Counties(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     state = models.ForeignKey(States, on_delete=models.CASCADE)
 
@@ -22,11 +22,11 @@ class Cities(models.Model):
 class Sources(models.Model):
     source_id = models.AutoField(primary_key=True)
     utility_name = models.CharField(max_length=200)
-    city = models.CharField(max_length=200)
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE, default=-1)
     state = models.ForeignKey(States, on_delete=models.CASCADE, default="None")
     county = models.ForeignKey(Counties, on_delete=models.CASCADE, default=-1)
     number_served = models.IntegerField()
-    score = models.FloatField()
+    rating = models.FloatField(null=True)
 
 
 class Contaminants(models.Model):
@@ -43,10 +43,10 @@ class Contaminants(models.Model):
 class SourceLevels(models.Model):
     source = models.ForeignKey(Sources, on_delete=models.CASCADE)
     contaminant = models.ForeignKey(Contaminants, on_delete=models.CASCADE)
-    contaminant_level = models.DecimalField(decimal_places=3, max_digits=10)
+    contaminant_level = models.DecimalField(decimal_places=3, max_digits=10, null=True)
 
 
 class StateAvgLevels(models.Model):
     state = models.ForeignKey(States, on_delete=models.CASCADE)
     contaminant = models.ForeignKey(Contaminants, on_delete=models.CASCADE)
-    state_avg = models.DecimalField(decimal_places=3, max_digits=10)
+    state_avg = models.DecimalField(decimal_places=3, max_digits=10, null=True)
