@@ -7,7 +7,7 @@ class States(models.Model):
 
 
 class Counties(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.CharField(max_length=5, primary_key=True)
     name = models.CharField(max_length=200)
     state = models.ForeignKey(States, on_delete=models.CASCADE)
 
