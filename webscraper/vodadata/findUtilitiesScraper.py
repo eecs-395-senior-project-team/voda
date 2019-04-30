@@ -4,9 +4,9 @@ import csv
 
 class FindUtilities(scrapy.Spider):
     name = "findUtilitiesScraper"
-    open('./vodadata/datafiles/AllEWGUtilities.txt', "w+").close()
 
     def start_requests(self):
+        open('./vodadata/datafiles/AllEWGUtilities.txt', "w+").close()
         with open("./vodadata/datafiles/zipCodes.txt", encoding='utf8') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter='\t')
 
