@@ -62,8 +62,8 @@ class Map extends Component {
         }
         this.setState({
           counties,
-          'minScore': newMinScore,
-          'maxScore': newMaxScore,
+          minScore: newMinScore,
+          maxScore: newMaxScore,
         });
       }))
       .catch((error) => {
@@ -133,7 +133,6 @@ class Map extends Component {
         const value = (score - minScore) / (maxScore - minScore) * (100);
         const hue = Math.floor(value * 120 / 100);
         return Color({ h: hue, s: 100, v: 100 }).hex();
-
       };
       const highlightFeature = (e) => {
         const selectedLayer = e.target;

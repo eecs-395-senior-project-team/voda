@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-import Log from './Log';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'; // maybe keep
 import Tooltip from 'react-bootstrap/Tooltip'; // probs keep
 import Button from 'react-bootstrap/Button'; // probs keep?
 import Table from 'react-bootstrap/Table';
+import Log from './Log';
 import './Popup.sass';
 
 /**
@@ -68,49 +68,49 @@ class Popup extends Component {
           <div className="container-fluid">
             <div className="row justify-content-center">
               <OverlayTrigger
-                overlay={
+                overlay={(
                   <Tooltip id="tooltip">
                     Number of contaminants above the legal limit
                   </Tooltip>
-                }
-                placement='top'
+)}
+                placement="top"
               >
                 <div className="col-sm-4 bg-danger">
                   <div>
-                    <h2><i className="fas fa-exclamation-triangle"></i></h2>
+                    <h2><i className="fas fa-exclamation-triangle" /></h2>
                   </div>
                   <h2 className="value">3</h2>
                 </div>
               </OverlayTrigger>
               <OverlayTrigger
-                overlay={
+                overlay={(
                   <Tooltip id="tooltip">
                     Number of contaminants above the health guideline
                   </Tooltip>
-                }
-                placement='top'
+)}
+                placement="top"
               >
                 <div className="col-sm-4 bg-warning">
-                    <div>
-                      <h2><i className="fas fa-notes-medical"></i></h2>
-                    </div>
-                    <h2 className="value">8</h2>
-                </div> 
+                  <div>
+                    <h2><i className="fas fa-notes-medical" /></h2>
+                  </div>
+                  <h2 className="value">8</h2>
+                </div>
               </OverlayTrigger>
               <OverlayTrigger
-                overlay={
+                overlay={(
                   <Tooltip id="tooltip">
                     Number of contaminants that meet the health guideline
                   </Tooltip>
-                }
-                placement='top'
+)}
+                placement="top"
               >
-                  <div className="col-sm-4 bg-success">
-                    <div>
-                      <h2><i className="fas fa-check"></i></h2>
-                    </div>
-                    <h2 className="value">189</h2>
+                <div className="col-sm-4 bg-success">
+                  <div>
+                    <h2><i className="fas fa-check" /></h2>
                   </div>
+                  <h2 className="value">189</h2>
+                </div>
               </OverlayTrigger>
             </div>
             <div className="row justify-content-center">
@@ -119,7 +119,7 @@ class Popup extends Component {
                   <li className="list-group-item">
                     <div className="concerns">
                       <h3>Health concerns from the contaminants over the legal limit:</h3>
-                      <Table responsive borderless = 'true'>
+                      <Table responsive borderless="true">
 
                         <tbody>
                           <tr>
@@ -140,16 +140,13 @@ class Popup extends Component {
                   <li className="list-group-item">
                     <div className="concerns">
                       <h3>Health concerns from the contaminants over the health guidelines:</h3>
-                      <p> Harm to the central nervous system, Harm to the adrenal gland, Change to blood cells</p>
+                      <p> Harm to the central nervous system, Harm to the adrenal gland, Change to blood cells</p>
                     </div>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-
-
-
 
 
         </Modal.Body>
