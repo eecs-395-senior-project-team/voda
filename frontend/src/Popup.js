@@ -20,16 +20,15 @@ class Popup extends Component {
     const { countyID, stateID } = this.props;
     let apiURL;
     if (process.env.NODE_ENV === 'development') {
-      apiURL = 'http://localhost:8000/'
+      apiURL = 'http://localhost:8000/';
     } else {
-      apiURL = 'http://3.19.113.236:8000/'
+      apiURL = 'http://3.19.113.236:8000/';
     }
-    const url = `${apiURL}summary`
-    Log.info(url)
+    const url = `${apiURL}summary`;
     Axios.get(url, {
       params: {
         source: `${stateID}${countyID}`,
-      }
+      },
     })
       .then((summary) => {
         this.setState({
@@ -46,7 +45,8 @@ class Popup extends Component {
     const {
       showDetailView,
       hidePopup,
-      countyName, } = this.props;
+      countyName,
+    } = this.props;
     return (
       <Modal
         show
@@ -63,20 +63,20 @@ class Popup extends Component {
             <div className="row justify-content-center">
               <div className="col-sm-4 bg-danger">
                 <div>
-                  <h2><i className="fas fa-exclamation-triangle"></i></h2>
+                  <h2><i className="fas fa-exclamation-triangle" /></h2>
                 </div>
                 <h2 className="value">3</h2>
               </div>
               <div className="col-sm-4 bg-warning">
-                  <div>
-                    <h2><i className="fas fa-notes-medical"></i></h2>
-                  </div>
-                  <h2 className="value">8</h2>
+                <div>
+                  <h2><i className="fas fa-notes-medical" /></h2>
+                </div>
+                <h2 className="value">8</h2>
               </div>
               <div className="col-sm-4 bg-success">
-                  <div>
-                    <h2><i className="fas fa-check"></i></h2>
-                  </div>
+                <div>
+                  <h2><i className="fas fa-check" /></h2>
+                </div>
                 <h2 className="value">189</h2>
               </div>
             </div>
@@ -90,7 +90,7 @@ class Popup extends Component {
                   </li>
                   <li className="list-group-item">
                     <div className="concerns">
-                      <p>Health concerns from the contaminants over the health guidelines: Harm to the central nervous system, Harm to the adrenal gland, Change to blood cells</p>
+                      <p>Health concerns from the contaminants over the health guidelines: Harm to the central nervous system, Harm to the adrenal gland, Change to blood cells</p>
                     </div>
                   </li>
                 </ul>
