@@ -75,7 +75,6 @@ class DetailView extends Component {
             {`Contaminant Details For ${countyName} County`}
           </h1>
           <Tabs
-            className = "classOne"
             activeKey={activeTab}
             onSelect={key => this.setState({ activeTab: key })}
           >
@@ -100,7 +99,7 @@ class DetailView extends Component {
             </Tab>
           </Tabs>
           <hr />
-            <button type="button" class="float-right align-self-end flex-grow d-flex align-items-end btn btn-secondary" onClick={hideDetailView}>
+            <button type="button" className="float-right align-self-end flex-grow d-flex align-items-end btn btn-secondary" onClick={hideDetailView}>
               Close
             </button>
         </div>
