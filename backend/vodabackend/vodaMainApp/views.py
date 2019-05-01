@@ -38,7 +38,7 @@ def map_endpoint(request):
     scores = {}
     source_ids = {}
     for q_set in largest_source_by_county:
-        scores[q_set.county] = q_set.score
+        scores[q_set.county] = q_set.rating
         source_ids[q_set.county] = q_set.source_id
     response = {
         "scores": scores,
