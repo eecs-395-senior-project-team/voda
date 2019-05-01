@@ -50,7 +50,6 @@ class DetailView extends Component {
     const { details } = this.props;
     const { hideDetailView, countyName } = this.props;
     return (
-      <div class="card-body d-flex flex-column">
       <div className="Details border border-dark rounded">
         <h1>
 Contaminant Details for
@@ -60,7 +59,6 @@ County
         </h1>
         <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
 
-         <div className="col-sm-4 bg-danger">
           <Tab eventKey="home" title=<i className="fas fa-exclamation-triangle" />>
             <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
               <Row>
@@ -108,7 +106,6 @@ County
             </Tab.Container>
 
           </Tab>
-          </div>
 
 
           <Tab eventKey="profile" title=<i className="fas fa-notes-medical" />>
@@ -184,14 +181,11 @@ Legal Limit:999.99 parts per billion
           </Tab>
         </Tabs>
         <hr />
-        <div class="position-fixed">
           <div className = "closeButton">
             <button type="button" className="mt-auto btn btn-lg btn-block btn-outline-primary" onClick={hideDetailView}>
               Close
             </button>
           </div>
-        </div>
-     </div>
      </div>
     );
   }
