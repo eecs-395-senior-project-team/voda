@@ -42,7 +42,7 @@ class Map extends Component {
     Axios.all([getCounties(), getScores()])
       .then(Axios.spread((countiesResponse, scoresResponse) => {
         const counties = countiesResponse.data;
-        const scores = scoresResponse.data;
+        const { scores, sourceIDs } = scoresResponse.data;
         const { minScore, maxScore } = this.state;
         let newMinScore = minScore;
         let newMaxScore = maxScore;
@@ -50,6 +50,7 @@ class Map extends Component {
           const fipsCode = `${counties.features[i].properties.STATE}${counties.features[i].properties.COUNTY}`;
           if (fipsCode in scores) {
             counties.features[i].properties.SCORE = scores[fipsCode];
+            counties.features[i].properties.SOURCEID = sourceIDs[fipsCode];
             if (scores[fipsCode] < newMinScore) {
               newMinScore = scores[fipsCode];
             }
@@ -157,11 +158,10 @@ class Map extends Component {
         const { showPopup } = this.props;
         map.fitBounds(e.target.getBounds());
         const {
-          COUNTY,
           NAME,
-          STATE,
+          SOURCEID,
         } = e.target.feature.properties;
-        showPopup(COUNTY, NAME, STATE);
+        showPopup(NAME, SOURCEID);
       };
       geoJson = L.geoJson(counties, {
         style(feature) {

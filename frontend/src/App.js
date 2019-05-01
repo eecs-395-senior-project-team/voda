@@ -19,14 +19,17 @@ class App extends Component {
     this.state = {
       detailViewIsVisible: false,
       popupIsVisible: false,
-      selectedCountyID: '',
       selectedCountyName: '',
-      selectedStateID: '',
+      selectedSourceID: '',
     };
   }
 
   hideDetailView() {
-    this.setState({ detailViewIsVisible: false });
+    this.setState({
+      detailViewIsVisible: false,
+      selectedCountyName: '',
+      selectedSourceID: '',
+    });
   }
 
   showDetailView() {
@@ -39,30 +42,27 @@ class App extends Component {
   hidePopup() {
     this.setState({
       popupIsVisible: false,
-      selectedCountyID: '',
       selectedCountyName: '',
-      selectedStateID: '',
+      selectedSourceID: '',
     });
   }
 
-  showPopup(countyID, countyName, stateID) {
+  showPopup(countyName, sourceID) {
     this.setState({
       popupIsVisible: true,
-      selectedCountyID: countyID,
       selectedCountyName: countyName,
-      selectedStateID: stateID,
+      selectedSourceID: sourceID,
     });
   }
 
   render() {
     const header = 'Voda';
-    const footer = 'created by anna, david f, david n, david n || 2019';
+    const footer = 'created by anna, david, david, david || 2019';
     const {
       detailViewIsVisible,
       popupIsVisible,
-      selectedCountyID,
       selectedCountyName,
-      selectedStateID,
+      selectedSourceID,
     } = this.state;
     let popUp;
     if (popupIsVisible) {
@@ -70,9 +70,8 @@ class App extends Component {
         <Popup
           showDetailView={this.showDetailView}
           hidePopup={this.hidePopup}
-          countyID={selectedCountyID}
           countyName={selectedCountyName}
-          stateID={selectedStateID}
+          sourceID={selectedSourceID}
         />
       );
     } else {
@@ -83,9 +82,8 @@ class App extends Component {
       content = (
         <DetailView
           hideDetailView={this.hideDetailView}
-          countyID={selectedCountyID}
           countyName={selectedCountyName}
-          stateID={selectedStateID}
+          sourceID={selectedSourceID}
         />
       );
     } else {

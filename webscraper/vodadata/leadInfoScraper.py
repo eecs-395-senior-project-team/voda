@@ -1,9 +1,11 @@
 import scrapy
 import psycopg2
+import traceback
 
 
 class LeadInfoScraper(scrapy.Spider):
     name = "LeadInfoScraper"
+    counter = 0
 
     def __init__(self, connection):
         self.connection = connection
@@ -52,59 +54,85 @@ class LeadInfoScraper(scrapy.Spider):
             cursor.close()
         except Exception as e:
             with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-                f.write("Second level ERROR: {}".format(e))
-            print(e)
+                f.write("ERROR writing lead to contamina contaminants:\n {}".format(e))
+            print('ERROR\n{}'.format(traceback.format_exc()))
 
     def scrape_source_lead_data(self, response):
-        source_name = response.xpath("//h2[@class='systemname-h2']/text()").get().split('-')[0]
-        source_state = response.url.split('=')[1][0:2]
-        cursor = self.connection.cursor()
-        cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state = %s',
-                       (source_name, source_state))
-        src_id = cursor.fetchone()
-        cursor.close()
-        this_utility_value = 0.0
-        if response.xpath("//p/b[contains(text(), '90 percent of lead samples collected')]") is not None:
-            this_utility_value = response.xpath("//p/b[contains(text(),'90 percent of lead samples collected')]").get(
-            ).split("parts")[0].split("below")[1]
+        try:
+            #TODO investigate this
+            if response.xpath("//h2[@class='systemname-h2']/text()").get() is not None:
+                source_name = response.xpath("//h2[@class='systemname-h2']/text()").get().split('-')[0]
+                source_state = response.url.split('=')[1][0:2]
+                cursor = self.connection.cursor()
+                cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s',
+                               (source_name, source_state))
+                src_id = cursor.fetchone()
+                cursor.close()
 
-        elif response.xpath("//table[@class = 'system-contaminant-table']") is not None:
-            counter = 0
-            total = 0
-            set = response.xpath("//table[@class = 'system-contaminant-table']/tbody/tr/td[@data-label='Result']")
-            for result in set:
-                counter = counter + 1
-                if result.xpath("//b/text()") is not None:
-                    result_num = result.xpath("//b/text()").get().split(" ")[0]
+                if src_id is None:
+                    self.counter = self.counter + 1
+                    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+                        f.write("src_id not found; Name: {}; State: {}\n Count: {}".format(source_name, source_state, self.counter))
+                   # print("src_id not found; Name: {}; State: {}; Count: {}".format(source_name, source_state, self.counter))
+                    
                 else:
-                    result_num = result.xpath("//text()").get().split(" ")[0]
-                if result_num != 'ND':
-                    total = total + result_num
-            this_utility_value = total/counter
-        self.write_source_lead_data('lead', src_id, this_utility_value)
+                    this_utility_value = 0.0
+                    # for the pages with just text
+                    if response.xpath("//p/b[contains(text(), '90 percent of lead samples collected')]").get() is not None:
+                        this_utility_value = response.xpath("//p/b[contains(text(),'90 percent of lead samples collected')]").get(
+                        ).split("parts")[0].split("below")[1]
+
+                    # for the pages with a pie chart and table
+                    elif response.xpath("//table[@class = 'system-contaminant-table']").get() is not None:
+                        counter = 0
+                        total = 0
+                        set = response.xpath("//table[@class = 'system-contaminant-table']/tbody/tr/td[@data-label='Result']")
+                        for result in set:
+                            counter = counter + 1
+                            if result.xpath("//b/text()").get() is not None:
+                                result_num = result.xpath("//b/text()").get().split(" ")[0]
+                            else:
+                                result_num = result.xpath("//text()").get().split(" ")[0]
+                            if not result_num and result_num != 'ND':
+                                try:
+                                    total = total + float(result_num)
+                                except Exception as e:
+                                    print(type(result_num))
+                                    print("{}, {}, {}".format(result_num, response.url, e))
+                        this_utility_value = total/counter
+                    self.write_source_lead_data('lead', src_id, this_utility_value)
+        except Exception as e:
+            with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+                f.write("ERROR scraping source lead data:\n {}".format(e))
+            print('ERROR\n{}'.format(traceback.format_exc()))
 
     def write_source_lead_data(self, cont_name, src_id, this_utility_value):
-        cursor = self.connection.cursor()
+        try:
+            cursor = self.connection.cursor()
 
-        # get the id of this contaminant based on its name
-        cursor.execute('SELECT contaminant_id FROM "vodaMainApp_contaminants" WHERE contaminant_name = %s',
-                       (cont_name,))
-        cont_id = cursor.fetchone()
+            # get the id of this contaminant based on its name
+            cursor.execute('SELECT contaminant_id FROM "vodaMainApp_contaminants" WHERE contaminant_name = %s',
+                           (cont_name,))
+            cont_id = cursor.fetchone()
 
-        # check if this source-contaminant relationship exists
-        cursor.execute('SELECT * FROM "vodaMainApp_source_levels" WHERE source_id = %s '
-                       'AND contaminant_id = %s', (src_id, cont_id))
-        results = cursor.fetchall()
+            # check if this source-contaminant relationship exists
+            cursor.execute('SELECT * FROM "vodaMainApp_sourcelevels" WHERE source_id = %s '
+                           'AND contaminant_id = %s', (src_id, cont_id))
+            results = cursor.fetchall()
 
-        # if there is not already a row for this contaminant-utility pair, add one,
-        if not results:
-            cursor.execute('INSERT INTO "vodaMainApp_source_levels" (source_id, contaminant_id, source_level)'
-                           ' VALUES (%s, %s, %s)', (src_id, cont_id, this_utility_value))
-        # otherwise update the values
-        else:
-            cursor.execute('UPDATE "vodaMainApp_source_levels" SET source_level=%s WHERE source_id=%s AND contaminant_id=%s',
-                           (this_utility_value, src_id, cont_id))
-        cursor.close()
+            # if there is not already a row for this contaminant-utility pair, add one,
+            if not results:
+                cursor.execute('INSERT INTO "vodaMainApp_sourcelevels" (source_id, contaminant_id, contaminant_level)'
+                               ' VALUES (%s, %s, %s)', (src_id, cont_id, this_utility_value))
+            # otherwise update the values
+            else:
+                cursor.execute('UPDATE "vodaMainApp_sourcelevels" SET contaminant_level=%s WHERE source_id=%s AND contaminant_id=%s',
+                               (this_utility_value, src_id, cont_id))
+            cursor.close()
+        except Exception as e:
+            with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+                f.write("ERROR writing source lead data:\n {}".format(e))
+            print('ERROR\n{}'.format(traceback.format_exc()))
 
     def start_requests(self):
         self.write_lead_to_contaminants()
