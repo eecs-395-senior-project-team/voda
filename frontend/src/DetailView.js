@@ -69,38 +69,40 @@ class DetailView extends Component {
     const greenIcon = <i className="fas fa-check" />;
 
     return (
-      <div className="Details border border-dark rounded">
-        <h1>
-          {`Contaminant Details For ${countyName} County`}
-        </h1>
-        <Tabs
-          activeKey={activeTab}
-          onSelect={key => this.setState({ activeTab: key })}
-        >
-          <Tab eventKey="red" title={redIcon}>
-            <TabDetails
-              contaminants={redContaminants}
-              sourceID={sourceID}
-            />
-          </Tab>
-          <Tab eventKey="profile" title={yellowIcon}>
-            <TabDetails
-              contaminants={yellowContaminants}
-              sourceID={sourceID}
-            />
-          </Tab>
-          <Tab eventKey="contact" title={greenIcon}>
-            <TabDetails
-              contaminants={greenContaminants}
-              sourceID={sourceID}
-            />
-          </Tab>
-        </Tabs>
-        <hr />
-        <div className="closeButton">
-          <button type="button" className="btn btn-secondary" onClick={hideDetailView}>
-            Close
-          </button>
+      <div class = "card-body d-flex flex-column">
+        <div className="Details border border-dark rounded">
+          <h1>
+            {`Contaminant Details For ${countyName} County`}
+          </h1>
+          <Tabs
+            className = "classOne"
+            activeKey={activeTab}
+            onSelect={key => this.setState({ activeTab: key })}
+          >
+            <Tab eventKey="red" title={redIcon}>
+              <TabDetails
+                contaminants={redContaminants}
+                sourceID={sourceID}
+              />
+            </Tab>
+
+            <Tab eventKey="profile" title={yellowIcon}>
+              <TabDetails
+                contaminants={yellowContaminants}
+                sourceID={sourceID}
+              />
+            </Tab>
+            <Tab eventKey="contact" title={greenIcon}>
+              <TabDetails
+                contaminants={greenContaminants}
+                sourceID={sourceID}
+              />
+            </Tab>
+          </Tabs>
+          <hr />
+            <button type="button" class="float-right align-self-end flex-grow d-flex align-items-end btn btn-secondary" onClick={hideDetailView}>
+              Close
+            </button>
         </div>
       </div>
     );
