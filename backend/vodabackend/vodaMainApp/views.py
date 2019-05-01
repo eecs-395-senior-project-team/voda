@@ -35,10 +35,16 @@ def map_endpoint(request):
     """
     largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county')
     #TODO: Change to FIPS code
-    sources = {}
+    scores = {}
+    source_ids = {}
     for q_set in largest_source_by_county:
-        sources[q_set.county] = q_set.score
-    return JsonResponse(sources)
+        scores[q_set.county] = q_set.score
+        source_ids[q_set.county] = q_set.source_id
+    response = {
+        "scores": scores,
+        "sourceIDs": source_ids
+    }
+    return JsonResponse(response)
 
 
 def summary(request):
@@ -55,7 +61,8 @@ def summary(request):
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
     supply_id = request.GET.get('source')
-    if supply_id:
+    if True:
+    #if supply_id:
         response = {
             "legalLimitConcerns": ['a', 'b', 'c', 'd', 'e'],
             "healthGuidelinesConcerns": ['a', 'b', 'c', 'd', 'e', 'f'],
@@ -69,7 +76,8 @@ def summary(request):
 
 def contaminants(request):
     supply_id = request.GET.get('source')
-    if supply_id:
+    if True:
+    #if supply_id:
         contaminant_list = {
             "redContaminants": ['a', 'b'],
             "yellowContaminants": ['c', 'd'],
@@ -82,7 +90,8 @@ def contaminants(request):
 def contaminant_info(request):
     supply_id = request.GET.get('source')
     contaminant_name = request.GET.get('contaminant')
-    if supply_id and contaminant_name:
+    if True:
+    #if supply_id and contaminant_name:
         contaminant_details = {
             "Amount in water": 7.38,
             "Health Guideline": 0.06,
@@ -90,29 +99,6 @@ def contaminant_info(request):
             "Details": "Bromodchloromecahne, one of the total TTHMs, is formed when chlorine or other disinfectants are used to treat drinking water. Bromodchloromecahne and other disinfection byproducts inrease the risk of cancer and may cause problems during pregnancy."
         }
         return JsonResponse(contaminant_details)
-    return HttpResponseBadRequest(400)
-
-
-def details(request):
-    """ Details endpoint.
-
-    Returns the full details for a given water supply.
-    Called by the frontend when a user clicks on the more details link from the card view.
-
-    Args:
-        request: Incoming Django request object.
-
-    Returns:
-        An HTTP Response with the details for the requested water supply.
-
-        or
-
-        An HTTPResponseBadRequest if the 'source' param is missing.
-    """
-    supply_id = request.GET.get('source')
-    if supply_id:
-        response_string = "This is a test String"
-        return HttpResponse(response_string)
     return HttpResponseBadRequest(400)
 
 

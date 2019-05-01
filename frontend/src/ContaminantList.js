@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Nav from 'react-bootstrap/Nav';
-import "./ContaminantList.sass";
+import './ContaminantList.sass';
 
 /**
  * ContaminantList component
