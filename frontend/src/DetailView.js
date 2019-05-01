@@ -15,29 +15,36 @@ class DetailView extends Component {
     super(props);
     this.state = {
       activeTab: 'red',
-      redContaminants: ['a', 'b'],
-      yellowContaminants: ['c', 'd'],
-      greenContaminants: ['e', 'f'],
+      redContaminants: [],
+      yellowContaminants: [],
+      greenContaminants: [],
     };
   }
 
   componentWillMount() {
-    const { countyID, stateID } = this.props;
+    const { sourceID } = this.props;
     let apiURL;
     if (process.env.NODE_ENV === 'development') {
       apiURL = 'http://localhost:8000/';
     } else {
       apiURL = 'http://3.19.113.236:8000/';
     }
-    const url = `${apiURL}details`;
+    const url = `${apiURL}contaminants`;
     Axios.get(url, {
       params: {
-        source: `${stateID}${countyID}`,
+        source: sourceID,
       },
     })
-      .then((details) => {
+      .then((contaminants) => {
+        const {
+          redContaminants,
+          yellowContaminants,
+          greenContaminants,
+        } = contaminants.data;
         this.setState({
-          details: details.data,
+          redContaminants,
+          yellowContaminants,
+          greenContaminants,
         });
       })
       .catch((error) => {
@@ -55,8 +62,7 @@ class DetailView extends Component {
     const {
       hideDetailView,
       countyName,
-      countyID,
-      stateID,
+      sourceID,
     } = this.props;
     const redIcon = <i className="fas fa-exclamation-triangle" />;
     const yellowIcon = <i className="fas fa-notes-medical" />;
@@ -74,22 +80,19 @@ class DetailView extends Component {
           <Tab eventKey="red" title={redIcon}>
             <TabDetails
               contaminants={redContaminants}
-              countyID={countyID}
-              stateID={stateID}
+              sourceID={sourceID}
             />
           </Tab>
           <Tab eventKey="profile" title={yellowIcon}>
             <TabDetails
               contaminants={yellowContaminants}
-              countyID={countyID}
-              stateID={stateID}
+              sourceID={sourceID}
             />
           </Tab>
           <Tab eventKey="contact" title={greenIcon}>
             <TabDetails
               contaminants={greenContaminants}
-              countyID={countyID}
-              stateID={stateID}
+              sourceID={sourceID}
             />
           </Tab>
         </Tabs>
@@ -106,9 +109,8 @@ class DetailView extends Component {
 
 DetailView.propTypes = {
   hideDetailView: PropTypes.func.isRequired,
-  countyID: PropTypes.string.isRequired,
   countyName: PropTypes.string.isRequired,
-  stateID: PropTypes.string.isRequired,
+  sourceID: PropTypes.string.isRequired,
 };
 
 export default DetailView;
