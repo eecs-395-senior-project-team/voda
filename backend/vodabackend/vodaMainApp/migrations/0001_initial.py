@@ -90,4 +90,4 @@ class Migration(migrations.Migration):
             name='state',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vodaMainApp.States'),
         ),
-    ]
+]
