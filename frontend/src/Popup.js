@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'; // maybe keep
-import Tooltip from 'react-bootstrap/Tooltip'; // probs keep
-import Button from 'react-bootstrap/Button'; // probs keep?
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Table from 'react-bootstrap/Table';
 import Log from './Log';
 import './Popup.sass';
@@ -62,9 +61,7 @@ class Popup extends Component {
             {`Contaminant Summary For ${countyName} County`}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body
-          dialogClassName="body"
-        >
+        <Modal.Body>
           <div className="container-fluid">
             <div className="row justify-content-center">
               <OverlayTrigger
@@ -72,7 +69,7 @@ class Popup extends Component {
                   <Tooltip id="tooltip">
                     Number of contaminants above the legal limit
                   </Tooltip>
-)}
+                  )}
                 placement="top"
               >
                 <div className="col-sm-4 bg-danger">
@@ -87,7 +84,7 @@ class Popup extends Component {
                   <Tooltip id="tooltip">
                     Number of contaminants above the health guideline
                   </Tooltip>
-)}
+                )}
                 placement="top"
               >
                 <div className="col-sm-4 bg-warning">
@@ -102,7 +99,7 @@ class Popup extends Component {
                   <Tooltip id="tooltip">
                     Number of contaminants that meet the health guideline
                   </Tooltip>
-)}
+                )}
                 placement="top"
               >
                 <div className="col-sm-4 bg-success">
@@ -120,7 +117,6 @@ class Popup extends Component {
                     <div className="concerns">
                       <h3>Health concerns from the contaminants over the legal limit:</h3>
                       <Table responsive borderless="true">
-
                         <tbody>
                           <tr>
                             <td>Cancer</td>
@@ -134,7 +130,6 @@ class Popup extends Component {
                           </tr>
                         </tbody>
                       </Table>
-
                     </div>
                   </li>
                   <li className="list-group-item">
@@ -147,8 +142,6 @@ class Popup extends Component {
               </div>
             </div>
           </div>
-
-
         </Modal.Body>
         <Modal.Footer>
           <button type="button" className="btn btn-secondary" onClick={hidePopup}>

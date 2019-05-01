@@ -56,7 +56,7 @@ class App extends Component {
 
   render() {
     const header = 'Voda';
-    const footer = 'created by anna, david f, david n, david n || 2019';
+    const footer = 'created by anna, david, david, david || 2019';
     const {
       detailViewIsVisible,
       popupIsVisible,
