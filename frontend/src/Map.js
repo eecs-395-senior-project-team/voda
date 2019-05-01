@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import L from 'leaflet';
 import Axios from 'axios';
 import PropTypes from 'prop-types';
+import Color from 'color';
 import './Map.sass';
 import Alert from './Alert';
 import Log from './Log';
@@ -10,13 +11,12 @@ import Log from './Log';
 const getCounties = () => Axios.get('https://s3.us-east-2.amazonaws.com/voda-counties-data/data/counties_20m.json');
 
 // Axios get request for scores
-const getScores = () => {
-  if (process.env.NODE_ENV === 'development') {
-    Axios.get('http://localhost:8000/map');
-  } else {
-    Axios.get('http://3.19.113.236:8000/map');
-  }
-};
+let getScores;
+if (process.env.NODE_ENV === 'development') {
+  getScores = () => Axios.get('http://localhost:8000/map');
+} else {
+  getScores = () => Axios.get('http://3.19.113.236:8000/map');
+}
 
 /**
  * Component containing the geomap.
@@ -32,15 +32,38 @@ class Map extends Component {
       lng: -96,
       zoom: 4,
       browserAlert: false,
+      minScore: Infinity,
+      maxScore: -Infinity,
     };
   }
 
   // Initializes map colors
   componentWillMount() {
     Axios.all([getCounties(), getScores()])
-      .then(Axios.spread((counties, scores) => {
+      .then(Axios.spread((countiesResponse, scoresResponse) => {
+        const counties = countiesResponse.data;
+        const scores = scoresResponse.data;
+        const { minScore, maxScore } = this.state;
+        let newMinScore = minScore;
+        let newMaxScore = maxScore;
+        for (let i = 0; i < counties.features.length; i += 1) {
+          const fipsCode = `${counties.features[i].properties.STATE}${counties.features[i].properties.COUNTY}`;
+          if (fipsCode in scores) {
+            counties.features[i].properties.SCORE = scores[fipsCode];
+            if (scores[fipsCode] < newMinScore) {
+              newMinScore = scores[fipsCode];
+            }
+            if (scores[fipsCode] > newMaxScore) {
+              newMaxScore = scores[fipsCode];
+            }
+          } else {
+            counties.features[i].properties.SCORE = -Infinity;
+          }
+        }
         this.setState({
-          counties: counties.data,
+          counties,
+          minScore: newMinScore,
+          maxScore: newMaxScore,
         });
       }))
       .catch((error) => {
@@ -85,15 +108,32 @@ class Map extends Component {
 
   // Move to ComponentWillMount
   componentDidUpdate(_, prevState) {
-    const { counties, map } = this.state;
+    const {
+      counties,
+      map,
+      minScore,
+      maxScore,
+    } = this.state;
     let { counties: prevCounties } = prevState;
     if (typeof prevCounties === 'undefined') {
       prevCounties = { features: [] };
     }
 
     // When counties change
-    if (counties.features !== prevCounties.features && Object.entries(counties).length !== 0 && counties.constructor === Object) {
+    if (
+      counties.features !== prevCounties.features
+      && Object.entries(counties).length !== 0
+      && counties.constructor === Object
+    ) {
       let geoJson;
+      const getColor = (score) => {
+        if (score === -Infinity) {
+          return '#ffffff';
+        }
+        const value = (score - minScore) / (maxScore - minScore) * (100);
+        const hue = Math.floor(value * 120 / 100);
+        return Color({ h: hue, s: 100, v: 100 }).hex();
+      };
       const highlightFeature = (e) => {
         const selectedLayer = e.target;
         selectedLayer.setStyle({
@@ -124,9 +164,9 @@ class Map extends Component {
         showPopup(COUNTY, NAME, STATE);
       };
       geoJson = L.geoJson(counties, {
-        style() {
+        style(feature) {
           return {
-            fillColor: '#800026',
+            fillColor: getColor(feature.properties.SCORE),
             weight: 1,
             opacity: 0.5,
             color: 'black',
