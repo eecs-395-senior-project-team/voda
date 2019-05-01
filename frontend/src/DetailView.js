@@ -14,10 +14,10 @@ class DetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 'red',xw
+      activeTab: 'red',
       redContaminants: [],
       yellowContaminants: [],
-      greenContaminants: [],xw
+      greenContaminants: [],
     };
   }
 
