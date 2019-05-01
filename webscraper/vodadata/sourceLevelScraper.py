@@ -52,7 +52,6 @@ class FindSourceLevels(scrapy.Spider):
             cursor.close()
         except Exception as e:
             self.counter = self.counter + 1
-            print(self.counter)
             with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
                 f.write("\nCounter {}, Contaminant: {}\n".format(self.counter, cont_name))
             print("Error:{}\n, Source ID:{}, Contaminant: {}".format(e, src_id, cont_name))
@@ -82,53 +81,59 @@ class FindSourceLevels(scrapy.Spider):
             self.connection.commit()
             cursor.close()
         except Exception as e:
+            with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+                f.write("Error: {}\n Failed to write state average. \n".format(e))
             print(e)
 
     def scrape_source_levels(self, response):
         try:
-            cont_raw = response.xpath(
-                "//ul[@class='contaminants-list']/li/section[contains(@class, 'contaminant-data')]")
-            source_name = response.xpath("//h1/text()").get()
-            source_state = response.url.split('=')[1][0:2]
 
-            cursor = self.connection.cursor()
-            cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s',
-                           (source_name, source_state))
-            src_id = cursor.fetchone()
-            cursor.close()
+            if response.url != 'https://www.ewg.org/tapwater/404.php':
+                cont_raw = response.xpath(
+                    "//ul[@class='contaminants-list']/li/section[contains(@class, 'contaminant-data')]")
+                source_name = response.xpath("//h1/text()").get()
+                source_state = response.url.split('=')[1][0:2]
 
-            if src_id is None:
-                self.counter_2 = self.counter_2 + 1
-                with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-                    f.write("\nCounter2: {}, {}, {}, {}\n".format(self.counter_2, source_name, source_state, response.url))
-            else:
-                for cont in cont_raw:
-                    try:
-                        # If the description for measured contaminants exists
-                        if cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() is not None:
-                            cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
+                cursor = self.connection.cursor()
+                cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s',
+                               (source_name, source_state))
+                src_id = cursor.fetchone()
+                cursor.close()
 
-                            this_utility_value = \
-                                cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get().split(' ')[0]
-                            state_avg = cont.xpath(".//div[@class='state-ppb-popup']/text()").get().split(' ')[0]
+                if src_id is None:
+                    self.counter_2 = self.counter_2 + 1
+                    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+                        f.write("\nCounter2: {}, {}, {}, {}\n".format(self.counter_2, source_name, source_state, response.url))
+                else:
+                    for cont in cont_raw:
+                        try:
+                            # If the description for measured contaminants exists
+                            if cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get() is not None:
+                                cont_name = cont.xpath(".//div[@class='contaminant-name']/h3/text()").get()
 
-                            self.write_source_level(cont_name, src_id, this_utility_value)
-                            self.write_state_avg(source_state, cont_name, state_avg)
+                                this_utility_value = \
+                                    cont.xpath(".//div[@class='this-utility-ppb-popup']/text()").get().split(' ')[0]
+                                state_avg = cont.xpath(".//div[@class='state-ppb-popup']/text()").get().split(' ')[0]
 
-                        # If the description for non-measured (only detected) contaminants exists
-                        elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
-                            cont_name = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
+                                self.write_source_level(cont_name, src_id, this_utility_value)
+                                self.write_state_avg(source_state, cont_name, state_avg)
 
-                            this_utility_value = None
-                            state_avg = None
-                            self.write_source_level(cont_name, src_id, this_utility_value)
-                            self.write_state_avg(source_state, cont_name, state_avg)
+                            # If the description for non-measured (only detected) contaminants exists
+                            elif cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get() is not None:
+                                cont_name = cont.xpath(".//div[@class = 'slide-toggle']/p[1]/a[1]/text()").get()
 
-                    except Exception as e:
-                        with open('debugLog.txt', 'a') as f:
-                            f.write("\nERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
-                        print("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
-            self.connection.commit()
+                                this_utility_value = None
+                                state_avg = None
+                                self.write_source_level(cont_name, src_id, this_utility_value)
+                                self.write_state_avg(source_state, cont_name, state_avg)
+
+                        except Exception as e:
+                            with open('debugLog.txt', 'a') as f:
+                                f.write("\nERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
+                            print("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
+                self.connection.commit()
 
         except Exception as e:
-            print(e)
+            with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+                f.write("Error: {}\n Upper level of scrape Source Levels Failed.\n URL: {}, Source Name: {}\n".format(e, response.url, response.xpath("//h1/text()").get()))
+            print("Error: {}\n Upper level of scrape Source Levels Failed.\n URL: {}, Source Name: {}\n".format(e, response.url, response.xpath("//h1/text()").get()))
