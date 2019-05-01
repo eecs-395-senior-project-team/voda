@@ -98,8 +98,7 @@ class FindUtilInfo(scrapy.Spider):
             util_code = response.url.split('=')[1]
             utility_name = response.xpath("//h1/text()").get()
             scraped_city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get().split(',')[0]
-            if scraped_city is None:
-                print("{}, {}".format(utility_name, util_code))
+
             if len(scraped_city.split(' ')) <= 1 or scraped_city.split(' ')[len(scraped_city.split(' '))-1] != 'County':
 
                 state_id = util_code[0:2]

@@ -1,5 +1,6 @@
 import scrapy
 import psycopg2
+import traceback
 
 
 class LeadInfoScraper(scrapy.Spider):
@@ -53,49 +54,57 @@ class LeadInfoScraper(scrapy.Spider):
             cursor.close()
         except Exception as e:
             with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-                f.write("ERROR writing lead to contaminnts:\n {}".format(e))
-            print(e)
+                f.write("ERROR writing lead to contamina contaminants:\n {}".format(e))
+            print('ERROR\n{}'.format(traceback.format_exc()))
 
     def scrape_source_lead_data(self, response):
         try:
-            source_name = response.xpath("//h2[@class='systemname-h2']/text()").get().split('-')[0]
-            source_state = response.url.split('=')[1][0:2]
-            cursor = self.connection.cursor()
-            cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s',
-                           (source_name, source_state))
-            src_id = cursor.fetchone()
-            cursor.close()
+            #TODO investigate this
+            if response.xpath("//h2[@class='systemname-h2']/text()").get() is not None:
+                source_name = response.xpath("//h2[@class='systemname-h2']/text()").get().split('-')[0]
+                source_state = response.url.split('=')[1][0:2]
+                cursor = self.connection.cursor()
+                cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s',
+                               (source_name, source_state))
+                src_id = cursor.fetchone()
+                cursor.close()
 
-            if src_id is None:
-                self.counter = self.counter + 1
-                with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-                    f.write("src_id not found; Name: {}; State: {}\n Count: {}".format(source_name, source_state, self.counter))
-                print("src_id not found; Name: {}; State: {}; Count: {}".format(source_name, source_state, self.counter))
-                
-            else:
-                this_utility_value = 0.0
-                if response.xpath("//p/b[contains(text(), '90 percent of lead samples collected')]") is not None:
-                    this_utility_value = response.xpath("//p/b[contains(text(),'90 percent of lead samples collected')]").get(
-                    ).split("parts")[0].split("below")[1]
+                if src_id is None:
+                    self.counter = self.counter + 1
+                    with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+                        f.write("src_id not found; Name: {}; State: {}\n Count: {}".format(source_name, source_state, self.counter))
+                   # print("src_id not found; Name: {}; State: {}; Count: {}".format(source_name, source_state, self.counter))
+                    
+                else:
+                    this_utility_value = 0.0
+                    # for the pages with just text
+                    if response.xpath("//p/b[contains(text(), '90 percent of lead samples collected')]").get() is not None:
+                        this_utility_value = response.xpath("//p/b[contains(text(),'90 percent of lead samples collected')]").get(
+                        ).split("parts")[0].split("below")[1]
 
-                elif response.xpath("//table[@class = 'system-contaminant-table']") is not None:
-                    counter = 0
-                    total = 0
-                    set = response.xpath("//table[@class = 'system-contaminant-table']/tbody/tr/td[@data-label='Result']")
-                    for result in set:
-                        counter = counter + 1
-                        if result.xpath("//b/text()") is not None:
-                            result_num = result.xpath("//b/text()").get().split(" ")[0]
-                        else:
-                            result_num = result.xpath("//text()").get().split(" ")[0]
-                        if result_num != 'ND':
-                            total = total + result_num
-                    this_utility_value = total/counter
-                self.write_source_lead_data('lead', src_id, this_utility_value)
+                    # for the pages with a pie chart and table
+                    elif response.xpath("//table[@class = 'system-contaminant-table']").get() is not None:
+                        counter = 0
+                        total = 0
+                        set = response.xpath("//table[@class = 'system-contaminant-table']/tbody/tr/td[@data-label='Result']")
+                        for result in set:
+                            counter = counter + 1
+                            if result.xpath("//b/text()").get() is not None:
+                                result_num = result.xpath("//b/text()").get().split(" ")[0]
+                            else:
+                                result_num = result.xpath("//text()").get().split(" ")[0]
+                            if not result_num and result_num != 'ND':
+                                try:
+                                    total = total + float(result_num)
+                                except Exception as e:
+                                    print(type(result_num))
+                                    print("{}, {}, {}".format(result_num, response.url, e))
+                        this_utility_value = total/counter
+                    self.write_source_lead_data('lead', src_id, this_utility_value)
         except Exception as e:
             with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
                 f.write("ERROR scraping source lead data:\n {}".format(e))
-            print(e)
+            print('ERROR\n{}'.format(traceback.format_exc()))
 
     def write_source_lead_data(self, cont_name, src_id, this_utility_value):
         try:
@@ -123,7 +132,7 @@ class LeadInfoScraper(scrapy.Spider):
         except Exception as e:
             with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
                 f.write("ERROR writing source lead data:\n {}".format(e))
-            print(e)
+            print('ERROR\n{}'.format(traceback.format_exc()))
 
     def start_requests(self):
         self.write_lead_to_contaminants()
