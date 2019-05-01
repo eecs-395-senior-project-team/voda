@@ -15,9 +15,11 @@ class Popup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      summary: '',
-      legalLimitConcerns: ['a', 'b', 'c', 'd', 'e'],
-      healthGuidelinesConcerns: ['a', 'b', 'c', 'd', 'e', 'f'],
+      legalLimitConcerns: [],
+      healthGuidelinesConcerns: [],
+      redCount: 0,
+      yellowCount: 0,
+      greenCount: 0,
     };
   }
 
@@ -36,8 +38,19 @@ class Popup extends Component {
       },
     })
       .then((summary) => {
+        const {
+          legalLimitConcerns,
+          healthGuidelinesConcerns,
+          redCount,
+          yellowCount,
+          greenCount,
+        } = summary.data;
         this.setState({
-          summary: summary.data,
+          legalLimitConcerns,
+          healthGuidelinesConcerns,
+          redCount,
+          yellowCount,
+          greenCount,
         });
       })
       .catch((error) => {
@@ -47,9 +60,11 @@ class Popup extends Component {
 
   render() {
     const {
-      summary,
       legalLimitConcerns,
       healthGuidelinesConcerns,
+      redCount,
+      yellowCount,
+      greenCount,
     } = this.state;
     const {
       showDetailView,
@@ -121,6 +136,7 @@ class Popup extends Component {
         show
         onHide={hidePopup}
         dialogClassName="popup"
+        scrollable={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>
@@ -142,7 +158,9 @@ class Popup extends Component {
                   <div>
                     <h2><i className="fas fa-exclamation-triangle" /></h2>
                   </div>
-                  <h2 className="value">3</h2>
+                  <h2 className="value">
+                    {redCount}
+                  </h2>
                 </div>
               </OverlayTrigger>
               <OverlayTrigger
@@ -157,7 +175,9 @@ class Popup extends Component {
                   <div>
                     <h2><i className="fas fa-notes-medical" /></h2>
                   </div>
-                  <h2 className="value">8</h2>
+                  <h2 className="value">
+                    {yellowCount}
+                  </h2>
                 </div>
               </OverlayTrigger>
               <OverlayTrigger
@@ -172,7 +192,9 @@ class Popup extends Component {
                   <div>
                     <h2><i className="fas fa-check" /></h2>
                   </div>
-                  <h2 className="value">189</h2>
+                  <h2 className="value">
+                    {greenCount}
+                  </h2>
                 </div>
               </OverlayTrigger>
             </div>

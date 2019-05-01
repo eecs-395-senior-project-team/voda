@@ -56,8 +56,14 @@ def summary(request):
     """
     supply_id = request.GET.get('source')
     if supply_id:
-        response = "Returns the summary details for water supply %s."
-        return HttpResponse(response % supply_id)
+        response = {
+            "legalLimitConcerns": ['a', 'b', 'c', 'd', 'e'],
+            "healthGuidelinesConcerns": ['a', 'b', 'c', 'd', 'e', 'f'],
+            "redCount": 3,
+            "yellowCount": 8,
+            "greenCount": 215,
+        }
+        return JsonResponse(response)
     return HttpResponseBadRequest(400)
 
 
