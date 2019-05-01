@@ -24,7 +24,7 @@ class Popup extends Component {
   }
 
   componentWillMount() {
-    const { countyID, stateID } = this.props;
+    const { sourceID } = this.props;
     let apiURL;
     if (process.env.NODE_ENV === 'development') {
       apiURL = 'http://localhost:8000/';
@@ -34,7 +34,7 @@ class Popup extends Component {
     const url = `${apiURL}summary`;
     Axios.get(url, {
       params: {
-        source: `${stateID}${countyID}`,
+        source: sourceID,
       },
     })
       .then((summary) => {
@@ -136,7 +136,7 @@ class Popup extends Component {
         show
         onHide={hidePopup}
         dialogClassName="popup"
-        scrollable={true}
+        scrollable
       >
         <Modal.Header closeButton>
           <Modal.Title>
@@ -241,9 +241,8 @@ class Popup extends Component {
 Popup.propTypes = {
   showDetailView: PropTypes.func.isRequired,
   hidePopup: PropTypes.func.isRequired,
-  countyID: PropTypes.string.isRequired,
   countyName: PropTypes.string.isRequired,
-  stateID: PropTypes.string.isRequired,
+  sourceID: PropTypes.string.isRequired,
 };
 
 export default Popup;
