@@ -50,6 +50,7 @@ class DetailView extends Component {
     const { details } = this.props;
     const { hideDetailView, countyName } = this.props;
     return (
+      <div class="card-body d-flex flex-column">
       <div className="Details border border-dark rounded">
         <h1>Contaminant Details for {countyName} County</h1>
           <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
@@ -162,11 +163,14 @@ class DetailView extends Component {
             </Tab>
           </Tabs>
         <hr />
-        <div className = "closeButton">
-          <button type="button" className="btn btn-secondary" onClick={hideDetailView}>
-            Close
-          </button>
+        <div class="position-fixed">
+          <div className = "closeButton">
+            <button type="button" className="mt-auto btn btn-lg btn-block btn-outline-primary" onClick={hideDetailView}>
+              Close
+            </button>
+          </div>
         </div>
+     </div>
      </div>
     );
   }
