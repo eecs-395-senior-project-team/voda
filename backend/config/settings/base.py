@@ -161,5 +161,9 @@ MANAGERS = ADMINS
 
 CORS_ORIGIN_WHITELIST = (
     'localhost',
-    'localhost:3000'
+    'localhost:3000',
+    '0.0.0.0',
+    '0.0.0.0:3000',
+    '3.19.113.236',
+    '3.19.113.236:3000',
 )
