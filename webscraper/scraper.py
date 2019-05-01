@@ -10,6 +10,7 @@ from vodadata.getLocaleData import GetLocaleData
 from vodadata.leadInfoScraper import LeadInfoScraper
 import psycopg2
 import os
+import traceback
 
 
 # SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
@@ -29,6 +30,29 @@ if __name__ == '__main__':
 
     print("DB Connection status: " + str(CONNECTION.closed))  # should be zero if connection is open
 
+    def clearData():
+        print("Started Wiping Database")
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+            f.write("Started Wiping Database\n")
+        try:
+            cursor = CONNECTION.cursor()
+            cursor.execute('DELETE FROM "vodaMainApp_sourcelevels"') 
+            cursor.execute('DELETE FROM "vodaMainApp_stateavglevels"')
+            cursor.execute('DELETE FROM "vodaMainApp_sources"')
+            cursor.execute('DELETE FROM "vodaMainApp_contaminants"')
+            cursor.execute('DELETE FROM "vodaMainApp_cities"')
+            cursor.execute('DELETE FROM "vodaMainApp_counties"')
+            cursor.execute('DELETE FROM "vodaMainApp_states"') 
+            cursor.close()
+        except Exception as e: 
+            print('ERROR\n{}'.format(traceback.format_exc()))
+            with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+                f.write("Error wiping database:\n{}\n".format(e))
+
+        print("Finished Wiping Database")
+        with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
+            f.write("Finished Wiping Database\n")
+        
     @defer.inlineCallbacks
     def crawl():
         print("Beginning FindContaminants Spider")
@@ -81,13 +105,16 @@ if __name__ == '__main__':
 
         reactor.stop()
 
+    #### main execution section ####
+    clearData()
+
     print("Beginning GetLocaleData")
     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-        f.write("Beginning GetLocaleData Spider")
+        f.write("Beginning GetLocaleData Spider\n")
     get_locale_data = GetLocaleData(CONNECTION)
     get_locale_data.main()
     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-        f.write("Ending GetLocaleData Spider")
+        f.write("Ending GetLocaleData Spider\n")
     print("Ending GetLocaleData")
 
     crawl()
@@ -95,9 +122,9 @@ if __name__ == '__main__':
 
     print("Beginning CalculateSourceRating")
     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-        f.write("Beginning CalculateSourceRating Spider")
+        f.write("Beginning CalculateSourceRating Spider\n")
     calculate_source_rating = CalculateSourceRating(CONNECTION)
     calculate_source_rating.main()
     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-        f.write("Ending CalculateSourceRating Spider")
+        f.write("Ending CalculateSourceRating Spider\n")
     print("Ending CalculateSourceRating")
