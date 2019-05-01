@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import Axios from 'axios';
 import './DetailView.sass';
 import Tabs from 'react-bootstrap/Tabs';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Tab from 'react-bootstrap/Tab';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
+import TabDetails from './TabDetails';
 import Log from './Log';
 
 /**
@@ -18,7 +14,10 @@ class DetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      details: '',
+      activeTab: 'red',
+      redContaminants: ['a', 'b'],
+      yellowContaminants: ['c', 'd'],
+      greenContaminants: ['e', 'f'],
     };
   }
 
@@ -47,134 +46,51 @@ class DetailView extends Component {
   }
 
   render() {
-    const { details } = this.props;
-    const { hideDetailView, countyName } = this.props;
+    const {
+      activeTab,
+      redContaminants,
+      yellowContaminants,
+      greenContaminants,
+    } = this.state;
+    const {
+      hideDetailView,
+      countyName,
+      countyID,
+      stateID,
+    } = this.props;
+    const redIcon = <i className="fas fa-exclamation-triangle" />;
+    const yellowIcon = <i className="fas fa-notes-medical" />;
+    const greenIcon = <i className="fas fa-check" />;
+
     return (
       <div className="Details border border-dark rounded">
         <h1>
-Contaminant Details for
-          {countyName}
-          {' '}
-County
+          {`Contaminant Details For ${countyName} County`}
         </h1>
-        <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-          <Tab eventKey="home" title=<i className="fas fa-exclamation-triangle" />>
-            <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
-              <Row>
-                <Col sm={4}>
-                  <ListGroup>
-                    <ListGroup.Item action href="#link1">
-                        Horrible Contaminent 1
-                    </ListGroup.Item>
-                    <ListGroup.Item action href="#link2">
-                        Horrible Contaminent 2
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Col>
-                <Col sm={8}>
-                  <Tab.Content>
-                    <Tab.Pane eventKey="#link1">
-                      <div className="Content">
-                        <Table responsive borderless="true">
-
-                          <tbody>
-                            <tr>
-                              <td><h5><div className="SmallHeader">Amount in water:</div></h5></td>
-                              <td><h5><div className="SmallHeader">Health Guideline:</div></h5></td>
-                              <td><h5><div className="SmallHeader">Legal Limit:</div></h5></td>
-                            </tr>
-                            <tr>
-                              <td><div className="Numbers">7.38 *</div></td>
-                              <td><div className="Numbers">0.06</div></td>
-                              <td><div className="Numbers">999.99</div></td>
-                            </tr>
-                          </tbody>
-                        </Table>
-                        <p>
-                          Bromodchloromecahne, one of the total TTHMs, is formed when chlorine or other disinfectants are used to treat
-                                drinking water. Bromodchloromecahne and other disinfection byproducts inrease the risk of cancer and may cause problems during pregnancy.
-                        </p>
-                      </div>
-                    </Tab.Pane>
-                    <Tab.Pane eventKey="#link2">
-                      <p>HI</p>
-                    </Tab.Pane>
-                  </Tab.Content>
-                </Col>
-              </Row>
-            </Tab.Container>
-
+        <Tabs
+          activeKey={activeTab}
+          onSelect={key => this.setState({ activeTab: key })}
+        >
+          <Tab eventKey="red" title={redIcon}>
+            <TabDetails
+              contaminants={redContaminants}
+              countyID={countyID}
+              stateID={stateID}
+            />
           </Tab>
-          <Tab eventKey="profile" title=<i className="fas fa-notes-medical" />>
-
-            <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
-              <Row>
-                <Col sm={4}>
-                  <ListGroup>
-                    <ListGroup.Item action href="#link1">
-                        Bad Contaminent 1
-                    </ListGroup.Item>
-                    <ListGroup.Item action href="#link2">
-                        Bad Contaminent 2
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Col>
-                <Col sm={8}>
-                  <Tab.Content>
-                    <Tab.Pane eventKey="#link1">
-                      <div className="Content">
-                        <p>
-Amount in water:7.38 parts per billion
-                          <br />
-                          <br />
-                          {' '}
-Health Guideline:0.06 parts per billion
-                          {' '}
-                          <br />
-                          <br />
-Legal Limit:999.99 parts per billion
-                          <br />
-                          <br />
-                          Bromodchloromecahne, one of the total TTHMs, is formed when chlorine or other disinfectants are used to treat
-                                drinking water. Bromodchloromecahne and other disinfection byproducts inrease the risk of cancer and may cause problems during pregnancy.
-                        </p>
-                      </div>
-                    </Tab.Pane>
-                    <Tab.Pane eventKey="#link2">
-                      <p>HI</p>
-                    </Tab.Pane>
-                  </Tab.Content>
-                </Col>
-              </Row>
-            </Tab.Container>
-
+          <Tab eventKey="profile" title={yellowIcon}>
+            <TabDetails
+              contaminants={yellowContaminants}
+              countyID={countyID}
+              stateID={stateID}
+            />
           </Tab>
-          <Tab eventKey="contact" title=<i className="fas fa-check" />>
-
-            <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
-              <Row>
-                <Col sm={4}>
-                  <ListGroup>
-                    <ListGroup.Item action href="#link1">
-                        Good Contaminent 1
-                    </ListGroup.Item>
-                    <ListGroup.Item action href="#link2">
-                        Good Contaminent 2
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Col>
-                <Col sm={8}>
-                  <Tab.Content>
-                    <Tab.Pane eventKey="#link1">
-                      <p>HI</p>
-                    </Tab.Pane>
-                    <Tab.Pane eventKey="#link2">
-                      <p>HI</p>
-                    </Tab.Pane>
-                  </Tab.Content>
-                </Col>
-              </Row>
-            </Tab.Container>
+          <Tab eventKey="contact" title={greenIcon}>
+            <TabDetails
+              contaminants={greenContaminants}
+              countyID={countyID}
+              stateID={stateID}
+            />
           </Tab>
         </Tabs>
         <hr />
