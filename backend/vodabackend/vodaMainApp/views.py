@@ -63,6 +63,7 @@ def summary(request):
     supply_id = request.GET.get('source')
     if True:
     #if supply_id:
+        source = Sources.objects.filter(source_id=supply_id)
         response = {
             "legalLimitConcerns": ['a', 'b', 'c', 'd', 'e'],
             "healthGuidelinesConcerns": ['a', 'b', 'c', 'd', 'e', 'f'],
