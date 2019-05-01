@@ -73,13 +73,14 @@ class Popup extends Component {
     } = this.props;
     const legalLimitTableRows = [];
     let index = 0;
+    const bulletPoint = <div className="fas fa-dot-circle" />; // other options for bulletPoint sith, square, jira, plus-square, plus
     while (index < legalLimitConcerns.length) {
       const row = [];
       if (legalLimitConcerns.length - index >= 3) {
         for (let i = 0; i < 3; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {legalLimitConcerns[index]}
+              {bulletPoint} {legalLimitConcerns[index]}
             </td>,
           );
           index += 1;
@@ -89,7 +90,7 @@ class Popup extends Component {
         for (let i = 0; i < remaining; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {legalLimitConcerns[index]}
+              {bulletPoint} {legalLimitConcerns[index]}
             </td>,
           );
           index += 1;
@@ -109,7 +110,7 @@ class Popup extends Component {
         for (let i = 0; i < 3; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {healthGuidelinesConcerns[index]}
+              {bulletPoint} {healthGuidelinesConcerns[index]}
             </td>,
           );
           index += 1;
@@ -119,7 +120,7 @@ class Popup extends Component {
         for (let i = 0; i < remaining; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {healthGuidelinesConcerns[index]}
+              {bulletPoint} {healthGuidelinesConcerns[index]}
             </td>,
           );
           index += 1;
