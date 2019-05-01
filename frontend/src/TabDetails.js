@@ -8,6 +8,8 @@ import TabContent from 'react-bootstrap/TabContent';
 import TabPane from 'react-bootstrap/TabPane';
 import Table from 'react-bootstrap/Table';
 import ContaminantList from './ContaminantList';
+import Log from './Log';
+import Axios from 'axios';
 
 /**
  * A set of tab components for a Detail View
@@ -15,15 +17,45 @@ import ContaminantList from './ContaminantList';
 class TabDetails extends Component {
   constructor(props) {
     super(props);
+    this.setCurrentContaminant = this.setCurrentContaminant.bind(this);
     this.state = {
-      contaminantDetails: [],
+      selectedContaminant: "",
+      contaminantDetails: {
+        "Amount in water": 0,
+        "Health Guideline": 0,
+        "Legal Limit": 0,
+        "Details": "",
+      },
     };
   }
 
+  setCurrentContaminant(selectedContaminant) {
+    const { countyID, stateID } = this.props;
+    let apiURL;
+    if (process.env.NODE_ENV === 'development') {
+      apiURL = 'http://localhost:8000/';
+    } else {
+      apiURL = 'http://3.19.113.236:8000/';
+    }
+    const url = `${apiURL}contaminantInfo`;
+    Axios.get(url, {
+      params: {
+        source: `${stateID}${countyID}`,
+        contaminant: selectedContaminant,
+      },
+    })
+      .then((contaminantInfoResponse) => {
+        const contaminantDetails = contaminantInfoResponse.data;
+        this.setState({ selectedContaminant, contaminantDetails });
+      })
+      .catch((error) => {
+        Log.error(error, 'Tab Component');
+      });
+  }
+
   render() {
-    const {
-      contaminants,
-    } = this.props;
+    const { contaminantDetails } = this.state;
+    const { contaminants } = this.props;
     const tabPanes = [];
     for (let i = 0; i < contaminants.length; i += 1) {
       tabPanes.push(
@@ -60,19 +92,19 @@ class TabDetails extends Component {
                 <tr>
                   <td>
                     <div className="Numbers">
-                      7.38
+                      {contaminantDetails["Amount in water"]}
                       <span className="unit"> ppb</span>
                     </div>
                   </td>
                   <td>
                     <div className="Numbers">
-                      0.06
+                      {contaminantDetails["Health Guideline"]}
                       <span className="unit"> ppb</span>
                     </div>
                   </td>
                   <td>
                     <div className="Numbers">
-                      999.99
+                      {contaminantDetails["Legal Limit"]}
                       <span className="unit"> ppb</span>
                     </div>
                   </td>
@@ -80,18 +112,24 @@ class TabDetails extends Component {
               </tbody>
             </Table>
             <p>
-              Bromodchloromecahne, one of the total TTHMs, is formed when chlorine or other disinfectants are used to treat
-                    drinking water. Bromodchloromecahne and other disinfection byproducts inrease the risk of cancer and may cause problems during pregnancy.
+              {contaminantDetails["Details"]}
             </p>
           </div>
         </TabPane>,
       );
     }
     return (
-      <TabContainer defaultActiveKey="#item0">
+      <TabContainer
+        mountOnEnter={true}
+      >
         <Row>
           <Col sm={4}>
-            <ContaminantList contaminants={contaminants} />
+            <div className="contaminant-list">
+              <ContaminantList
+                contaminants={contaminants} 
+                setCurrentContaminant={this.setCurrentContaminant}
+              />
+            </div>
           </Col>
           <Col sm={8}>
             <TabContent>

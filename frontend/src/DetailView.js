@@ -15,9 +15,9 @@ class DetailView extends Component {
     super(props);
     this.state = {
       activeTab: 'red',
-      redContaminants: ['a', 'b'],
-      yellowContaminants: ['c', 'd'],
-      greenContaminants: ['e', 'f'],
+      redContaminants: [],
+      yellowContaminants: [],
+      greenContaminants: [],
     };
   }
 
@@ -29,15 +29,22 @@ class DetailView extends Component {
     } else {
       apiURL = 'http://3.19.113.236:8000/';
     }
-    const url = `${apiURL}details`;
+    const url = `${apiURL}contaminants`;
     Axios.get(url, {
       params: {
         source: `${stateID}${countyID}`,
       },
     })
-      .then((details) => {
+      .then((contaminants) => {
+        const {
+          redContaminants,
+          yellowContaminants,
+          greenContaminants,
+        } = contaminants.data
         this.setState({
-          details: details.data,
+          redContaminants,
+          yellowContaminants,
+          greenContaminants,
         });
       })
       .catch((error) => {

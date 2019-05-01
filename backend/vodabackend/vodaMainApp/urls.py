@@ -13,4 +13,6 @@ urlpatterns = [
     path('map', views.map_endpoint, name='map'),
     path('summary', views.summary, name='summary'),
     path('details', views.details, name='details'),
+    path('contaminants', views.contaminants, name='contaminants'),
+    path('contaminantInfo', views.contaminant_info, name='contaminantInfo')
 ]

@@ -67,6 +67,32 @@ def summary(request):
     return HttpResponseBadRequest(400)
 
 
+def contaminants(request):
+    supply_id = request.GET.get('source')
+    if supply_id:
+        contaminant_list = {
+            "redContaminants": ['a', 'b'],
+            "yellowContaminants": ['c', 'd'],
+            "greenContaminants": ['e', 'f']
+        }
+        return JsonResponse(contaminant_list)
+    return HttpResponseBadRequest(400)
+
+
+def contaminant_info(request):
+    supply_id = request.GET.get('source')
+    contaminant_name = request.GET.get('contaminant')
+    if supply_id and contaminant_name:
+        contaminant_details = {
+            "Amount in water": 7.38,
+            "Health Guideline": 0.06,
+            "Legal Limit": 999.99,
+            "Details": "Bromodchloromecahne, one of the total TTHMs, is formed when chlorine or other disinfectants are used to treat drinking water. Bromodchloromecahne and other disinfection byproducts inrease the risk of cancer and may cause problems during pregnancy."
+        }
+        return JsonResponse(contaminant_details)
+    return HttpResponseBadRequest(400)
+
+
 def details(request):
     """ Details endpoint.
 
