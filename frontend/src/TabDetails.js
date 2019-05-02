@@ -9,6 +9,7 @@ import TabPane from 'react-bootstrap/TabPane';
 import Table from 'react-bootstrap/Table';
 import Axios from 'axios';
 import ContaminantList from './ContaminantList';
+import Number from './Number';
 import Log from './Log';
 
 /**
@@ -55,6 +56,12 @@ class TabDetails extends Component {
   render() {
     const { contaminantDetails } = this.state;
     const { contaminants } = this.props;
+    let hr;
+    if (contaminantDetails.Details && contaminantDetails['Health Risks']) {
+      hr = <hr />;
+    } else {
+      hr = null;
+    }
     const tabPanes = [];
     for (let i = 0; i < contaminants.length; i += 1) {
       tabPanes.push(
@@ -90,29 +97,29 @@ class TabDetails extends Component {
                 </tr>
                 <tr>
                   <td>
-                    <div className="Numbers">
-                      {contaminantDetails['Amount in water']}
-                      <span className="unit"> ppb</span>
-                    </div>
+                    <Number
+                      className="Numbers"
+                      value={contaminantDetails['Amount in water']}
+                    />
                   </td>
                   <td>
-                    <div className="Numbers">
-                      {contaminantDetails['Health Guideline']}
-                      <span className="unit"> ppb</span>
-                    </div>
+                    <Number
+                      className="Numbers"
+                      value={contaminantDetails['Health Guideline']}
+                    />
                   </td>
                   <td>
-                    <div className="Numbers">
-                      {contaminantDetails['Legal Limit']}
-                      <span className="unit"> ppb</span>
-                    </div>
+                    <Number
+                      className="Numbers"
+                      value={contaminantDetails['Legal Limit']}
+                    />
                   </td>
                 </tr>
               </tbody>
             </Table>
             <p>
               {contaminantDetails.Details}
-              <hr />
+              {hr}
               {contaminantDetails['Health Risks']}
             </p>
           </div>

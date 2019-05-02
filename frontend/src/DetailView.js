@@ -69,7 +69,7 @@ class DetailView extends Component {
     const greenIcon = <i className="fas fa-check" />;
 
     return (
-      <div class = "card-body d-flex flex-column">
+      <div className="card-body d-flex flex-column">
         <div className="Details border border-dark rounded">
           <h1>
             {`Contaminant Details For ${countyName} County`}
@@ -99,9 +99,9 @@ class DetailView extends Component {
             </Tab>
           </Tabs>
           <hr />
-            <button type="button" className="float-right align-self-end flex-grow d-flex align-items-end btn btn-secondary" onClick={hideDetailView}>
+          <button type="button" className="float-right align-self-end flex-grow d-flex align-items-end btn btn-secondary" onClick={hideDetailView}>
               Close
-            </button>
+          </button>
         </div>
       </div>
     );

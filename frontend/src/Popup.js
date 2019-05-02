@@ -45,9 +45,11 @@ class Popup extends Component {
           yellowCount,
           greenCount,
         } = summary.data;
+        const validatedLegalLimitConcerns = legalLimitConcerns || [];
+        const validatedHealthGuidelinesConcerns = healthGuidelinesConcerns || [];
         this.setState({
-          legalLimitConcerns,
-          healthGuidelinesConcerns,
+          legalLimitConcerns: validatedLegalLimitConcerns,
+          healthGuidelinesConcerns: validatedHealthGuidelinesConcerns,
           redCount,
           yellowCount,
           greenCount,
@@ -147,6 +149,40 @@ class Popup extends Component {
         </tr>,
       );
     }
+    let legalHealthConcernsBody;
+    if (legalLimitTableRows.length > 0) {
+      legalHealthConcernsBody = (
+        <li className="list-group-item">
+          <div className="concerns">
+            <h3>Health concerns from the contaminants over the legal limit:</h3>
+            <Table responsive borderless="true">
+              <tbody>
+                {legalLimitTableRows}
+              </tbody>
+            </Table>
+          </div>
+        </li>
+      );
+    } else {
+      legalHealthConcernsBody = null;
+    }
+    let healthGuidelinesHealthConcernsBody;
+    if (healthGuidelinesTableRows.length > 0) {
+      healthGuidelinesHealthConcernsBody = (
+        <li className="list-group-item">
+          <div className="concerns">
+            <h3>Health concerns from the contaminants over the health guidelines:</h3>
+            <Table responsive borderless="true">
+              <tbody>
+                {healthGuidelinesTableRows}
+              </tbody>
+            </Table>
+          </div>
+        </li>
+      );
+    } else {
+      healthGuidelinesHealthConcernsBody = null;
+    }
     return (
       <Modal
         show
@@ -217,26 +253,8 @@ class Popup extends Component {
             <div className="row justify-content-center">
               <div className="col full-width">
                 <ul className="concerns-list list-group-flush">
-                  <li className="list-group-item">
-                    <div className="concerns">
-                      <h3>Health concerns from the contaminants over the legal limit:</h3>
-                      <Table responsive borderless="true">
-                        <tbody>
-                          {legalLimitTableRows}
-                        </tbody>
-                      </Table>
-                    </div>
-                  </li>
-                  <li className="list-group-item">
-                    <div className="concerns">
-                      <h3>Health concerns from the contaminants over the health guidelines:</h3>
-                      <Table responsive borderless="true">
-                        <tbody>
-                          {healthGuidelinesTableRows}
-                        </tbody>
-                      </Table>
-                    </div>
-                  </li>
+                  {legalHealthConcernsBody}
+                  {healthGuidelinesHealthConcernsBody}
                 </ul>
               </div>
             </div>
