@@ -112,6 +112,8 @@ class TabDetails extends Component {
             </Table>
             <p>
               {contaminantDetails.Details}
+              <hr />
+              {contaminantDetails['Health Risks']}
             </p>
           </div>
         </TabPane>,

@@ -131,7 +131,7 @@ class Map extends Component {
         if (score === -Infinity) {
           return '#ffffff';
         }
-        const value = (score - minScore) / (maxScore - minScore) * (100);
+        const value = (Math.log(score + (1 - minScore)) - minScore) / (maxScore - minScore) * (100);
         const hue = Math.floor(value * 120 / 100);
         return Color({ h: hue, s: 100, v: 100 }).hex();
       };
