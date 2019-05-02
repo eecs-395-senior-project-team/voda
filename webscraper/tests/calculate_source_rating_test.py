@@ -22,7 +22,17 @@ def test_amount_above_avg():
 
 
 def test_amount_to_add():
-    func = CalculateSourceRating()
+
+    DBNAME = os.environ['POSTGRES_DB']
+    USER = os.environ['POSTGRES_USER']
+    PASSWORD = os.environ['POSTGRES_PASSWORD']
+    HOST = os.environ['POSTGRES_HOST']
+    PORT = os.environ['POSTGRES_PORT']
+
+    CONNECTION = psycopg2.connect(dbname=DBNAME, user=USER, password=PASSWORD, host=HOST, port=PORT)
+    CONNECTION.set_session(autocommit=True)
+
+    func = CalculateSourceRating(CONNECTION)
     CalculateSourceRating.collect_contaminant_nat_avgs(func)
     CalculateSourceRating.collect_contaminants_stdev(func)
     amt_abv_avg = CalculateSourceRating.amount_above_avg(func, (876, 32236, 170.5))
