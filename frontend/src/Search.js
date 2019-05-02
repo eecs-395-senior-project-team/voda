@@ -52,8 +52,6 @@ class Search extends Component {
     const compareCounties = (c1, c2) => {
       for (let i = 0; i < c1.features.length; i += 1) {
         if (c1.features[i].properties.SCORE !== c2.features[i].properties.SCORE) {
-          Log.info(c1.features[i].properties.SCORE)
-          Log.info(c2.features[i].properties.SCORE)
           return false;
         }
       }
@@ -61,9 +59,7 @@ class Search extends Component {
     };
     const setQuery = (e) => {
       const { resetMap, counties, trueCounties } = this.props;
-      Log.info("uhh")
       if (!compareCounties(counties, trueCounties)) {
-        Log.info("in")
         resetMap()
       }
       this.setState({ query: e.target.value, displayAlert: false });
