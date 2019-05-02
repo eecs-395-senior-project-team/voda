@@ -5,6 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Table from 'react-bootstrap/Table';
+
+
 import Log from './Log';
 import './Popup.sass';
 
@@ -168,7 +170,7 @@ class Popup extends Component {
                     Number of contaminants above the legal limit
                   </Tooltip>
                   )}
-                placement="top"
+                placement="bottom"
               >
                 <div className="col-sm-4 bg-danger">
                   <div>
@@ -185,7 +187,7 @@ class Popup extends Component {
                     Number of contaminants above the health guideline
                   </Tooltip>
                 )}
-                placement="top"
+                placement="bottom"
               >
                 <div className="col-sm-4 bg-warning">
                   <div>
@@ -202,8 +204,8 @@ class Popup extends Component {
                     Number of contaminants that meet the health guideline
                   </Tooltip>
                 )}
-                placement="top"
-              >
+                placement="bottom"
+              >         
                 <div className="col-sm-4 bg-success">
                   <div>
                     <h2><i className="fas fa-check" /></h2>
