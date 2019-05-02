@@ -22,9 +22,9 @@ class Cities(models.Model):
 class Sources(models.Model):
     source_id = models.AutoField(primary_key=True)
     utility_name = models.CharField(max_length=200)
-    city = models.ForeignKey(Cities, on_delete=models.CASCADE, default=-1)
-    state = models.ForeignKey(States, on_delete=models.CASCADE, default="None")
-    county = models.ForeignKey(Counties, on_delete=models.CASCADE, default=-1)
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE, default=-1, db_column="city_id")
+    state = models.ForeignKey(States, on_delete=models.CASCADE, default="None", db_column="state_id")
+    county = models.ForeignKey(Counties, on_delete=models.CASCADE, default=-1, db_column="county_id")
     number_served = models.IntegerField()
     rating = models.FloatField(null=True)
 
