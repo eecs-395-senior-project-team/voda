@@ -168,7 +168,7 @@ class Popup extends Component {
                     Number of contaminants above the legal limit
                   </Tooltip>
                   )}
-                placement="top"
+                placement="bottom"
               >
                 <div className="col-sm-4 bg-danger">
                   <div>
@@ -185,7 +185,7 @@ class Popup extends Component {
                     Number of contaminants above the health guideline
                   </Tooltip>
                 )}
-                placement="top"
+                placement="bottom"
               >
                 <div className="col-sm-4 bg-warning">
                   <div>
@@ -202,7 +202,7 @@ class Popup extends Component {
                     Number of contaminants that meet the health guideline
                   </Tooltip>
                 )}
-                placement="top"
+                placement="bottom"
               >
                 <div className="col-sm-4 bg-success">
                   <div>

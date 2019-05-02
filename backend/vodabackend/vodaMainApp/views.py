@@ -63,12 +63,24 @@ def summary(request):
     supply_id = request.GET.get('source')
     try:
         source = Sources.objects.get(source_id=supply_id)
+        source_levels = source.sourcelevels_set.all()
+        red_set = []
+        yellow_set = []
+        green_set = []
+        for source_level in source_levels:
+            contaminant = source_level.contaminant
+            if source_level.contaminant_level > contaminant.legal_limit:
+                red_set.append(contaminant)
+            if source_level.contaminant_level > contaminant.health_guideline:
+                yellow_set.append(contaminant)
+            if source_level.contaminant <= contaminant.health_guideline and source_level.contaminant <= contaminant.legal_limit:
+                green_set.append(contaminant)
         response = {
             "legalLimitConcerns": ['a', 'b', 'c', 'd', 'e'],
             "healthGuidelinesConcerns": ['a', 'b', 'c', 'd', 'e', 'f'],
-            "redCount": 3,
-            "yellowCount": 8,
-            "greenCount": 215,
+            "redCount": len(red_set),
+            "yellowCount": len(yellow_set),
+            "greenCount": len(green_set),
         }
         return JsonResponse(response)
     except:
@@ -77,15 +89,28 @@ def summary(request):
 
 def contaminants(request):
     supply_id = request.GET.get('source')
-    if True:
-    #if supply_id:
+    try:
+        source = Sources.objects.get(source_id=supply_id)
+        source_levels = source.sourcelevels_set.all()
+        red_set = []
+        yellow_set = []
+        green_set = []
+        for source_level in source_levels:
+            contaminant = source_level.contaminant
+            if source_level.contaminant_level > contaminant.legal_limit:
+                red_set.append(contaminant.contaminant_name)
+            if source_level.contaminant_level > contaminant.health_guideline:
+                yellow_set.append(contaminant.contaminant_name)
+            if source_level.contaminant <= contaminant.health_guideline and source_level.contaminant <= contaminant.legal_limit:
+                green_set.append(contaminant.contaminant_name)
         contaminant_list = {
-            "redContaminants": ['a', 'b'],
-            "yellowContaminants": ['c', 'd'],
-            "greenContaminants": ['e', 'f']
+            "redContaminants": red_set,
+            "yellowContaminants": yellow_set,
+            "greenContaminants": green_set
         }
         return JsonResponse(contaminant_list)
-    return HttpResponseBadRequest(400)
+    except:
+        return HttpResponseBadRequest(400)
 
 
 def contaminant_info(request):
