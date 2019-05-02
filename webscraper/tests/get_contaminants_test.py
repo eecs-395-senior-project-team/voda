@@ -34,8 +34,17 @@ def online_response_from_url (url=None):
 
 def test_get_contaminants_parse():
     url = "https://www.ewg.org/tapwater/chemical-contaminants.php"
-    spider = FindContaminants()
+    DBNAME = os.environ['POSTGRES_DB']
+    USER = os.environ['POSTGRES_USER']
+    PASSWORD = os.environ['POSTGRES_PASSWORD']
+    HOST = os.environ['POSTGRES_HOST']
+    PORT = os.environ['POSTGRES_PORT']
+
+    CONNECTION = psycopg2.connect(dbname=DBNAME, user=USER, password=PASSWORD, host=HOST, port=PORT)
+    CONNECTION.set_session(autocommit=True)
+
+    spider = FindContaminants(CONNECTION)
     spider.parse(online_response_from_url(url=url))
-    flen = file_len("./vodaData/AllContaminants.txt")
+    flen = file_len("./vodaData/datafiles/AllContaminants.txt")
     assert flen == 200
 

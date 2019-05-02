@@ -9,12 +9,20 @@ class FindSourceLevels(scrapy.Spider):
 
     def __init__(self, connection):
         self.connection = connection
+ #       source_cursor = self.connection.cursor()
+  #      source_cursor.execute('SELECT * FROM "vodaMainApp_sources"')
+  #      for source in source_cursor:
+  #          print(source)
 
     def start_requests(self):
-        with open("./vodadata/datafiles/AllEWGUtilities.txt") as f:
-            urls = f.read().splitlines()
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.scrape_source_levels)
+        source_cursor = self.connection.cursor()
+        source_cursor.execute('SELECT * FROM "vodaMainApp_sources"')
+        for source in source_cursor:
+            yield scrapy.Request(url=source[7], callback=self.scrape_source_levels, meta={"utility_id": source[0], "utility_state": source[6]})
+     #  with open("./vodadata/datafiles/AllEWGUtilities.txt") as f:
+    #        urls = f.read().splitlines()
+    #    for url in urls:
+    #        yield scrapy.Request(url=url, callback=self.scrape_source_levels)
 
     @staticmethod
     def try_parse_float(float_to_be_parsed):
@@ -91,15 +99,18 @@ class FindSourceLevels(scrapy.Spider):
             if response.url != 'https://www.ewg.org/tapwater/404.php':
                 cont_raw = response.xpath(
                     "//ul[@class='contaminants-list']/li/section[contains(@class, 'contaminant-data')]")
-                source_name = response.xpath("//h1/text()").get()
-                source_state = response.url.split('=')[1][0:2]
+                utility_id = response.meta["utility_id"]
+                source_state = response.meta["utility_state"]
+                #source_name = response.xpath("//h1/text()").get()
+               # source_state = response.url.split('=')[1][0:2]
 
                 cursor = self.connection.cursor()
-                cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s',
-                               (source_name, source_state))
+              #  cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s', (source_name, source_state))
+                cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE source_id = %s', (utility_id,))
                 src_id = cursor.fetchone()
                 cursor.close()
-
+           #     print(src_id)
+          #      print(utility_id)
                 if src_id is None:
                     self.counter_2 = self.counter_2 + 1
                     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
@@ -128,9 +139,10 @@ class FindSourceLevels(scrapy.Spider):
                                 self.write_state_avg(source_state, cont_name, state_avg)
 
                         except Exception as e:
-                            with open('debugLog.txt', 'a') as f:
-                                f.write("\nERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
-                            print("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
+                           with open('debugLog.txt', 'a') as f:
+                                print("hey")
+     #                           f.write("\nERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
+    #                        print("ERROR: {}. Source Name: {}, State: {}".format(e, source_name, source_state))
                 self.connection.commit()
 
         except Exception as e:

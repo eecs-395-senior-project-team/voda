@@ -27,6 +27,7 @@ class Sources(models.Model):
     county = models.ForeignKey(Counties, on_delete=models.CASCADE, null=True, db_column="county_id")
     number_served = models.IntegerField()
     rating = models.FloatField(null=True)
+    url = models.TextField(null=True)
 
 
 class Contaminants(models.Model):

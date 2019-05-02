@@ -59,16 +59,22 @@ class LeadInfoScraper(scrapy.Spider):
 
     def scrape_source_lead_data(self, response):
         try:
-            #TODO investigate this
-            if response.xpath("//h2[@class='systemname-h2']/text()").get() is not None:
-                source_name = response.xpath("//h2[@class='systemname-h2']/text()").get().split('-')[0]
-                source_state = response.url.split('=')[1][0:2]
+            
+             if response.meta["utility_id"] is not None:
+    #        if response.xpath("//h2[@class='systemname-h2']/text()").get() is not None:
+   #             source_name = response.xpath("//h2[@class='systemname-h2']/text()").get().split('-')[0]
+                utility_id = response.meta["utility_id"]
+                source_state = response.meta["utility_state"]
+     #           cursor = self.connection.cursor()
+#                cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s',
+   #                            (source_name, source_state))
+   #             src_id = cursor.fetchone()
+    #            cursor.close()
                 cursor = self.connection.cursor()
-                cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE utility_name = %s AND state_id = %s',
-                               (source_name, source_state))
+                cursor.execute('SELECT source_id FROM "vodaMainApp_sources" WHERE source_id=%s',
+                               (utility_id,))
                 src_id = cursor.fetchone()
                 cursor.close()
-
                 if src_id is None:
                     self.counter = self.counter + 1
                     with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
@@ -136,9 +142,13 @@ class LeadInfoScraper(scrapy.Spider):
 
     def start_requests(self):
         self.write_lead_to_contaminants()
-
-        with open("./vodadata/datafiles/AllEWGUtilities.txt") as f:
-            urls = f.read().splitlines()
-        for url in urls:
-            url = 'https://www.ewg.org/tapwater/what-about-lead.php?pws={}'.format(url.split('=')[1])
-            yield scrapy.Request(url=url, callback=self.scrape_source_lead_data)
+        source_cursor = self.connection.cursor()
+        source_cursor.execute('SELECT * FROM "vodaMainApp_sources"')
+        for source in source_cursor:
+            url = 'https://www.ewg.org/tapwater/what-about-lead.php?pws={}'.format(source[7].split('=')[1])
+            yield scrapy.Request(url=url, callback=self.scrape_source_lead_data, meta={"utility_id": source[0], "utility_state": source[6]})
+ #       with open("./vodadata/datafiles/AllEWGUtilities.txt") as f:
+ #           urls = f.read().splitlines()
+ #       for url in urls:
+  #          url = 'https://www.ewg.org/tapwater/what-about-lead.php?pws={}'.format(url.split('=')[1])
+  #          yield scrapy.Request(url=url, callback=self.scrape_source_lead_data)

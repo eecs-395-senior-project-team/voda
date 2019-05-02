@@ -3,6 +3,7 @@ import psycopg2
 
 
 class FindUtilInfo(scrapy.Spider):
+    counter = 0
     name = "utilityInfoScraper"
 
     def __init__(self, connection):
@@ -32,6 +33,7 @@ class FindUtilInfo(scrapy.Spider):
             number_people_served = response.meta["number_people_served"]
             scraped_city = response.meta["scraped_city"]
             util_code = response.meta["util_code"]
+            url = response.meta["url"]
 
             cursor = self.connection.cursor()
             cursor.execute('SELECT id FROM "vodaMainApp_cities" WHERE name = %s AND state_id = %s',
@@ -58,8 +60,9 @@ class FindUtilInfo(scrapy.Spider):
                         db_city = cursor.fetchone()
 
                     if db_city is None:
+                        self.counter = self.counter + 1
                         with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
-                            f.write("City could not be found:{}, {}, {}, {}, {}, {}, {}\n People Served:{}\n".format(response.url,utility_name,scraped_city,new_scraped_city,reduced_scraped_city, state_id,util_code, number_people_served))
+                            f.write("\nCounter: {}\nCity could not be found:{}, {}, {}, {}, {}, {}, {}\n People Served:{}\n".format(self.counter, response.url,utility_name,scraped_city,new_scraped_city,reduced_scraped_city, state_id,util_code, number_people_served))
 
             cursor.execute('SELECT county_id FROM "vodaMainApp_cities" WHERE id = %s',
                            (db_city,))
@@ -76,15 +79,15 @@ class FindUtilInfo(scrapy.Spider):
 
             # if the utility does not exist, add it.
             elif not result:
-                cursor.execute('INSERT INTO "vodaMainApp_sources" (utility_name, city_id, county_id, state_id, number_served)'
-                               ' VALUES (%s, %s, %s, %s, %s)',
-                               (utility_name, db_city, county, state_id, number_people_served))
+                cursor.execute('INSERT INTO "vodaMainApp_sources" (utility_name, city_id, county_id, state_id, number_served, url)'
+                               ' VALUES (%s, %s, %s, %s, %s, %s)',
+                               (utility_name, db_city, county, state_id, number_people_served, url))
             # Otherwise, update the data in it
             else:
                 cursor.execute('UPDATE "vodaMainApp_sources" SET '
-                               'utility_name=%s, city_id=%s, county_id = %s, state_id=%s, number_served=%s'
+                               'utility_name=%s, city_id=%s, county_id = %s, state_id=%s, number_served=%s, url=%s'
                                'WHERE source_id=%s',
-                               (utility_name, db_city, county, state_id, number_people_served, result[0]))
+                               (utility_name, db_city, county, state_id, number_people_served, url, result[0]))
             self.connection.commit()
             cursor.close()
         except Exception as e:
@@ -98,6 +101,7 @@ class FindUtilInfo(scrapy.Spider):
             util_code = response.url.split('=')[1]
             utility_name = response.xpath("//h1/text()").get()
             scraped_city = response.xpath("//ul[@class='served-ul']/li[1]/h2/text()").get().split(',')[0]
+            url = response.url
 
             if len(scraped_city.split(' ')) <= 1 or scraped_city.split(' ')[len(scraped_city.split(' '))-1] != 'County':
 
@@ -116,7 +120,7 @@ class FindUtilInfo(scrapy.Spider):
                                 "searchtype=systemname".format(utility_name, state_id)
                 yield scrapy.Request(url=city_name_url, callback=self.scrape_city_name, dont_filter=True, meta={
                     "utility_name": processed_utility_name, "state_id": state_id,
-                    "number_people_served": number_people_served, "scraped_city": scraped_city, "util_code": util_code})
+                    "number_people_served": number_people_served, "scraped_city": scraped_city, "util_code": util_code, "url": url})
 
         except Exception as e:
             with open('./vodadata/datafiles/debugLog.txt', 'a') as f:
