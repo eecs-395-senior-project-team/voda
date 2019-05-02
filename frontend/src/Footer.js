@@ -8,7 +8,7 @@ import './Footer.css';
 function Footer({ footer }) {
   return (
     <div className="row">
-      <div className="col-xs-12">
+      <div className="col">
         <div className="Footer">
           <footer>
             {footer}

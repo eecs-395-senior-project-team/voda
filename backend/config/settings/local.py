@@ -10,7 +10,8 @@ ALLOWED_HOSTS = [
     "localhost",
     "0.0.0.0",
     "127.0.0.1",
+    "3.19.113.236"
 ]
 
 # https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration
-INSTALLED_APPS += ['django_extensions']  # noqa F405
+INSTALLED_APPS += ['django_extensions', 'autofixture']  # noqa F405

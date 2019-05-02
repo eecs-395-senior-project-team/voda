@@ -9,6 +9,7 @@ import TabPane from 'react-bootstrap/TabPane';
 import Table from 'react-bootstrap/Table';
 import Axios from 'axios';
 import ContaminantList from './ContaminantList';
+import Number from './Number';
 import Log from './Log';
 
 /**
@@ -28,8 +29,8 @@ class TabDetails extends Component {
     };
   }
 
-  setCurrentContaminant(selectedContaminant) {
-    const { sourceID } = this.props;
+  setCurrentContaminant(eventKey) {
+    const { sourceID, contaminants } = this.props;
     let apiURL;
     if (process.env.NODE_ENV === 'development') {
       apiURL = 'http://localhost:8000/';
@@ -37,6 +38,7 @@ class TabDetails extends Component {
       apiURL = 'http://3.19.113.236:8000/';
     }
     const url = `${apiURL}contaminantInfo`;
+    const selectedContaminant = contaminants[eventKey]
     Axios.get(url, {
       params: {
         source: sourceID,
@@ -55,12 +57,18 @@ class TabDetails extends Component {
   render() {
     const { contaminantDetails } = this.state;
     const { contaminants } = this.props;
+    let hr;
+    if (contaminantDetails.Details && contaminantDetails['Health Risks']) {
+      hr = <hr />;
+    } else {
+      hr = null;
+    }
     const tabPanes = [];
     for (let i = 0; i < contaminants.length; i += 1) {
       tabPanes.push(
         <TabPane
           key={`#pane-key-${i}`}
-          eventKey={`#item${i}`}
+          eventKey={i}
         >
           <div className="pane-body">
             <Table responsive borderless="true">
@@ -90,22 +98,19 @@ class TabDetails extends Component {
                 </tr>
                 <tr>
                   <td>
-                    <div className="Numbers">
-                      {contaminantDetails['Amount in water']}
-                      <span className="unit"> ppb</span>
-                    </div>
+                    <Number
+                      value={contaminantDetails['Amount in water']}
+                    />
                   </td>
                   <td>
-                    <div className="Numbers">
-                      {contaminantDetails['Health Guideline']}
-                      <span className="unit"> ppb</span>
-                    </div>
+                    <Number
+                      value={contaminantDetails['Health Guideline']}
+                    />
                   </td>
                   <td>
-                    <div className="Numbers">
-                      {contaminantDetails['Legal Limit']}
-                      <span className="unit"> ppb</span>
-                    </div>
+                    <Number
+                      value={contaminantDetails['Legal Limit']}
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -113,14 +118,16 @@ class TabDetails extends Component {
             <p>
               {contaminantDetails.Details}
             </p>
+            {hr}
+            <p>
+              {contaminantDetails['Health Risks']}
+            </p>
           </div>
         </TabPane>,
       );
     }
     return (
-      <TabContainer
-        mountOnEnter
-      >
+      <TabContainer>
         <Row>
           <Col sm={4}>
             <div className="contaminant-list">
@@ -142,7 +149,7 @@ class TabDetails extends Component {
 }
 TabDetails.propTypes = {
   contaminants: PropTypes.arrayOf(String).isRequired,
-  sourceID: PropTypes.string.isRequired,
+  sourceID: PropTypes.number.isRequired,
 };
 
 export default TabDetails;

@@ -3,7 +3,8 @@ Views for VodaBackend.
 """
 # Create your views here.
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
-from .models import Sources
+from .models import Sources, SourceLevels
+import traceback
 
 
 def root(request):
@@ -34,12 +35,11 @@ def map_endpoint(request):
         An HTTP Response with a list of water supplies and their associated 1-10 values.
     """
     largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county')
-    #TODO: Change to FIPS code
     scores = {}
     source_ids = {}
     for q_set in largest_source_by_county:
-        scores[q_set.county] = q_set.rating
-        source_ids[q_set.county] = q_set.source_id
+        scores[q_set.county.id] = q_set.rating
+        source_ids[q_set.county.id] = q_set.source_id
     response = {
         "scores": scores,
         "sourceIDs": source_ids
@@ -61,45 +61,105 @@ def summary(request):
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
     supply_id = request.GET.get('source')
-    if True:
-    #if supply_id:
+    try:
+        source = Sources.objects.get(source_id=supply_id)
+        source_levels = source.sourcelevels_set.all()
+        red_set = []
+        yellow_set = []
+        green_set = []
+        for source_level in source_levels:
+            if source_level.contaminant_level:
+                contaminant = source_level.contaminant
+                if contaminant.legal_limit:
+                    if source_level.contaminant_level > contaminant.legal_limit:
+                        red_set.append(contaminant)
+                if contaminant.health_guideline:
+                    if source_level.contaminant_level > contaminant.health_guideline:
+                        yellow_set.append(contaminant)
+                if contaminant.legal_limit and contaminant.health_guideline:
+                    if source_level.contaminant_level <= contaminant.health_guideline and source_level.contaminant_level <= contaminant.legal_limit:
+                        green_set.append(contaminant)
+        legal_limit_concerns = set()
+        for contaminant in red_set:
+            if contaminant.health_concerns:
+                for concern in contaminant.health_concerns.splitlines():
+                    formatted_concern = concern.strip().capitalize()
+                    if formatted_concern not in legal_limit_concerns and formatted_concern != "":
+                        legal_limit_concerns.add(formatted_concern)
+        health_guidelines_concerns = set()
+        for contaminant in yellow_set:
+            if contaminant.health_concerns:
+                for concern in contaminant.health_concerns.splitlines():
+                    formatted_concern = concern.strip().capitalize()
+                    if formatted_concern not in health_guidelines_concerns and formatted_concern != "":
+                        health_guidelines_concerns.add(formatted_concern)
         response = {
-            "legalLimitConcerns": ['a', 'b', 'c', 'd', 'e'],
-            "healthGuidelinesConcerns": ['a', 'b', 'c', 'd', 'e', 'f'],
-            "redCount": 3,
-            "yellowCount": 8,
-            "greenCount": 215,
+            "legalLimitConcerns": list(legal_limit_concerns),
+            "healthGuidelinesConcerns": list(health_guidelines_concerns),
+            "redCount": len(red_set),
+            "yellowCount": len(yellow_set),
+            "greenCount": len(green_set),
         }
         return JsonResponse(response)
-    return HttpResponseBadRequest(400)
+    except Exception as e:
+        traceback.print_exc()
+        return HttpResponseBadRequest(400)
 
 
 def contaminants(request):
     supply_id = request.GET.get('source')
-    if True:
-    #if supply_id:
+    try:
+        source = Sources.objects.get(source_id=supply_id)
+        source_levels = source.sourcelevels_set.all()
+        red_set = []
+        yellow_set = []
+        green_set = []
+        for source_level in source_levels:
+            if source_level.contaminant_level:
+                contaminant = source_level.contaminant
+                if contaminant.legal_limit:
+                    if source_level.contaminant_level > contaminant.legal_limit:
+                        red_set.append(contaminant.contaminant_name)
+                if contaminant.health_guideline:
+                    if source_level.contaminant_level > contaminant.health_guideline:
+                        yellow_set.append(contaminant.contaminant_name)
+                if contaminant.legal_limit and contaminant.health_guideline:
+                    if source_level.contaminant_level <= contaminant.health_guideline and source_level.contaminant_level <= contaminant.legal_limit:
+                        green_set.append(contaminant.contaminant_name)
         contaminant_list = {
-            "redContaminants": ['a', 'b'],
-            "yellowContaminants": ['c', 'd'],
-            "greenContaminants": ['e', 'f']
+            "redContaminants": red_set,
+            "yellowContaminants": yellow_set,
+            "greenContaminants": green_set
         }
         return JsonResponse(contaminant_list)
-    return HttpResponseBadRequest(400)
+    except Exception:
+        traceback.print_exc()
+        return HttpResponseBadRequest(400)
 
 
 def contaminant_info(request):
     supply_id = request.GET.get('source')
     contaminant_name = request.GET.get('contaminant')
-    if True:
-    #if supply_id and contaminant_name:
+    try:
+        source_level = SourceLevels.objects \
+                        .filter(source=supply_id) \
+                        .get(contaminant__contaminant_name=contaminant_name)
+        amount_in_water = round(float(source_level.contaminant_level), 2) if source_level.contaminant_level else None
+        health_guideline = round(float(source_level.contaminant.health_guideline), 2) if source_level.contaminant.health_guideline else None
+        legal_limit = round(float(source_level.contaminant.legal_limit), 2) if source_level.contaminant.legal_limit else None
+        details = source_level.contaminant.summary.strip() if source_level.contaminant.summary else None
+        health_risks = source_level.contaminant.long_health_concerns.strip() if source_level.contaminant.long_health_concerns else None
         contaminant_details = {
-            "Amount in water": 7.38,
-            "Health Guideline": 0.06,
-            "Legal Limit": 999.99,
-            "Details": "Bromodchloromecahne, one of the total TTHMs, is formed when chlorine or other disinfectants are used to treat drinking water. Bromodchloromecahne and other disinfection byproducts inrease the risk of cancer and may cause problems during pregnancy."
+            "Amount in water": amount_in_water,
+            "Health Guideline": health_guideline,
+            "Legal Limit": legal_limit,
+            "Details": details,
+            "Health Risks": health_risks
         }
         return JsonResponse(contaminant_details)
-    return HttpResponseBadRequest(400)
+    except Exception as e:
+        traceback.print_exc()
+        return HttpResponseBadRequest(400)
 
 
 def debug(request):

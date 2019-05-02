@@ -18,6 +18,10 @@ if (process.env.NODE_ENV === 'development') {
   getScores = () => Axios.get('http://3.19.113.236:8000/map');
 }
 
+const scale = (val, minScore) => {
+  return Math.log(val / 50 + (1 - minScore / 50));
+}
+
 /**
  * Component containing the geomap.
  */
@@ -131,8 +135,8 @@ class Map extends Component {
         if (score === -Infinity) {
           return '#ffffff';
         }
-        const value = (score - minScore) / (maxScore - minScore) * (100);
-        const hue = Math.floor(value * 120 / 100);
+        const value = (scale(score, minScore) - scale(minScore, minScore)) / (scale(maxScore, minScore) - scale(minScore, minScore)) * (100);
+        const hue = Math.floor((100 - value) * 120 / 100);
         return Color({ h: hue, s: 100, v: 100 }).hex();
       };
       const highlightFeature = (e) => {

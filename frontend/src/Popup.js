@@ -45,9 +45,11 @@ class Popup extends Component {
           yellowCount,
           greenCount,
         } = summary.data;
+        const validatedLegalLimitConcerns = legalLimitConcerns || [];
+        const validatedHealthGuidelinesConcerns = healthGuidelinesConcerns || [];
         this.setState({
-          legalLimitConcerns,
-          healthGuidelinesConcerns,
+          legalLimitConcerns: validatedLegalLimitConcerns,
+          healthGuidelinesConcerns: validatedHealthGuidelinesConcerns,
           redCount,
           yellowCount,
           greenCount,
@@ -79,7 +81,11 @@ class Popup extends Component {
         for (let i = 0; i < 3; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {legalLimitConcerns[index]}
+              <ul>
+                <li>
+                  {legalLimitConcerns[index]}
+                </li>
+              </ul>
             </td>,
           );
           index += 1;
@@ -89,7 +95,11 @@ class Popup extends Component {
         for (let i = 0; i < remaining; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {legalLimitConcerns[index]}
+              <ul>
+                <li>
+                  {legalLimitConcerns[index]}
+                </li>
+              </ul>
             </td>,
           );
           index += 1;
@@ -109,7 +119,11 @@ class Popup extends Component {
         for (let i = 0; i < 3; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {healthGuidelinesConcerns[index]}
+              <ul>
+                <li>
+                  {healthGuidelinesConcerns[index]}
+                </li>
+              </ul>
             </td>,
           );
           index += 1;
@@ -119,7 +133,11 @@ class Popup extends Component {
         for (let i = 0; i < remaining; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {healthGuidelinesConcerns[index]}
+              <ul>
+                <li>
+                  {healthGuidelinesConcerns[index]}
+                </li>
+              </ul>
             </td>,
           );
           index += 1;
@@ -130,6 +148,40 @@ class Popup extends Component {
           {row}
         </tr>,
       );
+    }
+    let legalHealthConcernsBody;
+    if (legalLimitTableRows.length > 0) {
+      legalHealthConcernsBody = (
+        <li className="list-group-item">
+          <div className="concerns">
+            <h3>Health concerns from the contaminants over the legal limit:</h3>
+            <Table responsive borderless="true">
+              <tbody>
+                {legalLimitTableRows}
+              </tbody>
+            </Table>
+          </div>
+        </li>
+      );
+    } else {
+      legalHealthConcernsBody = null;
+    }
+    let healthGuidelinesHealthConcernsBody;
+    if (healthGuidelinesTableRows.length > 0) {
+      healthGuidelinesHealthConcernsBody = (
+        <li className="list-group-item">
+          <div className="concerns">
+            <h3>Health concerns from the contaminants over the health guidelines:</h3>
+            <Table responsive borderless="true">
+              <tbody>
+                {healthGuidelinesTableRows}
+              </tbody>
+            </Table>
+          </div>
+        </li>
+      );
+    } else {
+      healthGuidelinesHealthConcernsBody = null;
     }
     return (
       <Modal
@@ -152,7 +204,7 @@ class Popup extends Component {
                     Number of contaminants above the legal limit
                   </Tooltip>
                   )}
-                placement="top"
+                placement="bottom"
               >
                 <div className="col-sm-4 bg-danger">
                   <div>
@@ -169,7 +221,7 @@ class Popup extends Component {
                     Number of contaminants above the health guideline
                   </Tooltip>
                 )}
-                placement="top"
+                placement="bottom"
               >
                 <div className="col-sm-4 bg-warning">
                   <div>
@@ -186,7 +238,7 @@ class Popup extends Component {
                     Number of contaminants that meet the health guideline
                   </Tooltip>
                 )}
-                placement="top"
+                placement="bottom"
               >
                 <div className="col-sm-4 bg-success">
                   <div>
@@ -200,27 +252,9 @@ class Popup extends Component {
             </div>
             <div className="row justify-content-center">
               <div className="col full-width">
-                <ul className="list-group-flush">
-                  <li className="list-group-item">
-                    <div className="concerns">
-                      <h3>Health concerns from the contaminants over the legal limit:</h3>
-                      <Table responsive borderless="true">
-                        <tbody>
-                          {legalLimitTableRows}
-                        </tbody>
-                      </Table>
-                    </div>
-                  </li>
-                  <li className="list-group-item">
-                    <div className="concerns">
-                      <h3>Health concerns from the contaminants over the health guidelines:</h3>
-                      <Table responsive borderless="true">
-                        <tbody>
-                          {healthGuidelinesTableRows}
-                        </tbody>
-                      </Table>
-                    </div>
-                  </li>
+                <ul className="concerns-list list-group-flush">
+                  {legalHealthConcernsBody}
+                  {healthGuidelinesHealthConcernsBody}
                 </ul>
               </div>
             </div>
@@ -242,7 +276,7 @@ Popup.propTypes = {
   showDetailView: PropTypes.func.isRequired,
   hidePopup: PropTypes.func.isRequired,
   countyName: PropTypes.string.isRequired,
-  sourceID: PropTypes.string.isRequired,
+  sourceID: PropTypes.number.isRequired,
 };
 
 export default Popup;

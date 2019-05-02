@@ -12,7 +12,7 @@ function ContaminantList({ contaminants, setCurrentContaminant }) {
     listItems.push(
       <Nav.Item key={`navkey-${i}`}>
         <Nav.Link
-          eventKey={`#item${i}`}
+          eventKey={i}
           onSelect={setCurrentContaminant}
           className="navigation-item"
         >
