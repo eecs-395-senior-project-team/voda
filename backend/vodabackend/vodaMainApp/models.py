@@ -21,10 +21,10 @@ class Cities(models.Model):
 
 class Sources(models.Model):
     source_id = models.AutoField(primary_key=True)
-    utility_name = models.CharField(max_length=200)
-    city = models.ForeignKey(Cities, on_delete=models.CASCADE, default=-1)
-    state = models.ForeignKey(States, on_delete=models.CASCADE, default="None")
-    county = models.ForeignKey(Counties, on_delete=models.CASCADE, default=-1)
+    utility_name = models.CharField(max_length=500)
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE, null=True)
+    state = models.ForeignKey(States, on_delete=models.CASCADE, null=True)
+    county = models.ForeignKey(Counties, on_delete=models.CASCADE, null=True)
     number_served = models.IntegerField()
     rating = models.FloatField(null=True)
 

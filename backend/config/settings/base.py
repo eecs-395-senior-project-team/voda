@@ -62,7 +62,7 @@ LOCAL_APPS = [
     'vodabackend.vodaMainApp.apps.VodaMainAppConfig'
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
