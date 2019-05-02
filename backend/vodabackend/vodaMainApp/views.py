@@ -148,7 +148,7 @@ def contaminant_info(request):
         health_guideline = round(float(source_level.contaminant.health_guideline), 2) if source_level.contaminant.health_guideline else None
         legal_limit = round(float(source_level.contaminant.legal_limit), 2) if source_level.contaminant.legal_limit else None
         details = source_level.contaminant.summary.strip() if source_level.contaminant.summary else None
-        health_risks = source_level.contaminant.long_health_concerns.strip if source_level.contaminant.long_health_concerns else None
+        health_risks = source_level.contaminant.long_health_concerns.strip() if source_level.contaminant.long_health_concerns else None
         contaminant_details = {
             "Amount in water": amount_in_water,
             "Health Guideline": health_guideline,

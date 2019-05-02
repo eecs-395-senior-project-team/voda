@@ -29,8 +29,8 @@ class TabDetails extends Component {
     };
   }
 
-  setCurrentContaminant(selectedContaminant) {
-    const { sourceID } = this.props;
+  setCurrentContaminant(eventKey) {
+    const { sourceID, contaminants } = this.props;
     let apiURL;
     if (process.env.NODE_ENV === 'development') {
       apiURL = 'http://localhost:8000/';
@@ -38,6 +38,7 @@ class TabDetails extends Component {
       apiURL = 'http://3.19.113.236:8000/';
     }
     const url = `${apiURL}contaminantInfo`;
+    const selectedContaminant = contaminants[eventKey]
     Axios.get(url, {
       params: {
         source: sourceID,
@@ -67,7 +68,7 @@ class TabDetails extends Component {
       tabPanes.push(
         <TabPane
           key={`#pane-key-${i}`}
-          eventKey={`#item${i}`}
+          eventKey={i}
         >
           <div className="pane-body">
             <Table responsive borderless="true">
@@ -98,19 +99,16 @@ class TabDetails extends Component {
                 <tr>
                   <td>
                     <Number
-                      className="Numbers"
                       value={contaminantDetails['Amount in water']}
                     />
                   </td>
                   <td>
                     <Number
-                      className="Numbers"
                       value={contaminantDetails['Health Guideline']}
                     />
                   </td>
                   <td>
                     <Number
-                      className="Numbers"
                       value={contaminantDetails['Legal Limit']}
                     />
                   </td>
@@ -119,7 +117,9 @@ class TabDetails extends Component {
             </Table>
             <p>
               {contaminantDetails.Details}
-              {hr}
+            </p>
+            {hr}
+            <p>
               {contaminantDetails['Health Risks']}
             </p>
           </div>
@@ -127,9 +127,7 @@ class TabDetails extends Component {
       );
     }
     return (
-      <TabContainer
-        mountOnEnter
-      >
+      <TabContainer>
         <Row>
           <Col sm={4}>
             <div className="contaminant-list">

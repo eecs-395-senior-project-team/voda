@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import "./Number.sass";
 
 /**
  * Number component
@@ -8,14 +9,14 @@ function Number({ value }) {
   let num;
   if (value) {
     num = (
-      <div>
+      <div className="Numbers">
         {value}
         <span className="unit"> ppb</span>
       </div>
     );
   } else {
     num = (
-      <div>
+      <div className="Numbers">
         N/A
         <sup>*</sup>
       </div>
@@ -24,7 +25,7 @@ function Number({ value }) {
   return num;
 }
 Number.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
 };
 
 export default Number;
