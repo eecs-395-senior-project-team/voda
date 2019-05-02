@@ -28,6 +28,7 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.changeMapColor = this.changeMapColor.bind(this);
+    this.resetMap = this.resetMap.bind(this);
     this.mapboxAccessToken = 'pk.eyJ1Ijoidm9kYSIsImEiOiJjanU0bXR6NXIwemxoNDRxdm9wMTc2YTd5In0.Z3LcZt3raPAfcQan-k59XQ';
     this.state = {
       counties: {},
@@ -37,8 +38,11 @@ class Map extends Component {
       zoom: 4,
       browserAlert: false,
       minScore: Infinity,
+      trueMinScore: null,
       maxScore: -Infinity,
+      trueMaxScore: null,
       geoLayer: null,
+      trueCounties: {},
     };
   }
 
@@ -69,7 +73,10 @@ class Map extends Component {
         this.setState({
           counties,
           minScore: newMinScore,
+          trueMinScore: minScore,
           maxScore: newMaxScore,
+          trueMaxScore: maxScore,
+          trueCounties: JSON.parse(JSON.stringify(counties))
         });
       }))
       .catch((error) => {
@@ -124,14 +131,12 @@ class Map extends Component {
     if (typeof prevCounties === 'undefined') {
       prevCounties = { features: [] };
     }
-    Log.info('updating')
     // When counties change
     if (
       counties.features !== prevCounties.features
       && Object.entries(counties).length !== 0
       && counties.constructor === Object
     ) {
-      Log.info('inner')
       let geoJson;
       const getColor = (score) => {
         if (score === -Infinity) {
@@ -196,12 +201,11 @@ class Map extends Component {
         geoLayer: geoJson,
       });
     }
-    Log.info("outer")
   }
 
   changeMapColor(data) {
     const { counties, geoLayer, map } = this.state;
-    let newCounties = counties
+    let newCounties = JSON.parse(JSON.stringify(counties))
     let newMinScore = Infinity;
     let newMaxScore = -Infinity;
     for (let i = 0; i < newCounties.features.length; i += 1) {
@@ -218,12 +222,21 @@ class Map extends Component {
         newCounties.features[i].properties.SCORE = -Infinity;
       }
     }
-    Log.info(newCounties);
-    Log.info(counties.features === newCounties.features);
     this.setState({
       counties: newCounties,
       minScore: newMinScore,
       maxScore: newMaxScore,
+      map: map.removeLayer(geoLayer),
+      geoLayer: null,
+    });
+  }
+
+  resetMap() {
+    const { trueCounties, trueMaxScore, trueMinScore, geoLayer, map } = this.state;
+    this.setState({
+      counties: trueCounties,
+      minScore: trueMinScore,
+      maxScore: trueMaxScore,
       map: map.removeLayer(geoLayer),
       geoLayer: null,
     });
@@ -244,7 +257,8 @@ class Map extends Component {
       <div>
         {alert}
         <div className="search col-sm-8">
-          <Search showPopup={showPopup} changeMapColor={this.changeMapColor} />
+          <Search 
+            showPopup={showPopup} changeMapColor={this.changeMapColor} />
         </div>
         <div className="Map border border-dark rounded" id="map" />
       </div>
