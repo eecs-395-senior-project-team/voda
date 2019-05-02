@@ -67,15 +67,15 @@ class Map extends Component {
               newMaxScore = scores[fipsCode];
             }
           } else {
-            counties.features[i].properties.SCORE = -Infinity;
+            counties.features[i].properties.SCORE = null;
           }
         }
         this.setState({
           counties,
           minScore: newMinScore,
-          trueMinScore: minScore,
+          trueMinScore: newMinScore,
           maxScore: newMaxScore,
-          trueMaxScore: maxScore,
+          trueMaxScore: newMaxScore,
           trueCounties: JSON.parse(JSON.stringify(counties))
         });
       }))
@@ -139,7 +139,7 @@ class Map extends Component {
     ) {
       let geoJson;
       const getColor = (score) => {
-        if (score === -Infinity) {
+        if (score === null) {
           return '#ffffff';
         }
         const value = (
@@ -219,7 +219,7 @@ class Map extends Component {
           newMaxScore = data[fipsCode];
         }
       } else {
-        newCounties.features[i].properties.SCORE = -Infinity;
+        newCounties.features[i].properties.SCORE = null;
       }
     }
     this.setState({
@@ -243,7 +243,7 @@ class Map extends Component {
   }
 
   render() {
-    const { browserAlert } = this.state;
+    const { browserAlert, counties, trueCounties } = this.state;
     const { showPopup } = this.props;
     let alert;
 
@@ -258,7 +258,12 @@ class Map extends Component {
         {alert}
         <div className="search col-sm-8">
           <Search 
-            showPopup={showPopup} changeMapColor={this.changeMapColor} />
+            showPopup={showPopup}
+            changeMapColor={this.changeMapColor}
+            resetMap={this.resetMap}
+            counties={counties}
+            trueCounties={trueCounties}
+          />
         </div>
         <div className="Map border border-dark rounded" id="map" />
       </div>
