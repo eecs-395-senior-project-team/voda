@@ -14,8 +14,6 @@ class FindUtilities(scrapy.Spider):
             for row in csv_reader:
                 url = "https://www.ewg.org/tapwater/search-results.php?zip5={}&searchtype=zip".format(row[0])
                 yield scrapy.Request(url=url, callback=self.parse)
-   #     url = "https://www.ewg.org/tapwater/search-results.php?zip5={}&searchtype=zip".format(67831)
-    #    yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
         try:
