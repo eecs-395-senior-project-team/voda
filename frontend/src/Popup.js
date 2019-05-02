@@ -73,14 +73,17 @@ class Popup extends Component {
     } = this.props;
     const legalLimitTableRows = [];
     let index = 0;
-    const bulletPoint = <div className="fas fa-dot-circle" />; // other options for bulletPoint sith, square, jira, plus-square, plus
     while (index < legalLimitConcerns.length) {
       const row = [];
       if (legalLimitConcerns.length - index >= 3) {
         for (let i = 0; i < 3; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {bulletPoint} {legalLimitConcerns[index]}
+              <ul>
+                <li>
+                  {legalLimitConcerns[index]}
+                </li>
+              </ul>
             </td>,
           );
           index += 1;
@@ -90,7 +93,11 @@ class Popup extends Component {
         for (let i = 0; i < remaining; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {bulletPoint} {legalLimitConcerns[index]}
+              <ul>
+                <li>
+                  {legalLimitConcerns[index]}
+                </li>
+              </ul>
             </td>,
           );
           index += 1;
@@ -110,7 +117,11 @@ class Popup extends Component {
         for (let i = 0; i < 3; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {bulletPoint} {healthGuidelinesConcerns[index]}
+              <ul>
+                <li>
+                  {healthGuidelinesConcerns[index]}
+                </li>
+              </ul>
             </td>,
           );
           index += 1;
@@ -120,7 +131,11 @@ class Popup extends Component {
         for (let i = 0; i < remaining; i += 1) {
           row.push(
             <td key={`#col-${i}`}>
-              {bulletPoint} {healthGuidelinesConcerns[index]}
+              <ul>
+                <li>
+                  {healthGuidelinesConcerns[index]}
+                </li>
+              </ul>
             </td>,
           );
           index += 1;
@@ -201,7 +216,7 @@ class Popup extends Component {
             </div>
             <div className="row justify-content-center">
               <div className="col full-width">
-                <ul className="list-group-flush">
+                <ul className="concerns-list list-group-flush">
                   <li className="list-group-item">
                     <div className="concerns">
                       <h3>Health concerns from the contaminants over the legal limit:</h3>

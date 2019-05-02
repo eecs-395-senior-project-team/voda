@@ -3,7 +3,7 @@ Views for VodaBackend.
 """
 # Create your views here.
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
-from .models import Sources
+from .models import Sources, SourceLevels
 
 
 def root(request):
@@ -34,16 +34,16 @@ def map_endpoint(request):
         An HTTP Response with a list of water supplies and their associated 1-10 values.
     """
     largest_source_by_county = Sources.objects.order_by('county', '-number_served').distinct('county')
-    #TODO: Change to FIPS code
     scores = {}
     source_ids = {}
     for q_set in largest_source_by_county:
-        scores[q_set.county] = q_set.rating
-        source_ids[q_set.county] = q_set.source_id
+        scores[q_set.county.id] = q_set.rating
+        source_ids[q_set.county.id] = q_set.source_id
     response = {
         "scores": scores,
         "sourceIDs": source_ids
     }
+    print(response)
     return JsonResponse(response)
 
 
@@ -61,8 +61,8 @@ def summary(request):
         An HTTPResponseBadRequest if the 'source' param is missing.
     """
     supply_id = request.GET.get('source')
-    if True:
-    #if supply_id:
+    try:
+        source = Sources.objects.get(source_id=supply_id)
         response = {
             "legalLimitConcerns": ['a', 'b', 'c', 'd', 'e'],
             "healthGuidelinesConcerns": ['a', 'b', 'c', 'd', 'e', 'f'],
@@ -71,7 +71,8 @@ def summary(request):
             "greenCount": 215,
         }
         return JsonResponse(response)
-    return HttpResponseBadRequest(400)
+    except:
+        return HttpResponseBadRequest(400)
 
 
 def contaminants(request):
