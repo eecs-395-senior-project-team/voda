@@ -8,7 +8,7 @@ import './Header.sass';
 function Header({ header }) {
   return (
     <div className="row justify-content-between">
-      <div className="col-xs-4">
+      <div className="col-xs-2">
         <div className="Header text-uppercase">
           <header>
             <h1>
@@ -17,7 +17,7 @@ function Header({ header }) {
           </header>
         </div>
       </div>
-      <div className="col-xs-4">
+      <div className="col-xs-2">
         <div className="github">
           <a href="https://github.com/eecs-395-senior-project-team/voda">
             <i className="fab fa-github fa-2x" />

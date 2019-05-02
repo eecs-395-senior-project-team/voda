@@ -162,6 +162,39 @@ def contaminant_info(request):
         return HttpResponseBadRequest(400)
 
 
+def search(request):
+    query = request.GET.get('query')
+    try:
+        split_query = query.split(',')
+        response = {}
+        if len(split_query) == 2:
+            county, state = split_query
+            county = county.strip().capitalize()
+            state = state.strip().upper()
+            source_query = Sources.objects.order_by('county', '-number_served').distinct('county').filter(county__name=county).filter(state=state)
+            if source_query:
+                response['type'] = 'source'
+                response['data'] = {
+                    "countyName": county,
+                    "sourceID": source_query[0].source_id
+                }
+        else:
+            source_query = Sources.objects.order_by('county', '-number_served').distinct('county')
+            response['data'] = {}
+            for q in source_query:
+                sourcelevel_query = q.sourcelevels_set.filter(contaminant__contaminant_name=query)
+                if sourcelevel_query and sourcelevel_query[0].contaminant_level:
+                    response['data'][q.county.id] = round(float(sourcelevel_query[0].contaminant_level), 2)
+            if response['data']:
+                response['type'] = 'contaminant'
+        if 'type' not in response:
+            return HttpResponseBadRequest(400)
+        return JsonResponse(response)
+    except Exception as e:
+        traceback.print_exc()
+        return HttpResponseBadRequest(400)
+
+
 def debug(request):
     """ Debug endpoint.
 

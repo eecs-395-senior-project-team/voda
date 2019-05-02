@@ -38,7 +38,7 @@ class TabDetails extends Component {
       apiURL = 'http://3.19.113.236:8000/';
     }
     const url = `${apiURL}contaminantInfo`;
-    const selectedContaminant = contaminants[eventKey]
+    const selectedContaminant = contaminants[eventKey];
     Axios.get(url, {
       params: {
         source: sourceID,

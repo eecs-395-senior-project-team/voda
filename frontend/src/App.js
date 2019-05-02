@@ -63,6 +63,7 @@ class App extends Component {
       popupIsVisible,
       selectedCountyName,
       selectedSourceID,
+      contaminantColors,
     } = this.state;
     let popUp;
     if (popupIsVisible) {
@@ -89,7 +90,7 @@ class App extends Component {
     } else {
       content = (
         <div>
-          <Map showPopup={this.showPopup} />
+          <Map showPopup={this.showPopup} contaminantColors={contaminantColors} />
           {popUp}
         </div>
       );

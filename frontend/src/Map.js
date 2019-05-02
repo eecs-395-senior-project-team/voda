@@ -6,6 +6,7 @@ import Color from 'color';
 import './Map.sass';
 import Alert from './Alert';
 import Log from './Log';
+import Search from './Search';
 
 // Axios get request for counties
 const getCounties = () => Axios.get('https://s3.us-east-2.amazonaws.com/voda-counties-data/data/counties_20m.json');
@@ -18,9 +19,7 @@ if (process.env.NODE_ENV === 'development') {
   getScores = () => Axios.get('http://3.19.113.236:8000/map');
 }
 
-const scale = (val, minScore) => {
-  return Math.log(val / 50 + (1 - minScore / 50));
-}
+const scale = (val, minScore) => Math.log(val / 50 + (1 - minScore / 50));
 
 /**
  * Component containing the geomap.
@@ -28,6 +27,7 @@ const scale = (val, minScore) => {
 class Map extends Component {
   constructor(props) {
     super(props);
+    this.changeMapColor = this.changeMapColor.bind(this);
     this.mapboxAccessToken = 'pk.eyJ1Ijoidm9kYSIsImEiOiJjanU0bXR6NXIwemxoNDRxdm9wMTc2YTd5In0.Z3LcZt3raPAfcQan-k59XQ';
     this.state = {
       counties: {},
@@ -38,6 +38,7 @@ class Map extends Component {
       browserAlert: false,
       minScore: Infinity,
       maxScore: -Infinity,
+      geoLayer: null,
     };
   }
 
@@ -123,19 +124,23 @@ class Map extends Component {
     if (typeof prevCounties === 'undefined') {
       prevCounties = { features: [] };
     }
-
+    Log.info('updating')
     // When counties change
     if (
       counties.features !== prevCounties.features
       && Object.entries(counties).length !== 0
       && counties.constructor === Object
     ) {
+      Log.info('inner')
       let geoJson;
       const getColor = (score) => {
         if (score === -Infinity) {
           return '#ffffff';
         }
-        const value = (scale(score, minScore) - scale(minScore, minScore)) / (scale(maxScore, minScore) - scale(minScore, minScore)) * (100);
+        const value = (
+          (scale(score, minScore) - scale(minScore, minScore))
+          / (scale(maxScore, minScore) - scale(minScore, minScore))
+          * (100));
         const hue = Math.floor((100 - value) * 120 / 100);
         return Color({ h: hue, s: 100, v: 100 }).hex();
       };
@@ -188,12 +193,45 @@ class Map extends Component {
       });
       this.setState({
         map: map.addLayer(geoJson),
+        geoLayer: geoJson,
       });
     }
+    Log.info("outer")
+  }
+
+  changeMapColor(data) {
+    const { counties, geoLayer, map } = this.state;
+    let newCounties = counties
+    let newMinScore = Infinity;
+    let newMaxScore = -Infinity;
+    for (let i = 0; i < newCounties.features.length; i += 1) {
+      const fipsCode = `${newCounties.features[i].properties.STATE}${newCounties.features[i].properties.COUNTY}`;
+      if (fipsCode in data) {
+        newCounties.features[i].properties.SCORE = data[fipsCode];
+        if (data[fipsCode] < newMinScore) {
+          newMinScore = data[fipsCode];
+        }
+        if (data[fipsCode] > newMaxScore) {
+          newMaxScore = data[fipsCode];
+        }
+      } else {
+        newCounties.features[i].properties.SCORE = -Infinity;
+      }
+    }
+    Log.info(newCounties);
+    Log.info(counties.features === newCounties.features);
+    this.setState({
+      counties: newCounties,
+      minScore: newMinScore,
+      maxScore: newMaxScore,
+      map: map.removeLayer(geoLayer),
+      geoLayer: null,
+    });
   }
 
   render() {
     const { browserAlert } = this.state;
+    const { showPopup } = this.props;
     let alert;
 
     if (browserAlert) {
@@ -205,6 +243,9 @@ class Map extends Component {
     return (
       <div>
         {alert}
+        <div className="search col-sm-8">
+          <Search showPopup={showPopup} changeMapColor={this.changeMapColor} />
+        </div>
         <div className="Map border border-dark rounded" id="map" />
       </div>
     );
