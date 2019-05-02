@@ -132,7 +132,7 @@ class Map extends Component {
           return '#ffffff';
         }
         const value = (Math.log(score + (1 - minScore)) - minScore) / (maxScore - minScore) * (100);
-        const hue = Math.floor(value * 120 / 100);
+        const hue = Math.floor((100 - value) * 120 / 100);
         return Color({ h: hue, s: 100, v: 100 }).hex();
       };
       const highlightFeature = (e) => {
