@@ -16,9 +16,10 @@ function Number({ value }) {
   } else {
     num = (
       <div>
-        N/A<sup>*</sup>
+        N/A
+        <sup>*</sup>
       </div>
-    )
+    );
   }
   return num;
 }
