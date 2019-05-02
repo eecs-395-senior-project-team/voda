@@ -111,7 +111,7 @@ class DetailView extends Component {
 DetailView.propTypes = {
   hideDetailView: PropTypes.func.isRequired,
   countyName: PropTypes.string.isRequired,
-  sourceID: PropTypes.string.isRequired,
+  sourceID: PropTypes.number.isRequired,
 };
 
 export default DetailView;

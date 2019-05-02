@@ -151,7 +151,7 @@ class TabDetails extends Component {
 }
 TabDetails.propTypes = {
   contaminants: PropTypes.arrayOf(String).isRequired,
-  sourceID: PropTypes.string.isRequired,
+  sourceID: PropTypes.number.isRequired,
 };
 
 export default TabDetails;

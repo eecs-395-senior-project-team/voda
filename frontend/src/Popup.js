@@ -276,7 +276,7 @@ Popup.propTypes = {
   showDetailView: PropTypes.func.isRequired,
   hidePopup: PropTypes.func.isRequired,
   countyName: PropTypes.string.isRequired,
-  sourceID: PropTypes.string.isRequired,
+  sourceID: PropTypes.number.isRequired,
 };
 
 export default Popup;

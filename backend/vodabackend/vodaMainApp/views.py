@@ -68,16 +68,17 @@ def summary(request):
         yellow_set = []
         green_set = []
         for source_level in source_levels:
-            contaminant = source_level.contaminant
-            if contaminant.legal_limit:
-                if source_level.contaminant_level > contaminant.legal_limit:
-                    red_set.append(contaminant)
-            if contaminant.health_guideline:
-                if source_level.contaminant_level > contaminant.health_guideline:
-                    yellow_set.append(contaminant)
-            if contaminant.legal_limit and contaminant.health_guideline:
-                if source_level.contaminant_level <= contaminant.health_guideline and source_level.contaminant_level <= contaminant.legal_limit:
-                    green_set.append(contaminant)
+            if source_level.contaminant_level:
+                contaminant = source_level.contaminant
+                if contaminant.legal_limit:
+                    if source_level.contaminant_level > contaminant.legal_limit:
+                        red_set.append(contaminant)
+                if contaminant.health_guideline:
+                    if source_level.contaminant_level > contaminant.health_guideline:
+                        yellow_set.append(contaminant)
+                if contaminant.legal_limit and contaminant.health_guideline:
+                    if source_level.contaminant_level <= contaminant.health_guideline and source_level.contaminant_level <= contaminant.legal_limit:
+                        green_set.append(contaminant)
         legal_limit_concerns = set()
         for contaminant in red_set:
             if contaminant.health_concerns:
@@ -114,16 +115,17 @@ def contaminants(request):
         yellow_set = []
         green_set = []
         for source_level in source_levels:
-            contaminant = source_level.contaminant
-            if contaminant.legal_limit:
-                if source_level.contaminant_level > contaminant.legal_limit:
-                    red_set.append(contaminant.contaminant_name)
-            if contaminant.health_guideline:
-                if source_level.contaminant_level > contaminant.health_guideline:
-                    yellow_set.append(contaminant.contaminant_name)
-            if contaminant.legal_limit and contaminant.health_guideline:
-                if source_level.contaminant_level <= contaminant.health_guideline and source_level.contaminant_level <= contaminant.legal_limit:
-                    green_set.append(contaminant.contaminant_name)
+            if source_level.contaminant_level:
+                contaminant = source_level.contaminant
+                if contaminant.legal_limit:
+                    if source_level.contaminant_level > contaminant.legal_limit:
+                        red_set.append(contaminant.contaminant_name)
+                if contaminant.health_guideline:
+                    if source_level.contaminant_level > contaminant.health_guideline:
+                        yellow_set.append(contaminant.contaminant_name)
+                if contaminant.legal_limit and contaminant.health_guideline:
+                    if source_level.contaminant_level <= contaminant.health_guideline and source_level.contaminant_level <= contaminant.legal_limit:
+                        green_set.append(contaminant.contaminant_name)
         contaminant_list = {
             "redContaminants": red_set,
             "yellowContaminants": yellow_set,
