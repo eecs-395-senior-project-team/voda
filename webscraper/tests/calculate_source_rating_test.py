@@ -1,4 +1,6 @@
 from vodadata.calculateSourceRating import CalculateSourceRating
+import os
+import psycopg2
 
 
 def test_size_std_dev_dict():

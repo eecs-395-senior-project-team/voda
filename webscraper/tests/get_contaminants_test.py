@@ -1,4 +1,6 @@
 import requests
+import os
+import psycopg2
 from scrapy.http import TextResponse, Request
 from vodadata.getContaminantsScraper import FindContaminants
 
