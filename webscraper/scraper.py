@@ -13,9 +13,6 @@ import os
 import traceback
 
 
-# SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
-
-# select column_name,data_type,character_maximum_length from INFORMATION_SCHEMA.COLUMNS where table_name = "vodaMainApp_counties"
 if __name__ == '__main__':
     RUNNER = CrawlerRunner()
 

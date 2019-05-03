@@ -23,7 +23,6 @@ class GetLocaleData:
                 csv_reader = csv.reader(csv_file, delimiter='\t')
                 for row in csv_reader:
                     self.write_state_data(state_id=row[4])
-           #         self.write_county_data(county_name=row[5], state_id=row[4])
                     self.write_city_data(city_name=row[2].title(), state_id=row[4], county_name=row[5].title())
 
             with open('./vodadata/datafiles/localeData_3.csv', encoding='utf8') as csv_file:
@@ -32,7 +31,6 @@ class GetLocaleData:
                 next(csv_reader)
                 for row in csv_reader:
                     self.write_state_data(state_id=row[1])
-             #       self.write_county_data(county_name=row[3], state_id=row[1])
                     self.write_city_data(city_name=row[0].title(), state_id=row[1], county_name=row[3].title())
                     self.write_city_data(city_name=row[4].title(), state_id=row[1], county_name=row[3].title())
 

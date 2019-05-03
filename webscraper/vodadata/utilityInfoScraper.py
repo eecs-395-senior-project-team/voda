@@ -40,10 +40,6 @@ class FindUtilInfo(scrapy.Spider):
                            (scraped_city, state_id))
             db_city = cursor.fetchone()
 
-            # ("//ul[@class='contaminants-list']/li[section/div[@class='contaminant-name']"
-            #  "/h3/text() = '{}']//div[@class='national-ppb-popup']/text()"
-            #  .format(response.meta["cont_name"])).get()
-
             if not db_city:
                 new_scraped_city = response.xpath("//tr[td/a[@href='system.php?pws={}']]/td[2]/text()".
                                                   format(util_code)).get()
@@ -109,8 +105,6 @@ class FindUtilInfo(scrapy.Spider):
                 number_people_served = int(response.xpath(
                     "//ul[@class='served-ul']/li[2]/h2/text()").get().split(' ')[1].replace(',', ''))
 
-                # https://www.ewg.org/tapwater/search-results.php?systemname=
-                # West+Milford+Township+Municipal+Utilities+Authority +Birch+Hill+Park&stab=NJ&searchtype=systemname
                 processed_utility_name = utility_name
                 for i in range(len(utility_name)):
                     if utility_name[i] == '#':
